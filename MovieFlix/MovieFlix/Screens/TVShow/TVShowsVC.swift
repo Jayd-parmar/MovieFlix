@@ -23,7 +23,7 @@ class TVShowsVC: UIViewController, TVViewInterface {
         return cv
     }()
     private let tvCollection = {
-        let cv = CollectionView(layoutConfig: LayoutConfiguration(scrollDirection: .vertical, itemSize: CGSize(width: 120, height: 200), minimumLineSpacing: 20))
+        let cv = CollectionView(layoutConfig: LayoutConfiguration(scrollDirection: .vertical, itemSize: CGSize(width: UIScreen.main.bounds.width/3 - 20, height: 200), minimumLineSpacing: 20))
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.showsVerticalScrollIndicator = false
         cv.clipsToBounds = false

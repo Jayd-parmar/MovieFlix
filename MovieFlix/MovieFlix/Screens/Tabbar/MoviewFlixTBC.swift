@@ -22,9 +22,32 @@ class MoviewFlixTBC: UITabBarController {
         setupHome()
         setupMovie()
         setupTVShow()
+        navBarAppearance()
         self.viewControllers = [UINavigationController(rootViewController: homeVC!), UINavigationController(rootViewController: movieVC!), UINavigationController(rootViewController: tvShowVC!)]
+        tabBarAppearance()
         self.tabBar.tintColor = .red
         self.tabBar.unselectedItemTintColor = .white
+    }
+    
+    func navBarAppearance() {
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white
+        ]
+        navigationBarAppearance.backgroundColor = UIColor.black
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+    }
+    
+    func tabBarAppearance() {
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = UIColor.black
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        self.tabBar.backgroundColor = .black
     }
     
     func setupHome() {
