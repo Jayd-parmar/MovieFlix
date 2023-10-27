@@ -75,7 +75,7 @@ class HomeVC: UIViewController, HomeViewInterface {
     
     func setupTitle() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        self.title = IconTitle.home
+        self.title = Title.home
     }
     
     func setupUI() {

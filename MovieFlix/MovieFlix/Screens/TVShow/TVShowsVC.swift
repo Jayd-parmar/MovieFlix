@@ -23,7 +23,7 @@ class TVShowsVC: UIViewController {
     
     func setupTitle() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        self.title = "TV Shows"
+        self.title = Title.tv
     }
 
 }

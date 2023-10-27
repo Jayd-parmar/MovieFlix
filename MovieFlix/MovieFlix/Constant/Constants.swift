@@ -22,6 +22,13 @@ enum IconTitle {
     static let tv = "TV Shows"
 }
 
+enum Title {
+    static let home = "Home"
+    static let movie = "Movies"
+    static let tv = "TV Shows"
+}
+
+
 enum IconName {
     static let homeBeforeClick = "house"
     static let homeAfterClick = "play.house"
