@@ -11,7 +11,7 @@ class MoviewFlixTBC: UITabBarController {
     
     private let homeVC = HomeRouter.createModule().entry
     private let movieVC = MovieRouter.createModule().entry
-    private let tvShowVC = TVShowsVC()
+    private let tvShowVC = TVRouter.createModule().entry
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
@@ -22,7 +22,7 @@ class MoviewFlixTBC: UITabBarController {
         setupHome()
         setupMovie()
         setupTVShow()
-        self.viewControllers = [UINavigationController(rootViewController: homeVC!), UINavigationController(rootViewController: movieVC!), UINavigationController(rootViewController: tvShowVC)]
+        self.viewControllers = [UINavigationController(rootViewController: homeVC!), UINavigationController(rootViewController: movieVC!), UINavigationController(rootViewController: tvShowVC!)]
         self.tabBar.tintColor = .red
         self.tabBar.unselectedItemTintColor = .white
     }
@@ -39,7 +39,7 @@ class MoviewFlixTBC: UITabBarController {
     
     func setupTVShow() {
         let tabItem = UITabBarItem(title: IconTitle.tv, image: UIImage(named: IconName.tvBeforeClick), selectedImage: UIImage(named: IconName.tvAfterClick))
-        tvShowVC.tabBarItem = tabItem
+        tvShowVC!.tabBarItem = tabItem
     }
 
 }

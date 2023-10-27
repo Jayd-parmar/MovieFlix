@@ -28,7 +28,6 @@ enum Title {
     static let tv = "TV Shows"
 }
 
-
 enum IconName {
     static let homeBeforeClick = "house"
     static let homeAfterClick = "play.house"
@@ -42,8 +41,8 @@ enum Movie {
 }
 
 enum Identifier {
-    static let collectionViewIdentifier = "CollectionViewCell"
-    static let tableViewIdentifier = "MovieTableViewCell"
+    static let collectionViewIdentifier = "collectionViewCell"
+    static let tableViewIdentifier = "movieTableViewCell"
 }
 
 enum BtnTitle {
