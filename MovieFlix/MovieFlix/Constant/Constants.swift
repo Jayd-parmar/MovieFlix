@@ -11,6 +11,7 @@ enum Constant {
     enum URL {
         static let apiBaseUrl = "https://api.themoviedb.org/3/"
         static let imgBaseUrl = "https://image.tmdb.org/t/p/original/"
+        static let defaultImgUrl = "https://image.tmdb.org/t/p/original/iwsMu0ehRPbtaSxqiaUDQB9qMWT.jpg"
     }
     static let apiKey = "b344471bf864db8656c45f955ac375fe"
 }
@@ -27,4 +28,17 @@ enum IconName {
     static let movieBeforeClick = "movieclapper"
     static let tvBeforeClick = "tv"
     static let tvAfterClick = "play.tv"
+}
+
+enum Movie {
+    static let defaultMovieName = "Expandebles"
+}
+
+enum Identifier {
+    static let collectionViewIdentifier = "CollectionViewCell"
+    static let tableViewIdentifier = "MovieTableViewCell"
+}
+
+enum BtnTitle {
+    static let ShowAll = "Show All"
 }

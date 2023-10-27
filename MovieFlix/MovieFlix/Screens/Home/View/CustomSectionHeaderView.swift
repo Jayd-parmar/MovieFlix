@@ -18,7 +18,7 @@ class CustomSectionHeaderView: UIView {
     let btnShowAll: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setTitle("Show all", for: .normal)
+        btn.setTitle(BtnTitle.ShowAll, for: .normal)
         btn.titleLabel?.font = .robotoSlabLight(size: 15)
         return btn
     }()

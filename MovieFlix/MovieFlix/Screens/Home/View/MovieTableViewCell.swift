@@ -18,19 +18,17 @@ class MovieTableViewCell: UITableViewCell {
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.showsHorizontalScrollIndicator = false
         cv.clipsToBounds = false
-        cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: Identifier.collectionViewIdentifier)
         return cv
     }()
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        self.backgroundColor = .red
         DispatchQueue.main.async {
             self.movieCollection.reloadData()
         }
         setupUI()
         setupUIConstraints()
-        // Configure the view for the selected state
     }
     
     func setupUI() {
@@ -52,14 +50,15 @@ extension MovieTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.collectionViewIdentifier, for: indexPath) as? CollectionViewCell else {
+            return UICollectionViewCell()
+        }
         if let popularMovieList = popularMovieList?.results {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell
-            cell!.configureMovieCellDetails(popularMovieList[indexPath.row])
-            return cell!
+            cell.configureMovieCellDetails(popularMovieList[indexPath.row])
+            return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell
-            cell!.configureDefaultDetails()
-            return cell!
+            cell.configureDefaultDetails()
+            return cell
         }
     }
 }
