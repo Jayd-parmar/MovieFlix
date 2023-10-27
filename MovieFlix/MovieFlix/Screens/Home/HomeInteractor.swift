@@ -10,6 +10,7 @@ import Foundation
 protocol HomeInteractorInterface {
     var presenter: HomePresenterInterface? {get set}
     func getPopularMovieData()
+    func getNowPlayingMovieData()
 }
 
 class HomeInteractor: HomeInteractorInterface {
@@ -29,5 +30,9 @@ class HomeInteractor: HomeInteractorInterface {
                 presenter?.getPopularMovieFailure(error: error)
             }
         }
+    }
+    
+    func getNowPlayingMovieData() {
+        
     }
 }

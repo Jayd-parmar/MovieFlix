@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TinyConstraints
 
 class CollectionViewCell: UICollectionViewCell {
     
@@ -19,7 +20,6 @@ class CollectionViewCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.font = .robotoSlabMedium(size: 15)
-        lbl.text = "exxpendables"
         return lbl
     }()
     
@@ -46,13 +46,19 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     func configureMovieCellDetails(_ data: ResultMovie) {
-        let imagePath = Constant.URL.imgBaseUrl + (data.posterPath)
+        let imagePath = Constant.URL.imgBaseUrl + data.posterPath
         imgMovie.setImage(with: imagePath)
         lblMovie.text = data.originalTitle
     }
     
     func configureDefaultDetails() {
-        imgMovie.setImage(with: "https://image.tmdb.org/t/p/original/iwsMu0ehRPbtaSxqiaUDQB9qMWT.jpg")
-        lblMovie.text = "Expandebles"
+        imgMovie.setImage(with: Constant.URL.defaultImgUrl)
+        lblMovie.text = Movie.defaultMovieName
+    }
+    
+    func configureTVCellDetails(_ data: ResultTv) {
+        let imagePath = Constant.URL.imgBaseUrl + data.posterPath
+        imgMovie.setImage(with: imagePath)
+        lblMovie.text = data.originalName
     }
 }

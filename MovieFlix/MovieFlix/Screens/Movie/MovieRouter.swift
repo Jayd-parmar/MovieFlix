@@ -35,5 +35,4 @@ class MovieRouter: MovieRouterInterface {
         router.entry = view as? EntryPointMovie
         return router
     }
-    
 }
