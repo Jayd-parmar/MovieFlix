@@ -6,15 +6,12 @@
 //
 
 import UIKit
+import TinyConstraints
 
 class MovieTableViewCell: UITableViewCell {
     var popularMovieList: MovieModel?
-    let movieCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 150, height: 200)
-        layout.minimumLineSpacing = 20
-        let cv = UICollectionView( frame: .zero, collectionViewLayout: layout)
+    var movieCollection = {
+        let cv = CollectionView(layoutConfig: LayoutConfiguration(scrollDirection: .horizontal, itemSize: CGSize(width: 150, height: 200), minimumLineSpacing: 20))
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.showsHorizontalScrollIndicator = false
         cv.clipsToBounds = false
