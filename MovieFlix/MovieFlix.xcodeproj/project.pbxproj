@@ -202,7 +202,6 @@
 		29D78BD92AE003F0001673F9 /* MovieFlix */ = {
 			isa = PBXGroup;
 			children = (
-				29D78C612AE2953A001673F9 /* Tabbar */,
 				29D78C532AE24FE1001673F9 /* Model */,
 				29D78C232AE12AF8001673F9 /* Application */,
 				29D78C1C2AE12A54001673F9 /* Assets */,
@@ -347,6 +346,7 @@
 		29D78CA82AE8E263001673F9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				29D78C612AE2953A001673F9 /* Tabbar */,
 				29D78CAF2AE8E281001673F9 /* Home */,
 				29D78CAE2AE8E27E001673F9 /* Movie */,
 				29D78CAD2AE8E27D001673F9 /* TVShow */,

@@ -11,6 +11,8 @@ protocol TVViewInterface {
     var presenter: TVPresenterInterface? {get set}
     func getPopularTVShowSuccess()
     func getPopularTVShowFailure(error: Error)
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
 }
 
 class TVShowsVC: UIViewController, TVViewInterface {
@@ -104,6 +106,4 @@ extension TVShowsVC: UICollectionViewDelegate, UICollectionViewDataSource {
             return cell
         }
     }
-    
-    
 }

@@ -20,7 +20,7 @@ class TVRepository: TVRepositoryDelegate {
     func getTvShowData<T: Codable>(modelType: T.Type, type: EndPointAPIType, completion: @escaping Handler<T>) {
         APIManager.shared.request(modelType: modelType, type: type, completion: completion)
     }
-    
+}
     
 //    var eventHandler: ((Event) -> Void)?
 //    var popularTVShows: TVShowModel?
@@ -59,4 +59,4 @@ class TVRepository: TVRepositoryDelegate {
 //        }
 //    }
     
-}
+//}
