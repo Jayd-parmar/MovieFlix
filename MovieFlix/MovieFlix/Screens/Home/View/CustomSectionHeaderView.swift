@@ -8,7 +8,7 @@
 import UIKit
 
 class CustomSectionHeaderView: UIView {
-    
+    var buttonAction: (() -> Void)?
     let lblTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -20,6 +20,7 @@ class CustomSectionHeaderView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle(BtnTitle.ShowAll, for: .normal)
         btn.titleLabel?.font = .robotoSlabLight(size: 15)
+        btn.addTarget(self, action: #selector(showAllBtnTapped), for: .touchUpInside)
         return btn
     }()
     
@@ -41,5 +42,9 @@ class CustomSectionHeaderView: UIView {
     func setupConstraints() {
         lblTitle.edgesToSuperview(excluding: [.bottom, .right], insets: UIEdgeInsets(top: 4, left: 0, bottom: 0, right: 0))
         btnShowAll.right(to: self, offset: 0)
+    }
+    
+    @objc func showAllBtnTapped() {
+        buttonAction?()
     }
 }

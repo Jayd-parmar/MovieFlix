@@ -9,6 +9,7 @@ import UIKit
 import TinyConstraints
 
 class MovieTableViewCell: UITableViewCell {
+    var movieList: [MovieModel]? = []
     var popularMovieList: MovieModel?
     var movieCollection = {
         let cv = CollectionView(layoutConfig: LayoutConfiguration(scrollDirection: .horizontal, itemSize: CGSize(width: 150, height: 200), minimumLineSpacing: 20))
@@ -18,12 +19,9 @@ class MovieTableViewCell: UITableViewCell {
         cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: Identifier.collectionViewIdentifier)
         return cv
     }()
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        DispatchQueue.main.async {
-            self.movieCollection.reloadData()
-        }
         setupUI()
         setupUIConstraints()
     }
@@ -43,14 +41,15 @@ class MovieTableViewCell: UITableViewCell {
 extension MovieTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return popularMovieList?.results.count ?? 5
+        guard movieList?.isEmpty == false else { return 0 }
+        return movieList?[movieCollection.tag].results.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.collectionViewIdentifier, for: indexPath) as? CollectionViewCell else {
             return UICollectionViewCell()
         }
-        if let popularMovieList = popularMovieList?.results {
+        if let popularMovieList = movieList?[movieCollection.tag].results {
             cell.configureMovieCellDetails(popularMovieList[indexPath.row])
             return cell
         } else {

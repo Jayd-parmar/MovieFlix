@@ -13,7 +13,7 @@ typealias EntryPointHome = HomeViewInterface & UIViewController
 protocol HomeRouterInterface {
     var entry: EntryPointHome? {get set}
     var presenter: HomePresenterInterface? {get set}
-    static func createModule() -> HomeRouterInterface
+    static func createModule() -> UIViewController
 }
 
 class HomeRouter: HomeRouterInterface {
@@ -21,9 +21,9 @@ class HomeRouter: HomeRouterInterface {
     var entry: EntryPointHome?
     var presenter: HomePresenterInterface?
     
-    static func createModule() -> HomeRouterInterface {
+    static func createModule() -> UIViewController {
         let router = HomeRouter()
-        var view: HomeViewInterface = HomeVC()
+        let view = HomeVC()
         var presenter: HomePresenterInterface = HomePresenter()
         var interactor: HomeInteractorInterface = HomeInteractor()
         
@@ -33,8 +33,8 @@ class HomeRouter: HomeRouterInterface {
         presenter.view = view
         interactor.presenter = presenter
         router.presenter = presenter
-        router.entry = view as? EntryPointHome
-        return router
+        router.entry = view
+        return view
     }
     
 }

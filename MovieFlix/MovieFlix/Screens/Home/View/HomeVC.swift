@@ -10,8 +10,8 @@ import TinyConstraints
 
 protocol HomeViewInterface {
     var presenter: HomePresenterInterface? {get set}
-    func popularMovieSuccess()
-    func popularMovieFailure(error: Error)
+    func movieSuccess()
+    func movieFailure(error: Error)
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     func numberOfSections(in tableView: UITableView) -> Int
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -70,7 +70,10 @@ class HomeVC: UIViewController, HomeViewInterface {
         setupTitle()
         setupUI()
         setupConstraints()
-        presenter?.getPopularMovieList()
+        presenter?.getMovieList(enumType: .popular)
+        presenter?.getMovieList(enumType: .nowplaying)
+        presenter?.getMovieList(enumType: .upcoming)
+        presenter?.getMovieList(enumType: .toprated)
     }
     
     func setupTitle() {
@@ -151,13 +154,13 @@ class HomeVC: UIViewController, HomeViewInterface {
         lblVote.leftToRight(of: starContainer, offset: 10)
     }
     
-    func popularMovieSuccess() {
+    func movieSuccess() {
         DispatchQueue.main.async {
             self.movieTableView.reloadData()
         }
     }
     
-    func popularMovieFailure(error: Error) {
+    func movieFailure(error: Error) {
         print(error)
     }
 }
@@ -169,7 +172,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter?.headerTitle.count ?? 4
+        return presenter?.headerTitle.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -183,6 +186,10 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = CustomSectionHeaderView()
         headerView.lblTitle.text = presenter?.headerTitle[section]
+        headerView.buttonAction = {
+            print("Button in section \(section) tapped")
+            self.tabBarController?.selectedIndex = 1
+        }
         return headerView
     }
     
@@ -190,6 +197,8 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.tableViewIdentifier, for: indexPath) as? MovieTableViewCell
         cell?.movieCollection.tag = indexPath.section
         cell?.popularMovieList = presenter?.popularMovieList
+        cell?.movieList = presenter?.movieList
+        cell?.movieCollection.reloadData()
         return cell ?? UITableViewCell()
     }
 }

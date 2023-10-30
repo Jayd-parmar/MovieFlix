@@ -9,8 +9,9 @@ import Foundation
 
 protocol HomeInteractorInterface {
     var presenter: HomePresenterInterface? {get set}
-    func getPopularMovieData()
-    func getNowPlayingMovieData()
+//    func getPopularMovieData()
+//    func getNowPlayingMovieData()
+    func getMovieData(type: EndPointAPIType)
 }
 
 class HomeInteractor: HomeInteractorInterface {
@@ -21,18 +22,29 @@ class HomeInteractor: HomeInteractorInterface {
         self.movieRepo = movieRepo
     }
     
-    func getPopularMovieData() {
-        movieRepo.getMovieData(modelType: MovieModel.self, type: EndPointMovieItems.popularMovie()) { [self] response in
+//    func getPopularMovieData() {
+//        movieRepo.getMovieData(modelType: MovieModel.self, type: EndPointMovieItems.popularMovie()) { [self] response in
+//            switch response {
+//            case .success(let movie):
+//                presenter?.getPopularMovieSuccess(movie: movie)
+//            case .failure(let error):
+//                presenter?.getPopularMovieFailure(error: error)
+//            }
+//        }
+//    }
+    
+    func getMovieData(type: EndPointAPIType) {
+        movieRepo.getMovieData(modelType: MovieModel.self, type: type) { [self] response in
             switch response {
             case .success(let movie):
-                presenter?.getPopularMovieSuccess(movie: movie)
+                presenter?.getMovieSuccess(movie: movie)
             case .failure(let error):
-                presenter?.getPopularMovieFailure(error: error)
+                presenter?.getMovieFailure(error: error)
             }
         }
     }
     
-    func getNowPlayingMovieData() {
-        
-    }
+//    func getNowPlayingMovieData() {
+//
+//    }
 }
