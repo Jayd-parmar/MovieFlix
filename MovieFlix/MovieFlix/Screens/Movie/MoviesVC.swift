@@ -32,7 +32,7 @@ class MoviesVC: UIViewController, MovieViewInterface {
         setupTitle()
         setupUI()
         setupUIConstraints()
-        presenter?.getMovieData()
+        presenter?.viewDidLoad()
     }
     
     private func setupTitle() {

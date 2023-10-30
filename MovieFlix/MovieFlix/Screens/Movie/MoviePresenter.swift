@@ -14,20 +14,16 @@ protocol MoviePresenterInterface {
     func getPopularMovieSuccess(data: MovieModel)
     func getPopularMovieFailure(error: Error)
     var movieList: MovieModel? {get set}
-    var getItemCount: Int? { get }
-    func getMovieData()
+    func viewDidLoad()
 }
 
 class MoviePresenter: MoviePresenterInterface {
-    var getItemCount: Int? {
-        movieList?.results.count
-    }
     var movieList: MovieModel?
     var view: MovieViewInterface?
     var interactor: MovieInteractorInterface?
     var router: MovieRouterInterface?
     
-    func getMovieData() {
+    func viewDidLoad() {
         interactor?.getMovieData()
     }
     
