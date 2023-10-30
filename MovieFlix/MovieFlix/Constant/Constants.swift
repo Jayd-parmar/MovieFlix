@@ -30,8 +30,9 @@ enum Title {
 
 enum IconName {
     static let homeBeforeClick = "house"
-    static let homeAfterClick = "play.house"
+    static let homeAfterClick = "play.house.fill"
     static let movieBeforeClick = "movieclapper"
+    static let movieAfterClick = "movieclapper.fill"
     static let tvBeforeClick = "tv"
     static let tvAfterClick = "play.tv"
 }

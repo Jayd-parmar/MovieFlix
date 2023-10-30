@@ -9,10 +9,8 @@ import UIKit
 
 protocol MovieViewInterface {
     var presenter: MoviePresenterInterface? {get set}
-    func popularMovieSuccess()
+    func popularMovieSuccess(list: MovieModel?)
     func popularMovieFailure(error: Error)
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
 }
 
 class MoviesVC: UIViewController, MovieViewInterface {
@@ -22,12 +20,10 @@ class MoviesVC: UIViewController, MovieViewInterface {
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
-    private let movieCollection = {
-        let cv = CollectionView(layoutConfig: LayoutConfiguration(scrollDirection: .vertical, itemSize: CGSize(width: UIScreen.main.bounds.width/3 - 20, height: 200), minimumLineSpacing: 20))
+    private var collectionViewContainer: CollectionViewContainer = {
+        let cv = CollectionViewContainer(scrollDirection: .vertical, itemSize: CGSize(width: UIScreen.main.bounds.width/3 - 20, height: 200))
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.showsVerticalScrollIndicator = false
-        cv.clipsToBounds = false
-        cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: Identifier.collectionViewIdentifier)
+        cv.collectionView.showsVerticalScrollIndicator = false
         return cv
     }()
     
@@ -35,32 +31,26 @@ class MoviesVC: UIViewController, MovieViewInterface {
         super.viewDidLoad()
         setupTitle()
         setupUI()
-        setDelegateAndDataSourceCollection()
         setupUIConstraints()
         presenter?.getMovieData()
     }
     
-    func setupTitle() {
+    private func setupTitle() {
         navigationController?.navigationBar.prefersLargeTitles = true
         self.title = Title.movie
     }
     
-    func setupUI() {
+    private func setupUI() {
         view.addSubview(contentView)
-        contentView.addSubview(movieCollection)
+        contentView.addSubview(collectionViewContainer)
     }
     
-    func setDelegateAndDataSourceCollection() {
-        movieCollection.delegate = self
-        movieCollection.dataSource = self
-    }
-    
-    func setupUIConstraints() {
+    private func setupUIConstraints() {
         setupUIConstraintsForContentView()
         setupUIConstraintsForCollection()
     }
     
-    func setupUIConstraintsForContentView() {
+    private func setupUIConstraintsForContentView() {
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             contentView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
@@ -69,18 +59,19 @@ class MoviesVC: UIViewController, MovieViewInterface {
         ])
     }
     
-    func setupUIConstraintsForCollection() {
+    private func setupUIConstraintsForCollection() {
         NSLayoutConstraint.activate([
-            movieCollection.topAnchor.constraint(equalTo: contentView.topAnchor),
-            movieCollection.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            movieCollection.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            movieCollection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            collectionViewContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
+            collectionViewContainer.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            collectionViewContainer.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            collectionViewContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
-    func popularMovieSuccess() {
+    func popularMovieSuccess(list: MovieModel?) {
         DispatchQueue.main.async {
-            self.movieCollection.reloadData()
+            self.collectionViewContainer.configContent(list: list)
+            self.collectionViewContainer.collectionView.reloadData()
         }
     }
     
@@ -88,24 +79,4 @@ class MoviesVC: UIViewController, MovieViewInterface {
         print(error)
     }
 
-}
-
-extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter?.getItemCount ?? 6
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.collectionViewIdentifier, for: indexPath) as? CollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        if let movieList = presenter?.movieList?.results {
-            cell.configureMovieCellDetails(movieList[indexPath.row])
-            return cell
-        } else {
-            cell.configureDefaultDetails()
-            return cell
-        }
-    }
 }

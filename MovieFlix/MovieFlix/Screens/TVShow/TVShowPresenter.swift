@@ -11,30 +11,26 @@ protocol TVPresenterInterface {
     var view: TVViewInterface? {get set}
     var interactor: TVInteractorInterface? {get set}
     var router: TVRouterInterface? {get set}
-    func getPopularTVShowSuccess(data: TVShowModel)
+    func viewDidLoad()
+    func getPopularTVShowSuccess(data: MovieModel)
     func getPopularTVShowFailure(error: Error)
-    var tvShowList: TVShowModel? {get set}
-    func getTVShowData()
-    var getItemCount: Int? {get}
+    var tvShowList: MovieModel? {get set}
 }
 
 class TVPresenter: TVPresenterInterface {
     
-    var tvShowList: TVShowModel?
     var view: TVViewInterface?
     var interactor: TVInteractorInterface?
     var router: TVRouterInterface?
-    var getItemCount: Int? {
-        tvShowList?.results.count
-    }
+    var tvShowList: MovieModel?
     
-    func getTVShowData() {
+    func viewDidLoad() {
         interactor?.getTvShowData()
     }
     
-    func getPopularTVShowSuccess(data: TVShowModel) {
+    func getPopularTVShowSuccess(data: MovieModel) {
         self.tvShowList = data
-        view?.getPopularTVShowSuccess()
+        view?.getPopularTVShowSuccess(list: data)
     }
     
     func getPopularTVShowFailure(error: Error) {

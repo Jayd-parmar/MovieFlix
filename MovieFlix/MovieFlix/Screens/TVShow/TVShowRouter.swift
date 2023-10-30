@@ -13,16 +13,16 @@ typealias EntryPointTV = TVViewInterface & UIViewController
 protocol TVRouterInterface {
     var entry: EntryPointTV? {get set}
     var presenter: TVPresenterInterface? {get set}
-    static func createModule() -> TVRouterInterface
+    static func createModule() -> UIViewController
 }
 
 class TVRouter: TVRouterInterface {
     var entry: EntryPointTV?
     var presenter: TVPresenterInterface?
     
-    static func createModule() -> TVRouterInterface {
+    static func createModule() -> UIViewController {
         let router = TVRouter()
-        var view: TVViewInterface = TVShowsVC()
+        let view = TVShowsVC()
         var presenter: TVPresenterInterface = TVPresenter()
         var interactor: TVInteractorInterface = TVInteractor()
         
@@ -32,7 +32,7 @@ class TVRouter: TVRouterInterface {
         presenter.view = view
         interactor.presenter = presenter
         router.presenter = presenter
-        router.entry = view as? EntryPointTV
-        return router
+        router.entry = view
+        return view
     }
 }

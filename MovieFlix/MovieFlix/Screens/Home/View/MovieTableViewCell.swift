@@ -49,8 +49,8 @@ extension MovieTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.collectionViewIdentifier, for: indexPath) as? CollectionViewCell else {
             return UICollectionViewCell()
         }
-        if let popularMovieList = movieList?[movieCollection.tag].results {
-            cell.configureMovieCellDetails(popularMovieList[indexPath.row])
+        if let movieList = movieList?[movieCollection.tag].results {
+            cell.configureMovieCellDetails(movieList[indexPath.row])
             return cell
         } else {
             cell.configureDefaultDetails()

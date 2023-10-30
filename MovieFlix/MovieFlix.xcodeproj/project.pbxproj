@@ -56,12 +56,12 @@
 		29D78CD02AEA70AC001673F9 /* MovieRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78CCF2AEA70AC001673F9 /* MovieRouter.swift */; };
 		29D78CD22AEA7278001673F9 /* TVShowInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78CD12AEA7278001673F9 /* TVShowInteractor.swift */; };
 		29D78CD42AEA7280001673F9 /* TVShowPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78CD32AEA7280001673F9 /* TVShowPresenter.swift */; };
-		29D78CD62AEA728C001673F9 /* TVShowEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78CD52AEA728C001673F9 /* TVShowEntity.swift */; };
 		29D78CD82AEA7294001673F9 /* TVShowRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78CD72AEA7294001673F9 /* TVShowRouter.swift */; };
 		29D78CDA2AEB98FA001673F9 /* CollectionViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78CD92AEB98FA001673F9 /* CollectionViewClass.swift */; };
 		29D78CDC2AEBE43F001673F9 /* NavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78CDB2AEBE43F001673F9 /* NavigationControllerExtension.swift */; };
 		29D78CDE2AEBE448001673F9 /* TabBarControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78CDD2AEBE448001673F9 /* TabBarControllerExtension.swift */; };
 		29D78CE02AEF8A09001673F9 /* MovieEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78CDF2AEF8A09001673F9 /* MovieEnum.swift */; };
+		29D78CE22AF018A9001673F9 /* TVShowEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78CE12AF018A8001673F9 /* TVShowEntity.swift */; };
 		5C8E53C65B384278F63F9723 /* Pods_MovieFlix_MovieFlixUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89704043250D3FA576EB4B94 /* Pods_MovieFlix_MovieFlixUITests.framework */; };
 		6CAC554EF2E3D5F93559196D /* Pods_MovieFlixTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DCD1A8BC17958C73092D2C9 /* Pods_MovieFlixTests.framework */; };
 		E0FA73760E50AD33391D5FB0 /* Pods_MovieFlix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09AEB160311F0F27B54DBD0 /* Pods_MovieFlix.framework */; };
@@ -139,12 +139,12 @@
 		29D78CCF2AEA70AC001673F9 /* MovieRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRouter.swift; sourceTree = "<group>"; };
 		29D78CD12AEA7278001673F9 /* TVShowInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowInteractor.swift; sourceTree = "<group>"; };
 		29D78CD32AEA7280001673F9 /* TVShowPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowPresenter.swift; sourceTree = "<group>"; };
-		29D78CD52AEA728C001673F9 /* TVShowEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowEntity.swift; sourceTree = "<group>"; };
 		29D78CD72AEA7294001673F9 /* TVShowRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowRouter.swift; sourceTree = "<group>"; };
 		29D78CD92AEB98FA001673F9 /* CollectionViewClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewClass.swift; sourceTree = "<group>"; };
 		29D78CDB2AEBE43F001673F9 /* NavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerExtension.swift; sourceTree = "<group>"; };
 		29D78CDD2AEBE448001673F9 /* TabBarControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControllerExtension.swift; sourceTree = "<group>"; };
 		29D78CDF2AEF8A09001673F9 /* MovieEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieEnum.swift; sourceTree = "<group>"; };
+		29D78CE12AF018A8001673F9 /* TVShowEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowEntity.swift; sourceTree = "<group>"; };
 		2D1244EBEF79D3C747C972C9 /* Pods-MovieFlix-MovieFlixUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieFlix-MovieFlixUITests.debug.xcconfig"; path = "Target Support Files/Pods-MovieFlix-MovieFlixUITests/Pods-MovieFlix-MovieFlixUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3ABD94452D7D07FE8BAA478E /* Pods-MovieFlix.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieFlix.debug.xcconfig"; path = "Target Support Files/Pods-MovieFlix/Pods-MovieFlix.debug.xcconfig"; sourceTree = "<group>"; };
 		403A2E58365D3854D724BAD6 /* Pods-MovieFlixTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieFlixTests.release.xcconfig"; path = "Target Support Files/Pods-MovieFlixTests/Pods-MovieFlixTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -393,8 +393,8 @@
 				29D78C132AE11581001673F9 /* TVShowsVC.swift */,
 				29D78CD12AEA7278001673F9 /* TVShowInteractor.swift */,
 				29D78CD32AEA7280001673F9 /* TVShowPresenter.swift */,
-				29D78CD52AEA728C001673F9 /* TVShowEntity.swift */,
 				29D78CD72AEA7294001673F9 /* TVShowRouter.swift */,
+				29D78CE12AF018A8001673F9 /* TVShowEntity.swift */,
 			);
 			path = TVShow;
 			sourceTree = "<group>";
@@ -725,7 +725,6 @@
 				29D78C142AE11581001673F9 /* TVShowsVC.swift in Sources */,
 				29D78CDA2AEB98FA001673F9 /* CollectionViewClass.swift in Sources */,
 				29D78BE52AE003F0001673F9 /* MovieFlix.xcdatamodeld in Sources */,
-				29D78CD62AEA728C001673F9 /* TVShowEntity.swift in Sources */,
 				29D78C522AE24E64001673F9 /* EventEnum.swift in Sources */,
 				29D78CD82AEA7294001673F9 /* TVShowRouter.swift in Sources */,
 				29D78CD22AEA7278001673F9 /* TVShowInteractor.swift in Sources */,
@@ -737,6 +736,7 @@
 				29D78C4A2AE13B08001673F9 /* EndPointMovieItems.swift in Sources */,
 				29D78CBA2AE8E321001673F9 /* HomeRouter.swift in Sources */,
 				29D78CB62AE8E2F1001673F9 /* HomeInteractor.swift in Sources */,
+				29D78CE22AF018A9001673F9 /* TVShowEntity.swift in Sources */,
 				29D78C182AE115F1001673F9 /* TVShowDetailsVC.swift in Sources */,
 				29D78C552AE255AD001673F9 /* MovieDetailsModel.swift in Sources */,
 				29D78CBF2AEA286F001673F9 /* UIImageViewExtension.swift in Sources */,

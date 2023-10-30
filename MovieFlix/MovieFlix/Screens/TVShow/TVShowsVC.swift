@@ -9,10 +9,8 @@ import UIKit
 
 protocol TVViewInterface {
     var presenter: TVPresenterInterface? {get set}
-    func getPopularTVShowSuccess()
+    func getPopularTVShowSuccess(list: MovieModel?)
     func getPopularTVShowFailure(error: Error)
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
 }
 
 class TVShowsVC: UIViewController, TVViewInterface {
@@ -22,12 +20,10 @@ class TVShowsVC: UIViewController, TVViewInterface {
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
-    private let tvCollection = {
-        let cv = CollectionView(layoutConfig: LayoutConfiguration(scrollDirection: .vertical, itemSize: CGSize(width: UIScreen.main.bounds.width/3 - 20, height: 200), minimumLineSpacing: 20))
+    private var collectionViewContainer: CollectionViewContainer = {
+        let cv = CollectionViewContainer(scrollDirection: .vertical, itemSize: CGSize(width: UIScreen.main.bounds.width/3 - 20, height: 200))
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.showsVerticalScrollIndicator = false
-        cv.clipsToBounds = false
-        cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: Identifier.collectionViewIdentifier)
+        cv.collectionView.showsVerticalScrollIndicator = false
         return cv
     }()
 
@@ -35,32 +31,26 @@ class TVShowsVC: UIViewController, TVViewInterface {
         super.viewDidLoad()
         setupTitle()
         setupUI()
-        setDelegateAndDataSourceCollection()
         setupUIConstraints()
-        presenter?.getTVShowData()
+        presenter?.viewDidLoad()
     }
     
-    func setupTitle() {
+    private func setupTitle() {
         navigationController?.navigationBar.prefersLargeTitles = true
         self.title = Title.tv
     }
     
-    func setupUI() {
+    private func setupUI() {
         view.addSubview(contentView)
-        contentView.addSubview(tvCollection)
+        contentView.addSubview(collectionViewContainer)
     }
     
-    func setDelegateAndDataSourceCollection() {
-        tvCollection.delegate = self
-        tvCollection.dataSource = self
-    }
-    
-    func setupUIConstraints() {
+    private func setupUIConstraints() {
         setupUIConstraintsForContentView()
         setupUIConstraintsForCollection()
     }
     
-    func setupUIConstraintsForContentView() {
+    private func setupUIConstraintsForContentView() {
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             contentView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
@@ -69,41 +59,23 @@ class TVShowsVC: UIViewController, TVViewInterface {
         ])
     }
     
-    func setupUIConstraintsForCollection() {
-        NSLayoutConstraint.activate([
-            tvCollection.topAnchor.constraint(equalTo: contentView.topAnchor),
-            tvCollection.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            tvCollection.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            tvCollection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
-    }
+    private func setupUIConstraintsForCollection() {
+            NSLayoutConstraint.activate([
+                collectionViewContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
+                collectionViewContainer.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+                collectionViewContainer.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+                collectionViewContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            ])
+        }
     
-    func getPopularTVShowSuccess() {
+    func getPopularTVShowSuccess(list: MovieModel?) {
         DispatchQueue.main.async {
-            self.tvCollection.reloadData()
+            self.collectionViewContainer.configContent(list: list)
+            self.collectionViewContainer.collectionView.reloadData()
         }
     }
     
     func getPopularTVShowFailure(error: Error) {
         print(error)
-    }
-}
-
-extension TVShowsVC: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter?.getItemCount ?? 6
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.collectionViewIdentifier, for: indexPath) as? CollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        if let tvList = presenter?.tvShowList?.results {
-            cell.configureTVCellDetails(tvList[indexPath.row])
-            return cell
-        } else {
-            cell.configureDefaultDetails()
-            return cell
-        }
     }
 }

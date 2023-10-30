@@ -13,16 +13,16 @@ typealias EntryPointMovie = MovieViewInterface & UIViewController
 protocol MovieRouterInterface {
     var entry: EntryPointMovie? {get set}
     var presenter: MoviePresenterInterface? {get set}
-    static func createModule() -> MovieRouterInterface
+    static func createModule() -> UIViewController
 }
 
 class MovieRouter: MovieRouterInterface {
     var entry: EntryPointMovie?
     var presenter: MoviePresenterInterface?
     
-    static func createModule() -> MovieRouterInterface {
+    static func createModule() -> UIViewController {
         let router = MovieRouter()
-        var view: MovieViewInterface = MoviesVC()
+        var view = MoviesVC()
         var presenter: MoviePresenterInterface = MoviePresenter()
         var interactor: MovieInteractorInterface = MovieInteractor()
         
@@ -32,7 +32,7 @@ class MovieRouter: MovieRouterInterface {
         presenter.view = view
         interactor.presenter = presenter
         router.presenter = presenter
-        router.entry = view as? EntryPointMovie
-        return router
+        router.entry = view
+        return view
     }
 }
