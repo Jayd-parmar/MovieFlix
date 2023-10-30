@@ -81,7 +81,7 @@ extension CollectionViewContainer: UICollectionViewDelegate, UICollectionViewDat
             return UICollectionViewCell()
         }
         let listDetails = list?.results[indexPath.row]
-        cell.configureTvCellDetails(title: (listDetails?.originalName ?? listDetails?.originalTitle) ?? "",
+        cell.configureCellDetails(title: (listDetails?.originalName ?? listDetails?.originalTitle) ?? "",
                                     imagePath: listDetails?.posterPath ?? "")
         return cell
     }

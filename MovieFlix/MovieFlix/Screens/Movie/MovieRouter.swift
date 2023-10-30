@@ -22,7 +22,7 @@ class MovieRouter: MovieRouterInterface {
     
     static func createModule() -> UIViewController {
         let router = MovieRouter()
-        var view = MoviesVC()
+        let view = MoviesVC()
         var presenter: MoviePresenterInterface = MoviePresenter()
         var interactor: MovieInteractorInterface = MovieInteractor()
         

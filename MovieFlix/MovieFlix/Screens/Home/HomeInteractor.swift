@@ -10,7 +10,6 @@ import Foundation
 protocol HomeInteractorInterface {
     var presenter: HomePresenterInterface? {get set}
 //    func getPopularMovieData()
-//    func getNowPlayingMovieData()
     func getMovieData(type: EndPointAPIType)
 }
 
@@ -43,8 +42,4 @@ class HomeInteractor: HomeInteractorInterface {
             }
         }
     }
-    
-//    func getNowPlayingMovieData() {
-//
-//    }
 }
