@@ -33,7 +33,7 @@ class MoviePresenter: MoviePresenterInterface {
     
     func getPopularMovieSuccess(data: MovieModel) {
         self.movieList = data
-        view?.popularMovieSuccess()
+        view?.popularMovieSuccess(list: data)
     }
     
     func getPopularMovieFailure(error: Error) {

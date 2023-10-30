@@ -10,12 +10,11 @@ import UIKit
 class MoviewFlixTBC: UITabBarController {
     
     private let homeVC = HomeRouter.createModule()
-    private let movieVC = MovieRouter.createModule().entry
-    private let tvShowVC = TVRouter.createModule().entry
+    private let movieVC = MovieRouter.createModule()
+    private let tvShowVC = TVRouter.createModule()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
-        // Do any additional setup after loading the view.
     }
     
     func setupTabBar() {
@@ -23,7 +22,7 @@ class MoviewFlixTBC: UITabBarController {
         setupMovie()
         setupTVShow()
         navBarAppearance()
-        self.viewControllers = [UINavigationController(rootViewController: homeVC), UINavigationController(rootViewController: movieVC!), UINavigationController(rootViewController: tvShowVC!)]
+        self.viewControllers = [UINavigationController(rootViewController: homeVC), UINavigationController(rootViewController: movieVC), UINavigationController(rootViewController: tvShowVC)]
         self.tabBarAppearance()
         self.tabBar.tintColor = .red
         self.tabBar.unselectedItemTintColor = .white
@@ -42,18 +41,18 @@ class MoviewFlixTBC: UITabBarController {
     }
     
     func setupHome() {
-        let tabItem = UITabBarItem(title: IconTitle.home, image: UIImage(named: "house"), selectedImage: UIImage(named: "play.house.fill"))
+        let tabItem = UITabBarItem(title: IconTitle.home, image: UIImage(named: IconName.homeBeforeClick), selectedImage: UIImage(named: IconName.homeAfterClick))
         homeVC.tabBarItem = tabItem
     }
     
     func setupMovie() {
-        let tabItem = UITabBarItem(title: IconTitle.movie, image: UIImage(named: "movieclapper"), selectedImage: UIImage(named: "movieclapper.fill"))
-        movieVC!.tabBarItem = tabItem
+        let tabItem = UITabBarItem(title: IconTitle.movie, image: UIImage(named: IconName.movieBeforeClick), selectedImage: UIImage(named: IconName.movieAfterClick))
+        movieVC.tabBarItem = tabItem
     }
     
     func setupTVShow() {
         let tabItem = UITabBarItem(title: IconTitle.tv, image: UIImage(named: IconName.tvBeforeClick), selectedImage: UIImage(named: IconName.tvAfterClick))
-        tvShowVC!.tabBarItem = tabItem
+        tvShowVC.tabBarItem = tabItem
     }
 
 }

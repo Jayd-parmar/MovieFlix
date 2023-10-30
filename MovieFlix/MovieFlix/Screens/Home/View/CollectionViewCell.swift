@@ -61,4 +61,9 @@ class CollectionViewCell: UICollectionViewCell {
         imgMovie.setImage(with: imagePath)
         lblMovie.text = data.originalName
     }
+    
+    func configureTvCellDetails(title: String, imagePath: String) {
+        lblMovie.text = title
+        imgMovie.setImage(with: Constant.URL.imgBaseUrl + imagePath)
+    }
 }

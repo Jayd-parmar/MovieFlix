@@ -8,35 +8,32 @@
 import Foundation
 
 struct MovieModel: Codable {
-    let dates: Dates?
     let page: Int
     let results: [ResultMovie]
     let totalPages: Int
     let totalResults: Int
     enum CodingKeys: String, CodingKey {
-        case dates, page, results
+        case page, results
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
 }
 
 struct ResultMovie: Codable {
-    let adult: Bool
     let backdropPath: String?
     let genreIds: [Int]
     let id: Int
     let originalLanguage: String
-    let originalTitle: String
+    let originalTitle: String?
+    let originalName: String?
     let overview: String
     let popularity: Double
     let posterPath: String
-    let releaseDate: String
-    let title: String
-    let video: Bool
+    let releaseDate: String?
     let voteAverage: Double
     let voteCount: Int
     enum CodingKeys: String, CodingKey {
-        case adult, id, overview, popularity, title, video
+        case id, overview, popularity
         case backdropPath = "backdrop_path"
         case genreIds = "genre_ids"
         case originalLanguage = "original_language"
@@ -45,10 +42,6 @@ struct ResultMovie: Codable {
         case releaseDate = "release_date"
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+        case originalName = "original_name"
     }
-}
-
-struct Dates: Codable {
-    let maximum: String
-    let minimum: String
 }

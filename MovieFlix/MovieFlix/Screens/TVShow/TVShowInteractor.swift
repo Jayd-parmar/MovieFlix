@@ -14,14 +14,14 @@ protocol TVInteractorInterface {
 
 class TVInteractor: TVInteractorInterface {
     var presenter: TVPresenterInterface?
-    private let tvRepo: TVRepositoryDelegate
+    var tvRepo: TVRepositoryDelegate
     
     init(tvRepo: TVRepositoryDelegate = TVRepository()) {
         self.tvRepo = tvRepo
     }
     
     func getTvShowData() {
-        tvRepo.getTvShowData(modelType: TVShowModel.self, type: EndPointTVShowItems.popularTVShow()) { [self] response in
+        tvRepo.getTvShowData(modelType: MovieModel.self, type: EndPointTVShowItems.popularTVShow()) { [self] response in
             switch response {
             case .success(let tvShow):
                 presenter?.getPopularTVShowSuccess(data: tvShow)
