@@ -9,7 +9,7 @@ import UIKit
 
 class MoviewFlixTBC: UITabBarController {
     
-    private let homeVC = HomeRouter.createModule().entry
+    private let homeVC = HomeRouter.createModule()
     private let movieVC = MovieRouter.createModule().entry
     private let tvShowVC = TVRouter.createModule().entry
     override func viewDidLoad() {
@@ -23,7 +23,7 @@ class MoviewFlixTBC: UITabBarController {
         setupMovie()
         setupTVShow()
         navBarAppearance()
-        self.viewControllers = [UINavigationController(rootViewController: homeVC!), UINavigationController(rootViewController: movieVC!), UINavigationController(rootViewController: tvShowVC!)]
+        self.viewControllers = [UINavigationController(rootViewController: homeVC), UINavigationController(rootViewController: movieVC!), UINavigationController(rootViewController: tvShowVC!)]
         self.tabBarAppearance()
         self.tabBar.tintColor = .red
         self.tabBar.unselectedItemTintColor = .white
@@ -43,7 +43,7 @@ class MoviewFlixTBC: UITabBarController {
     
     func setupHome() {
         let tabItem = UITabBarItem(title: IconTitle.home, image: UIImage(named: "house"), selectedImage: UIImage(named: "play.house.fill"))
-        homeVC!.tabBarItem = tabItem
+        homeVC.tabBarItem = tabItem
     }
     
     func setupMovie() {
