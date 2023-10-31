@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29AEC6722AF0F2B700FBE8B2 /* GenreCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AEC6712AF0F2B700FBE8B2 /* GenreCVCell.swift */; };
 		29D78BDB2AE003F0001673F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78BDA2AE003F0001673F9 /* AppDelegate.swift */; };
 		29D78BDD2AE003F0001673F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D78BDC2AE003F0001673F9 /* SceneDelegate.swift */; };
 		29D78BE52AE003F0001673F9 /* MovieFlix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 29D78BE32AE003F0001673F9 /* MovieFlix.xcdatamodeld */; };
@@ -86,6 +87,7 @@
 
 /* Begin PBXFileReference section */
 		234451CE93AABA5FDA67731E /* Pods-MovieFlix-MovieFlixUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieFlix-MovieFlixUITests.release.xcconfig"; path = "Target Support Files/Pods-MovieFlix-MovieFlixUITests/Pods-MovieFlix-MovieFlixUITests.release.xcconfig"; sourceTree = "<group>"; };
+		29AEC6712AF0F2B700FBE8B2 /* GenreCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCVCell.swift; sourceTree = "<group>"; };
 		29D78BD72AE003F0001673F9 /* MovieFlix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieFlix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29D78BDA2AE003F0001673F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29D78BDC2AE003F0001673F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 				29D78C0F2AE11563001673F9 /* HomeVC.swift */,
 				29D78CBC2AEA269B001673F9 /* MovieTableViewCell.swift */,
 				29D78CC72AEA424D001673F9 /* CustomSectionHeaderView.swift */,
+				29AEC6712AF0F2B700FBE8B2 /* GenreCVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -771,6 +774,7 @@
 				29D78C122AE11572001673F9 /* MoviesVC.swift in Sources */,
 				29D78C692AE2C210001673F9 /* CastMovieTVModel.swift in Sources */,
 				29D78CE02AEF8A09001673F9 /* MovieEnum.swift in Sources */,
+				29AEC6722AF0F2B700FBE8B2 /* GenreCVCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

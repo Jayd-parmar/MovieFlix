@@ -60,13 +60,13 @@ class TVShowsVC: UIViewController, TVViewInterface {
     }
     
     private func setupUIConstraintsForCollection() {
-            NSLayoutConstraint.activate([
-                collectionViewContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
-                collectionViewContainer.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-                collectionViewContainer.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-                collectionViewContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-            ])
-        }
+        NSLayoutConstraint.activate([
+            collectionViewContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
+            collectionViewContainer.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            collectionViewContainer.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            collectionViewContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+    }
     
     func getPopularTVShowSuccess(list: MovieModel?) {
         DispatchQueue.main.async {

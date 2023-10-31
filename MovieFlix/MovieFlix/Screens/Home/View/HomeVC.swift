@@ -13,6 +13,7 @@ protocol HomeViewInterface {
     func movieSuccess()
     func movieFailure(error: Error)
     func setupHeaderConfiguration(lbl: String, voteCount: String, img: String, voteAve: Double)
+    func refreshTableData()
 }
 
 class HomeVC: UIViewController, HomeViewInterface {
@@ -57,6 +58,17 @@ class HomeVC: UIViewController, HomeViewInterface {
         lbl.font = .robotoSlabLight(size: 15)
         return lbl
     }()
+    private let genreCV: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 70, height: 25)
+        layout.minimumLineSpacing = 20
+        let cv = UICollectionView( frame: .zero, collectionViewLayout: layout)
+        cv.showsHorizontalScrollIndicator = false
+        cv.register(GenreCVCell.self, forCellWithReuseIdentifier: Identifier.collectionViewIdentifier)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        return cv
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,6 +108,7 @@ class HomeVC: UIViewController, HomeViewInterface {
         header.addSubview(lblHeader)
         header.addSubview(starContainer)
         header.addSubview(lblVote)
+        header.addSubview(genreCV)
         movieTableView.tableHeaderView = header
         setDelegateAndDataSourceTable()
         setupConstraintsForHeader()
@@ -111,6 +124,7 @@ class HomeVC: UIViewController, HomeViewInterface {
         setupConstraintsForLblHeader()
         setupConstraintsForStarContainer()
         setupConstraintsForLblVote()
+        setupConstraintsForGenreCollection()
     }
     
     private func setupConstraintsForImgHeader() {
@@ -129,9 +143,19 @@ class HomeVC: UIViewController, HomeViewInterface {
         starContainer.edgesToSuperview(excluding: [.top, .bottom, .right], insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
     
+    private func setupConstraintsForGenreCollection() {
+        genreCV.delegate = self
+        genreCV.dataSource = self
+        NSLayoutConstraint.activate([
+            genreCV.topAnchor.constraint(equalTo: lblVote.bottomAnchor, constant: 5),
+            genreCV.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            genreCV.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            genreCV.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+    
     func setupStar(voteAve: Double) {
-        let vote: Double = voteAve
-        let index = Int((vote/2.0).rounded())
+        let index = Int((voteAve/2.0).rounded())
         setIndexStar(1, index, IconName.fillStar)
         setIndexStar(index + 1, 5, IconName.emptyStar)
     }
@@ -160,6 +184,10 @@ class HomeVC: UIViewController, HomeViewInterface {
     }
     
     func movieSuccess() {
+        refreshTableData()
+    }
+    
+    func refreshTableData() {
         DispatchQueue.main.async {
             self.movieTableView.reloadData()
         }
@@ -191,14 +219,24 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = CustomSectionHeaderView()
         headerView.lblTitle.text = presenter?.headerTitle[section]
-        headerView.buttonAction = {
-            print("Button in section \(section) tapped")
-            self.tabBarController?.selectedIndex = 1
-        }
+//        headerView.buttonAction = {
+//            print("Button in section \(section) tapped")
+//            self.tabBarController?.selectedIndex = 1
+//        }
         return headerView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         presenter?.cellForRowAt(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
+    }
+}
+
+extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter?.genreList.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        presenter?.genreCollectionCellForItemAt(collectionView: collectionView, indexPath: indexPath) ?? UICollectionViewCell()
     }
 }

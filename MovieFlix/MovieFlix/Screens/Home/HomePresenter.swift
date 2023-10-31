@@ -13,7 +13,9 @@ protocol HomePresenterInterface {
     var interactor: HomeInteractorInterface? {get set}
     var view: HomeViewInterface? {get set}
     var responseList: [ResponseModel] {get set}
+    var filteredList: [ResponseModel] {get set}
     var headerTitle: [String] {get set}
+    var genreList: [Genre] {get}
     func viewDidLoad()
     func getMovieList(enumType: MovieEnum)
     func getMovieSuccess(movie: MovieModel, enumType: MovieEnum)
@@ -21,18 +23,21 @@ protocol HomePresenterInterface {
     func numberOfSections() -> Int
     func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
     func setupHeaderConfig()
+//    func filterGenre(_ index: Int)
+    func genreCollectionCellForItemAt(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell
 }
 
-class HomePresenter: HomePresenterInterface {
+class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
+    
     var responseList: [ResponseModel] = []
+    var filteredList: [ResponseModel] = []
     var movieList: [MovieModel]? = []
     var router: HomeRouterInterface?
     var interactor: HomeInteractorInterface?
     var view: HomeViewInterface?
     var popularMovieList: MovieModel?
-    
     var headerTitle = ["Popular", "In Theaters", "Upcoming", "Top Rated"]
-    
+    var genreList = [Genre(id: 1, name: "All"), Genre(id: 28, name: "Action"), Genre(id: 35, name: "Comedy"), Genre(id: 80, name: "Crime"), Genre(id: 27, name: "Horror")]
     func viewDidLoad() {
         getMovieList(enumType: .popular)
         getMovieList(enumType: .nowplaying)
@@ -83,5 +88,25 @@ class HomePresenter: HomePresenterInterface {
             voteCount: "\(responseList[0].data.results[0].voteCount) Votes",
             img: Constant.URL.imgBaseUrl + (responseList[0].data.results[0].backdropPath ?? ""),
             voteAve: responseList[0].data.results[0].voteAverage)
+    }
+    
+    func genreCollectionCellForItemAt(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.collectionViewIdentifier, for: indexPath) as? GenreCVCell
+        cell?.delegate = self
+        cell?.btnGenre.tag = indexPath.row
+        cell?.configContent(genreList[indexPath.row])
+        return cell ?? UICollectionViewCell()
+    }
+
+    func didTapButton(_ index: Int) {
+        if index != 0 {
+            let genreId = genreList[index].id
+            let filteredResponseList = responseList.filter { item in
+                let genreIds = item.data.results.filter { $0.genreIds.contains(genreId) }
+                return !genreIds.isEmpty
+            }
+            responseList = filteredResponseList
+        }
+        view?.refreshTableData()
     }
 }
