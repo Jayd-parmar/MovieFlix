@@ -12,6 +12,7 @@ protocol HomeViewInterface {
     var presenter: HomePresenterInterface? {get set}
     func movieSuccess()
     func movieFailure(error: Error)
+    func setupHeaderConfiguration(lbl: String, voteCount: String, img: String, voteAve: Double)
 }
 
 class HomeVC: UIViewController, HomeViewInterface {
@@ -34,14 +35,12 @@ class HomeVC: UIViewController, HomeViewInterface {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleToFill
-        image.setImage(with: Constant.URL.defaultImgUrl)
         return image
     }()
     private let lblHeader: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Expend4bles"
-        lbl.font = .robotoSlabMedium(size: 40)
+        lbl.font = .robotoSlabMedium(size: 30)
         return lbl
     }()
     private let starContainer: UIStackView = {
@@ -55,7 +54,6 @@ class HomeVC: UIViewController, HomeViewInterface {
     private let lblVote: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "496 Votes"
         lbl.font = .robotoSlabLight(size: 15)
         return lbl
     }()
@@ -112,7 +110,6 @@ class HomeVC: UIViewController, HomeViewInterface {
         setupConstraintsForImgHeader()
         setupConstraintsForLblHeader()
         setupConstraintsForStarContainer()
-        setupStar()
         setupConstraintsForLblVote()
     }
     
@@ -132,12 +129,28 @@ class HomeVC: UIViewController, HomeViewInterface {
         starContainer.edgesToSuperview(excluding: [.top, .bottom, .right], insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
     
-    private func setupStar() {
-        for _ in 1...5 {
+    func setupStar(voteAve: Double) {
+        let vote: Double = voteAve
+        let index = Int((vote/2.0).rounded())
+        setIndexStar(1, index, IconName.fillStar)
+        setIndexStar(index + 1, 5, IconName.emptyStar)
+    }
+    
+    func setIndexStar(_ begin: Int, _ end: Int, _ image: String) {
+        for _ in begin...end {
             let imageView = UIImageView()
-            imageView.image = UIImage(named: "star.fill")!
+            imageView.image = UIImage(named: image)!
             imageView.width(15)
             starContainer.addArrangedSubview(imageView)
+        }
+    }
+    
+    func setupHeaderConfiguration(lbl: String, voteCount: String, img: String, voteAve: Double) {
+        DispatchQueue.main.async {
+            self.lblHeader.text = lbl
+            self.lblVote.text = voteCount
+            self.imgHeader.setImage(with: img)
+            self.setupStar(voteAve: voteAve)
         }
     }
     

@@ -20,6 +20,7 @@ protocol HomePresenterInterface {
     func getMovieFailure(error: Error)
     func numberOfSections() -> Int
     func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
+    func setupHeaderConfig()
 }
 
 class HomePresenter: HomePresenterInterface {
@@ -54,8 +55,10 @@ class HomePresenter: HomePresenterInterface {
     
     func getMovieSuccess(movie: MovieModel, enumType: MovieEnum) {
         responseList.append(ResponseModel(enumType: enumType, data: movie))
-        print(responseList)
         view?.movieSuccess()
+        if enumType == .popular {
+            setupHeaderConfig()
+        }
     }
     
     func getMovieFailure(error: Error) {
@@ -72,5 +75,13 @@ class HomePresenter: HomePresenterInterface {
         cell?.collectionViewContainer.configContent(list: responseList[indexPath.section].data)
         cell?.collectionViewContainer.collectionView.reloadData()
         return cell ?? UITableViewCell()
+    }
+    
+    func setupHeaderConfig() {
+        view?.setupHeaderConfiguration(
+            lbl: responseList[0].data.results[0].originalTitle ?? "",
+            voteCount: "\(responseList[0].data.results[0].voteCount) Votes",
+            img: Constant.URL.imgBaseUrl + (responseList[0].data.results[0].backdropPath ?? ""),
+            voteAve: responseList[0].data.results[0].voteAverage)
     }
 }
