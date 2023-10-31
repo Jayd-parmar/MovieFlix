@@ -33,12 +33,12 @@ class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI() {
+    private func setupUI() {
         self.addSubview(imgMovie)
         self.addSubview(lblMovie)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         imgMovie.height(180)
         imgMovie.edgesToSuperview(excluding: .bottom, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         lblMovie.topToBottom(of: imgMovie, offset: 5)

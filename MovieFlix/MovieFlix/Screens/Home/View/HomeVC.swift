@@ -12,12 +12,6 @@ protocol HomeViewInterface {
     var presenter: HomePresenterInterface? {get set}
     func movieSuccess()
     func movieFailure(error: Error)
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    func numberOfSections(in tableView: UITableView) -> Int
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
 }
 
 class HomeVC: UIViewController, HomeViewInterface {
@@ -33,6 +27,7 @@ class HomeVC: UIViewController, HomeViewInterface {
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.register(MovieTableViewCell.self, forCellReuseIdentifier: Identifier.tableViewIdentifier)
         tv.showsVerticalScrollIndicator = false
+        tv.isPrefetchingEnabled = false
         return tv
     }()
     private let imgHeader: UIImageView = {
@@ -70,37 +65,34 @@ class HomeVC: UIViewController, HomeViewInterface {
         setupTitle()
         setupUI()
         setupConstraints()
-        presenter?.getMovieList(enumType: .popular)
-        presenter?.getMovieList(enumType: .nowplaying)
-        presenter?.getMovieList(enumType: .upcoming)
-        presenter?.getMovieList(enumType: .toprated)
+        presenter?.viewDidLoad()
     }
     
-    func setupTitle() {
+    private func setupTitle() {
         navigationController?.navigationBar.prefersLargeTitles = true
         self.title = Title.home
     }
     
-    func setupUI() {
+    private func setupUI() {
         view.addSubview(contentView)
         contentView.addSubview(movieTableView)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         setupConstraintsOfContentView()
         setupConstraintsForTableView()
     }
     
-    func setupConstraintsOfContentView() {
+    private func setupConstraintsOfContentView() {
         contentView.edgesToSuperview(usingSafeArea: true)
     }
     
-    func setupConstraintsForTableView() {
+    private func setupConstraintsForTableView() {
         movieTableView.edgesToSuperview()
         setupHeaderForTableView()
     }
     
-    func setupHeaderForTableView() {
+    private func setupHeaderForTableView() {
         let header = UIView(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: 300))
         header.addSubview(imgHeader)
         header.addSubview(lblHeader)
@@ -111,12 +103,12 @@ class HomeVC: UIViewController, HomeViewInterface {
         setupConstraintsForHeader()
     }
     
-    func setDelegateAndDataSourceTable() {
+    private func setDelegateAndDataSourceTable() {
         movieTableView.delegate = self
         movieTableView.dataSource = self
     }
     
-    func setupConstraintsForHeader() {
+    private func setupConstraintsForHeader() {
         setupConstraintsForImgHeader()
         setupConstraintsForLblHeader()
         setupConstraintsForStarContainer()
@@ -124,23 +116,23 @@ class HomeVC: UIViewController, HomeViewInterface {
         setupConstraintsForLblVote()
     }
     
-    func setupConstraintsForImgHeader() {
+    private func setupConstraintsForImgHeader() {
         imgHeader.height(250)
         imgHeader.edgesToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0))
     }
     
-    func setupConstraintsForLblHeader() {
+    private func setupConstraintsForLblHeader() {
         lblHeader.topToBottom(of: imgHeader, offset: -45)
         lblHeader.edgesToSuperview(excluding: [.top, .bottom], insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
     
-    func setupConstraintsForStarContainer() {
+    private func setupConstraintsForStarContainer() {
         starContainer.topToBottom(of: imgHeader, offset: 10)
         starContainer.height(15)
         starContainer.edgesToSuperview(excluding: [.top, .bottom, .right], insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
     
-    func setupStar() {
+    private func setupStar() {
         for _ in 1...5 {
             let imageView = UIImageView()
             imageView.image = UIImage(named: "star.fill")!
@@ -149,7 +141,7 @@ class HomeVC: UIViewController, HomeViewInterface {
         }
     }
     
-    func setupConstraintsForLblVote() {
+    private func setupConstraintsForLblVote() {
         lblVote.centerY(to: starContainer)
         lblVote.leftToRight(of: starContainer, offset: 10)
     }
@@ -172,7 +164,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter?.headerTitle.count ?? 0
+        return presenter?.numberOfSections() ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -194,11 +186,6 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.tableViewIdentifier, for: indexPath) as? MovieTableViewCell
-        cell?.movieCollection.tag = indexPath.section
-        cell?.popularMovieList = presenter?.popularMovieList
-        cell?.movieList = presenter?.movieList
-        cell?.movieCollection.reloadData()
-        return cell ?? UITableViewCell()
+        presenter?.cellForRowAt(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
     }
 }

@@ -10,13 +10,10 @@ import TinyConstraints
 
 class MovieTableViewCell: UITableViewCell {
     var movieList: [MovieModel]? = []
-    var popularMovieList: MovieModel?
-    var movieCollection = {
-        let cv = CollectionView(layoutConfig: LayoutConfiguration(scrollDirection: .horizontal, itemSize: CGSize(width: 150, height: 200), minimumLineSpacing: 20))
+    var collectionViewContainer: CollectionViewContainer = {
+        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 120, height: 200))
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.showsHorizontalScrollIndicator = false
-        cv.clipsToBounds = false
-        cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: Identifier.collectionViewIdentifier)
+        cv.collectionView.showsHorizontalScrollIndicator = false
         return cv
     }()
     
@@ -26,35 +23,11 @@ class MovieTableViewCell: UITableViewCell {
         setupUIConstraints()
     }
     
-    func setupUI() {
-        self.addSubview(movieCollection)
-        movieCollection.delegate = self
-        movieCollection.dataSource = self
+    private func setupUI() {
+        self.addSubview(collectionViewContainer)
     }
     
-    func setupUIConstraints() {
-        movieCollection.edgesToSuperview()
-    }
-
-}
-
-extension MovieTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard movieList?.isEmpty == false else { return 0 }
-        return movieList?[movieCollection.tag].results.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.collectionViewIdentifier, for: indexPath) as? CollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        if let movieList = movieList?[movieCollection.tag].results {
-            cell.configureMovieCellDetails(movieList[indexPath.row])
-            return cell
-        } else {
-            cell.configureDefaultDetails()
-            return cell
-        }
+    private func setupUIConstraints() {
+        collectionViewContainer.edgesToSuperview()
     }
 }

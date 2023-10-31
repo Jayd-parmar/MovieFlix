@@ -45,3 +45,8 @@ struct ResultMovie: Codable {
         case originalName = "original_name"
     }
 }
+
+struct ResponseModel {
+    let enumType: MovieEnum
+    let data: MovieModel
+}

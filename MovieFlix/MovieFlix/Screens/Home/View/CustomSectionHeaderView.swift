@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TinyConstraints
 
 class CustomSectionHeaderView: UIView {
     var buttonAction: (() -> Void)?
@@ -34,12 +35,12 @@ class CustomSectionHeaderView: UIView {
         super.init(coder: aDecoder)
     }
     
-    func setupUI() {
+    private func setupUI() {
         addSubview(lblTitle)
         addSubview(btnShowAll)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         lblTitle.edgesToSuperview(excluding: [.bottom, .right], insets: UIEdgeInsets(top: 4, left: 0, bottom: 0, right: 0))
         btnShowAll.right(to: self, offset: 0)
     }
