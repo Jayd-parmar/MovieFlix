@@ -355,6 +355,7 @@
 		29D78CA82AE8E263001673F9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				29D78CE32AF0BC52001673F9 /* CollectionViewClassAndCell */,
 				29D78C612AE2953A001673F9 /* Tabbar */,
 				29D78CAF2AE8E281001673F9 /* Home */,
 				29D78CAE2AE8E27E001673F9 /* Movie */,
@@ -427,11 +428,18 @@
 			children = (
 				29D78C0F2AE11563001673F9 /* HomeVC.swift */,
 				29D78CBC2AEA269B001673F9 /* MovieTableViewCell.swift */,
-				29D78CC92AEA5AEB001673F9 /* CollectionViewCell.swift */,
 				29D78CC72AEA424D001673F9 /* CustomSectionHeaderView.swift */,
-				29D78CD92AEB98FA001673F9 /* CollectionViewClass.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		29D78CE32AF0BC52001673F9 /* CollectionViewClassAndCell */ = {
+			isa = PBXGroup;
+			children = (
+				29D78CD92AEB98FA001673F9 /* CollectionViewClass.swift */,
+				29D78CC92AEA5AEB001673F9 /* CollectionViewCell.swift */,
+			);
+			path = CollectionViewClassAndCell;
 			sourceTree = "<group>";
 		};
 		9CD01C710D5375C7153806DE /* Frameworks */ = {

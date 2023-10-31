@@ -33,27 +33,16 @@ class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI() {
+    private func setupUI() {
         self.addSubview(imgMovie)
         self.addSubview(lblMovie)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         imgMovie.height(180)
         imgMovie.edgesToSuperview(excluding: .bottom, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-        lblMovie.topToBottom(of: imgMovie, offset: 5)
+        lblMovie.topToBottom(of: imgMovie, offset: 2)
         lblMovie.edgesToSuperview(excluding: [.top, .bottom], insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-    }
-    
-    func configureMovieCellDetails(_ data: ResultMovie) {
-        let imagePath = Constant.URL.imgBaseUrl + data.posterPath
-        imgMovie.setImage(with: imagePath)
-        lblMovie.text = data.originalTitle
-    }
-    
-    func configureDefaultDetails() {
-        imgMovie.setImage(with: Constant.URL.defaultImgUrl)
-        lblMovie.text = Movie.defaultMovieName
     }
     
     func configureCellDetails(title: String, imagePath: String) {

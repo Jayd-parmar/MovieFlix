@@ -35,6 +35,8 @@ enum IconName {
     static let movieAfterClick = "movieclapper.fill"
     static let tvBeforeClick = "tv"
     static let tvAfterClick = "play.tv"
+    static let fillStar = "star.fill"
+    static let emptyStar = "star"
 }
 
 enum Movie {
