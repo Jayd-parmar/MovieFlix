@@ -15,6 +15,7 @@ protocol MoviePresenterInterface {
     func getPopularMovieFailure(error: Error)
     var movieList: MovieModel? {get set}
     func viewDidLoad()
+    func navigateToDetails(id: Int)
 }
 
 class MoviePresenter: MoviePresenterInterface {
@@ -34,6 +35,10 @@ class MoviePresenter: MoviePresenterInterface {
     
     func getPopularMovieFailure(error: Error) {
         view?.popularMovieFailure(error: error)
+    }
+    
+    func navigateToDetails(id: Int) {
+//        router
     }
 
 }

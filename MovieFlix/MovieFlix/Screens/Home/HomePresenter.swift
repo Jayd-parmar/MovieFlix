@@ -60,6 +60,7 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
     
     func getMovieSuccess(movie: MovieModel, enumType: MovieEnum) {
         responseList.append(ResponseModel(enumType: enumType, data: movie))
+        filteredList.append(ResponseModel(enumType: enumType, data: movie))
         view?.movieSuccess()
         if enumType == .popular {
             setupHeaderConfig()
@@ -71,23 +72,24 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
     }
     
     func numberOfSections() -> Int {
-        return responseList.count
+        return filteredList.count
     }
     
     func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.tableViewIdentifier, for: indexPath) as? MovieTableViewCell
         cell?.collectionViewContainer.collectionView.tag = indexPath.section
-        cell?.collectionViewContainer.configContent(list: responseList[indexPath.section].data)
+        cell?.collectionViewContainer.configContent(list: filteredList[indexPath.section].data)
         cell?.collectionViewContainer.collectionView.reloadData()
         return cell ?? UITableViewCell()
     }
     
     func setupHeaderConfig() {
+        let randomNumber =  Int.random(in: 0...19)
         view?.setupHeaderConfiguration(
-            lbl: responseList[0].data.results[0].originalTitle ?? "",
-            voteCount: "\(responseList[0].data.results[0].voteCount) Votes",
-            img: Constant.URL.imgBaseUrl + (responseList[0].data.results[0].backdropPath ?? ""),
-            voteAve: responseList[0].data.results[0].voteAverage)
+            lbl: responseList[0].data.results[randomNumber].originalTitle ?? "",
+            voteCount: "\(responseList[0].data.results[randomNumber].voteCount) Votes",
+            img: Constant.URL.imgBaseUrl + (responseList[0].data.results[randomNumber].backdropPath ?? ""),
+            voteAve: responseList[0].data.results[randomNumber].voteAverage)
     }
     
     func genreCollectionCellForItemAt(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
@@ -101,11 +103,15 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
     func didTapButton(_ index: Int) {
         if index != 0 {
             let genreId = genreList[index].id
-            let filteredResponseList = responseList.filter { item in
-                let genreIds = item.data.results.filter { $0.genreIds.contains(genreId) }
-                return !genreIds.isEmpty
+            filteredList.removeAll()
+            responseList.forEach { item in
+                var data = item.data
+                let genreIds = data.results.filter { $0.genreIds.contains(genreId) }
+                data.results = genreIds
+                filteredList.append(ResponseModel(enumType: item.enumType, data: data))
             }
-            responseList = filteredResponseList
+        } else {
+            filteredList = responseList
         }
         view?.refreshTableData()
     }
