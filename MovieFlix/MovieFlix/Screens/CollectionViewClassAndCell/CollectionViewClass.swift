@@ -9,6 +9,7 @@ import UIKit
 class CollectionViewContainer: UIView {
     var collectionView: UICollectionView!
     var list: MovieModel?
+    weak var delegate: CellActionDelegate?
 
     init(scrollDirection: UICollectionView.ScrollDirection, itemSize: CGSize) {
         super.init(frame: .zero)
@@ -64,4 +65,12 @@ extension CollectionViewContainer: UICollectionViewDelegate, UICollectionViewDat
                                     imagePath: listDetails?.posterPath ?? "")
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.afterClickingOnCell(id: list?.results[indexPath.row].id ?? 500)
+    }
+}
+
+protocol CellActionDelegate: AnyObject {
+    func afterClickingOnCell(id: Int)
 }

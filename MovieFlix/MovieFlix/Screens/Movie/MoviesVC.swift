@@ -80,3 +80,10 @@ class MoviesVC: UIViewController, MovieViewInterface {
     }
 
 }
+
+extension MoviesVC: CellActionDelegate {
+    func afterClickingOnCell(id: Int) {
+//        presenter.navigateToDetails(id: id)
+    }
+    
+}
