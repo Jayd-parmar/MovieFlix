@@ -30,7 +30,8 @@ class TVPresenter: TVPresenterInterface {
     
     func getPopularTVShowSuccess(data: MovieModel) {
         self.tvShowList = data
-        view?.getPopularTVShowSuccess(list: data)
+        let result = data.results.compactMap({ CustomCVModel(imagePath: $0.posterPath , title: $0.originalName ?? "" ) })
+        view?.getPopularTVShowSuccess(list: result)
     }
     
     func getPopularTVShowFailure(error: Error) {

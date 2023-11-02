@@ -52,6 +52,6 @@ class GenreCVCell: UICollectionViewCell {
     }
 }
 
-protocol GenreCollectionDelegate {
+protocol GenreCollectionDelegate: AnyObject {
     func didTapButton(_ index: Int)
 }

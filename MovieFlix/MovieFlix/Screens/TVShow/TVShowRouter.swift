@@ -8,16 +8,14 @@
 import Foundation
 import UIKit
 
-typealias EntryPointTV = TVViewInterface & UIViewController
-
 protocol TVRouterInterface {
-    var entry: EntryPointTV? {get set}
+    var view: UINavigationController? {get set}
     var presenter: TVPresenterInterface? {get set}
     static func createModule() -> UIViewController
 }
 
 class TVRouter: TVRouterInterface {
-    var entry: EntryPointTV?
+    var view: UINavigationController?
     var presenter: TVPresenterInterface?
     
     static func createModule() -> UIViewController {
@@ -32,7 +30,9 @@ class TVRouter: TVRouterInterface {
         presenter.view = view
         interactor.presenter = presenter
         router.presenter = presenter
-        router.entry = view
-        return view
+        
+        let navController = UINavigationController(rootViewController: view)
+        router.view = navController
+        return navController
     }
 }

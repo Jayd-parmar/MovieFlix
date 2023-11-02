@@ -8,19 +8,17 @@
 import Foundation
 import UIKit
 
-typealias EntryPointMovie = MovieViewInterface & UIViewController
-
 protocol MovieRouterInterface {
-    var entry: EntryPointMovie? {get set}
+    var view: UINavigationController? {get set}
     var presenter: MoviePresenterInterface? {get set}
-    static func createModule() -> UIViewController
+    static func createModule() -> UINavigationController
+    func navigateToMovieDetails(movieId: Int?)
 }
 
 class MovieRouter: MovieRouterInterface {
-    var entry: EntryPointMovie?
+    var view: UINavigationController?
     var presenter: MoviePresenterInterface?
-    
-    static func createModule() -> UIViewController {
+    static func createModule() -> UINavigationController {
         let router = MovieRouter()
         let view = MoviesVC()
         var presenter: MoviePresenterInterface = MoviePresenter()
@@ -32,7 +30,24 @@ class MovieRouter: MovieRouterInterface {
         presenter.view = view
         interactor.presenter = presenter
         router.presenter = presenter
-        router.entry = view
-        return view
+        let navController = UINavigationController(rootViewController: view)
+        router.view = navController
+        return navController
+    }
+    
+    func navigateToMovieDetails(movieId: Int?) {
+        let movieDetailsInst = MovieDetailsRouter.createModule(movieId: movieId)
+        view?.pushViewController(movieDetailsInst, animated: true)
+        view?.navigationBar.prefersLargeTitles = false
+        movieDetailsInst.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .done, target: self, action: #selector(backButtontapped(_:)))
+        movieDetailsInst.title = "title"
+        movieDetailsInst.navigationController?.navigationBar.tintColor = .white
+    }
+    
+    @objc private func backButtontapped(_ sender: UIViewController) {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.navigationBar.prefersLargeTitles = true
+            self?.view?.popViewController(animated: true)
+        }
     }
 }

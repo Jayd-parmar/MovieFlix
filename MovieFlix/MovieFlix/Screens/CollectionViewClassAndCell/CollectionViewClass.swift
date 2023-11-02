@@ -8,7 +8,7 @@ import UIKit
 
 class CollectionViewContainer: UIView {
     var collectionView: UICollectionView!
-    var list: MovieModel?
+    var list: [CustomCVModel] = []
     weak var delegate: CellActionDelegate?
 
     init(scrollDirection: UICollectionView.ScrollDirection, itemSize: CGSize) {
@@ -45,7 +45,7 @@ class CollectionViewContainer: UIView {
         ])
     }
 
-    func configContent(list: MovieModel?) {
+    func configContent(list: [CustomCVModel]) {
         self.list = list
     }
 }
@@ -53,24 +53,22 @@ class CollectionViewContainer: UIView {
 extension CollectionViewContainer: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list?.results.count ?? 0
+        return list.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.collectionViewIdentifier, for: indexPath) as? CollectionViewCell else {
             return UICollectionViewCell()
         }
-        let listDetails = list?.results[indexPath.row]
-        cell.configureCellDetails(title: (listDetails?.originalName ?? listDetails?.originalTitle) ?? "",
-                                    imagePath: listDetails?.posterPath ?? "")
+        cell.configureCellDetails(list[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.afterClickingOnCell(id: list?.results[indexPath.row].id ?? 500)
+        delegate?.afterClickingOnCell(indexPath: indexPath)
     }
 }
 
 protocol CellActionDelegate: AnyObject {
-    func afterClickingOnCell(id: Int)
+    func afterClickingOnCell(indexPath: IndexPath)
 }

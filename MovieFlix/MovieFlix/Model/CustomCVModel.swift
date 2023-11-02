@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CustomModel: Codable {
-    let path: String
+struct CustomCVModel: Codable {
+    let imagePath: String
     let title: String
 }

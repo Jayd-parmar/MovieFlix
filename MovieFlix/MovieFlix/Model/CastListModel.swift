@@ -14,13 +14,11 @@ struct CastListModel: Codable {
 }
 
 struct Cast: Codable {
-    let adult: Bool
-    let gender: Int
     let id: Int
-    let known_for_department: String
     let name: String
-    let profile_path: String?
-    let credit_id: String
-    let department: String?
-    let job: String?
+    let profilePath: String?
+    enum CodingKeys: String, CodingKey {
+        case id, name
+        case profilePath = "profile_path"
+    }
 }

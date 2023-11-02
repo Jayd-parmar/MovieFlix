@@ -9,7 +9,7 @@ import UIKit
 
 protocol TVViewInterface {
     var presenter: TVPresenterInterface? {get set}
-    func getPopularTVShowSuccess(list: MovieModel?)
+    func getPopularTVShowSuccess(list: [CustomCVModel])
     func getPopularTVShowFailure(error: Error)
 }
 
@@ -68,7 +68,7 @@ class TVShowsVC: UIViewController, TVViewInterface {
         ])
     }
     
-    func getPopularTVShowSuccess(list: MovieModel?) {
+    func getPopularTVShowSuccess(list: [CustomCVModel]) {
         DispatchQueue.main.async {
             self.collectionViewContainer.configContent(list: list)
             self.collectionViewContainer.collectionView.reloadData()
