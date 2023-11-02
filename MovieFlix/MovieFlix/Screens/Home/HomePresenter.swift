@@ -78,7 +78,13 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
     func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.tableViewIdentifier, for: indexPath) as? MovieTableViewCell
         cell?.collectionViewContainer.collectionView.tag = indexPath.section
-        cell?.collectionViewContainer.configContent(list: filteredList[indexPath.section].data)
+        let data = filteredList[indexPath.section].data
+        var convertModel: [CustomCVModel] = []
+        data.results.forEach({ item in
+            let model = CustomCVModel(imagePath: item.posterPath, title: item.originalTitle ?? "")
+            convertModel.append(model)
+        })
+        cell?.collectionViewContainer.configContent(list: convertModel)
         cell?.collectionViewContainer.collectionView.reloadData()
         return cell ?? UITableViewCell()
     }
@@ -87,7 +93,7 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
         let randomNumber =  Int.random(in: 0...19)
         view?.setupHeaderConfiguration(
             lbl: responseList[0].data.results[randomNumber].originalTitle ?? "",
-            voteCount: "\(responseList[0].data.results[randomNumber].voteCount) Votes",
+            voteCount: "\(String(describing: responseList[0].data.results[randomNumber].voteCount)) Votes",
             img: Constant.URL.imgBaseUrl + (responseList[0].data.results[randomNumber].backdropPath ?? ""),
             voteAve: responseList[0].data.results[randomNumber].voteAverage)
     }

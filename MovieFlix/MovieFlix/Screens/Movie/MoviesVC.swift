@@ -9,7 +9,7 @@ import UIKit
 
 protocol MovieViewInterface {
     var presenter: MoviePresenterInterface? {get set}
-    func popularMovieSuccess(list: MovieModel?)
+    func popularMovieSuccess(list: [CustomCVModel])
     func popularMovieFailure(error: Error)
 }
 
@@ -33,6 +33,7 @@ class MoviesVC: UIViewController, MovieViewInterface {
         setupUI()
         setupUIConstraints()
         presenter?.viewDidLoad()
+        collectionViewContainer.delegate = self
     }
     
     private func setupTitle() {
@@ -68,7 +69,7 @@ class MoviesVC: UIViewController, MovieViewInterface {
         ])
     }
     
-    func popularMovieSuccess(list: MovieModel?) {
+    func popularMovieSuccess(list: [CustomCVModel]) {
         DispatchQueue.main.async {
             self.collectionViewContainer.configContent(list: list)
             self.collectionViewContainer.collectionView.reloadData()
@@ -82,8 +83,8 @@ class MoviesVC: UIViewController, MovieViewInterface {
 }
 
 extension MoviesVC: CellActionDelegate {
-    func afterClickingOnCell(id: Int) {
-//        presenter.navigateToDetails(id: id)
+    func afterClickingOnCell(indexPath: IndexPath) {
+        presenter?.navigateToDetails(indexPath: indexPath)
     }
     
 }

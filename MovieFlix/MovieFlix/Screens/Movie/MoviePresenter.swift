@@ -15,7 +15,7 @@ protocol MoviePresenterInterface {
     func getPopularMovieFailure(error: Error)
     var movieList: MovieModel? {get set}
     func viewDidLoad()
-    func navigateToDetails(id: Int)
+    func navigateToDetails(indexPath: IndexPath)
 }
 
 class MoviePresenter: MoviePresenterInterface {
@@ -30,15 +30,17 @@ class MoviePresenter: MoviePresenterInterface {
     
     func getPopularMovieSuccess(data: MovieModel) {
         self.movieList = data
-        view?.popularMovieSuccess(list: data)
+        let result = data.results.compactMap({ CustomCVModel(imagePath: $0.posterPath, title: $0.originalTitle ?? "" ) })
+        view?.popularMovieSuccess(list: result)
     }
     
     func getPopularMovieFailure(error: Error) {
         view?.popularMovieFailure(error: error)
     }
     
-    func navigateToDetails(id: Int) {
-//        router
+    func navigateToDetails(indexPath: IndexPath) {
+        let movieId = movieList?.results[indexPath.row].id
+        router?.navigateToMovieDetails(movieId: movieId)
     }
 
 }

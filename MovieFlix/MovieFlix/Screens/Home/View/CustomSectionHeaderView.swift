@@ -21,7 +21,6 @@ class CustomSectionHeaderView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle(BtnTitle.ShowAll, for: .normal)
         btn.titleLabel?.font = .robotoSlabLight(size: 15)
-        btn.addTarget(self, action: #selector(showAllBtnTapped), for: .touchUpInside)
         return btn
     }()
     
@@ -29,6 +28,7 @@ class CustomSectionHeaderView: UIView {
         super.init(frame: frame)
         setupUI()
         setupConstraints()
+        btnShowAll.addTarget(self, action: #selector(showAllBtnTapped), for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {
