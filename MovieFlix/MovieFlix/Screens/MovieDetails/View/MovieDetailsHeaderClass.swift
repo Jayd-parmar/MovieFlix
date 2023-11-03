@@ -59,6 +59,7 @@ class MovieDetailsHeaderClass: UIView {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.font = .robotoSlabLight(size: 15)
+        lbl.sizeToFit()
         return lbl
     }()
     private let lblRunTime: UILabel = {
@@ -122,7 +123,7 @@ class MovieDetailsHeaderClass: UIView {
             detailsContainerSV.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
             detailsContainerSV.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             imgMovie.heightAnchor.constraint(equalToConstant: 250),
-            movieDateTimeSV.widthAnchor.constraint(equalToConstant: 100),
+            movieDateTimeSV.widthAnchor.constraint(equalToConstant: 125),
             movieDetailSV.widthAnchor.constraint(equalTo: detailsContainerSV.widthAnchor),
             lblDescription.topAnchor.constraint(equalTo: movieTitleGenreSV.bottomAnchor, constant: 10)
         ])
@@ -136,9 +137,14 @@ extension MovieDetailsHeaderClass: MovieDetailsToViewInterface {
         movieTitle.text = data.title
         movieGenres.text = data.genre
         lblVote.text = data.voteCount
-        lblDate.text = data.date
-        lblRunTime.text = data.runtime
-        lblLanguage.text = data.language
+        lblDate.attachIconToLabel(image: UIImage(named: "calendar")!, text: data.date)
+        if data.imgTime != nil {
+            lblRunTime.attachIconToLabel(image: UIImage(named: "clock")!, text: data.runtime ?? "No time")
+            lblLanguage.attachIconToLabel(image: UIImage(named: "globe")!, text: data.language ?? "english")
+        } else {
+            lblRunTime.attachIconToLabel(image: UIImage(named: "tv")!, text: data.episodes ?? "1")
+            lblLanguage.attachIconToLabel(image: UIImage(named: "tv")!, text: data.seasons ?? "2")
+        }
         lblDescription.text = data.description
     }
     

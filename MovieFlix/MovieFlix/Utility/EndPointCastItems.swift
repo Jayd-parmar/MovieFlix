@@ -12,8 +12,7 @@ enum EndPointCastItems {
     case movieCastList(id: Int)
     case castDetails(id: Int)
     case castImages(id: Int)
-    case castMovie(id: Int)
-    case castTVShow(id: Int)
+    case castCombine(id: Int)
 }
 
 extension EndPointCastItems: EndPointAPIType {
@@ -28,10 +27,8 @@ extension EndPointCastItems: EndPointAPIType {
             return "person/\(id)"
         case .castImages(let id):
             return "person/\(id)/images"
-        case .castMovie(let id):
-            return "person/\(id)/movie_credits"
-        case .castTVShow(let id):
-            return "person/\(id)/tv_credits"
+        case .castCombine(let id):
+            return "person/\(id)/combined_credits"
         }
     }
     
@@ -51,7 +48,7 @@ extension EndPointCastItems: EndPointAPIType {
     
     var queryItems: [URLQueryItem]? {
         switch self {
-        case .movieCastList, .tvShowCastList, .castDetails, .castMovie, .castTVShow:
+        case .movieCastList, .tvShowCastList, .castDetails, .castCombine:
             return [
                 URLQueryItem(name: "api_key", value: Constant.apiKey),
                 URLQueryItem(name: "language", value: "en-US")

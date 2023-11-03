@@ -12,11 +12,13 @@ protocol MovieDetailsPresenterInterface {
     var view: MoviedetailsVCInterface? {get set}
     var interactor: MovieDetailsInteractorInterface? {get set}
     var router: MovieDetailsRouterInterface? {get set}
+    var castList: CastListModel? {get set}
     
     func getMovieDetailsSuccess(data: MovieDetailsModel)
     func getMovieDetailsFailure(error: Error)
     func getCastSuccess(data: CastListModel)
     func getCastFailure(error: Error)
+    func navigateToCastDetails(indexPath: IndexPath)
     
     func viewDidLoad()
 }
@@ -26,6 +28,7 @@ class MovieDetailsPresenter: MovieDetailsPresenterInterface {
     var interactor: MovieDetailsInteractorInterface?
     var router: MovieDetailsRouterInterface?
     var movieId: Int?
+    var castList: CastListModel?
 
     init(movieId: Int?) {
         self.movieId = movieId
@@ -54,7 +57,7 @@ class MovieDetailsPresenter: MovieDetailsPresenterInterface {
         let language = "\(data.spokenLanguages[0].englishName)"
         let description = data.overview
         
-        let model = CommonMovieTVDetailsModel(image: image, title: title, genre: genre, voteCount: voteCount, voteAve: voteAverage, date: date, runtime: runtime, language: language, episodes: nil, seasons: nil, description: description)
+        let model = CommonMovieTVDetailsModel(image: image, title: title, genre: genre, voteCount: voteCount, voteAve: voteAverage, date: date, runtime: runtime, language: language, episodes: nil, seasons: nil, description: description, imgTime: "clock", imgLanguage: "globe", imgTV: nil)
         view?.getMovieDetailsSuccess(data: model)
     }
     
@@ -63,11 +66,17 @@ class MovieDetailsPresenter: MovieDetailsPresenterInterface {
     }
     
     func getCastSuccess(data: CastListModel) {
-        let result = data.cast.compactMap({ CustomCVModel(imagePath: $0.profilePath ?? "", title: $0.name ) }) 
+        self.castList = data
+        let result = data.cast.compactMap({ CustomCVModel(imagePath: $0.profilePath ?? "", title: $0.name ) })
         view?.getCastSuccess(data: result)
     }
     
     func getCastFailure(error: Error) {
         view?.getCastFailure(error: error)
+    }
+    
+    func navigateToCastDetails(indexPath: IndexPath) {
+        let castId = castList?.cast[indexPath.row].id
+        router?.navigateToCastDetails(castId: castId)
     }
 }

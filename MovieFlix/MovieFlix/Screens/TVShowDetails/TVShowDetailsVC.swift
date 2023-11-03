@@ -1,5 +1,5 @@
 //
-//  MovieDetailsVC.swift
+//  TVShowDetailsVC.swift
 //  MovieFlix
 //
 //  Created by Jaydip Parmar on 19/10/23.
@@ -7,16 +7,16 @@
 
 import UIKit
 
-protocol MoviedetailsVCInterface {
-    var presenter: MovieDetailsPresenterInterface? {get set}
-    func getMovieDetailsSuccess(data: CommonMovieTVDetailsModel)
-    func getMovieDetailsFailure(error: Error)
+protocol TVShowDetailsViewInterface {
+    var presenter: TVShowDetailsPresenterInterface? {get set}
+    func getTVShowDetailsSuccess(data: CommonMovieTVDetailsModel)
+    func getTVShowDetailsFailure(error: Error)
     func getCastSuccess(data: [CustomCVModel])
     func getCastFailure(error: Error)
 }
 
-class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
-    var presenter: MovieDetailsPresenterInterface?
+class TVShowDetailsVC: UIViewController, TVShowDetailsViewInterface {
+    var presenter: TVShowDetailsPresenterInterface?
     weak var delegate: MovieDetailsToViewInterface?
     private let scrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -68,8 +68,8 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
         presenter?.viewDidLoad()
         castCollectionView.delegate = self
     }
-        
-    private func setupUI() {
+    
+    func setupUI() {
         delegate = movieDetailsHeader as? MovieDetailsToViewInterface
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -141,14 +141,14 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
         ])
     }
     
-    func getMovieDetailsSuccess(data: CommonMovieTVDetailsModel) {
+    func getTVShowDetailsSuccess(data: CommonMovieTVDetailsModel) {
         DispatchQueue.main.async {
             self.title = data.title
             self.delegate?.configureMovieDetails(data: data)
         }
     }
     
-    func getMovieDetailsFailure(error: Error) {
+    func getTVShowDetailsFailure(error: Error) {
         print(error)
     }
     
@@ -164,13 +164,9 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
     }
 }
 
-extension MovieDetailsVC: CellActionDelegate {
+extension TVShowDetailsVC: CellActionDelegate {
     func afterClickingOnCell(indexPath: IndexPath) {
         presenter?.navigateToCastDetails(indexPath: indexPath)
     }
     
-}
-
-protocol MovieDetailsToViewInterface: AnyObject {
-    func configureMovieDetails(data: CommonMovieTVDetailsModel)
 }

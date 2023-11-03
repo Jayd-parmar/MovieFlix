@@ -1,29 +1,29 @@
 //
-//  MovieDetailsRouter.swift
+//  TVShowDetailsRouter.swift
 //  MovieFlix
 //
-//  Created by Jaydip Parmar on 01/11/23.
+//  Created by Jaydip Parmar on 02/11/23.
 //
 
 import Foundation
 import UIKit
 
-protocol MovieDetailsRouterInterface {
+protocol TVShowDetailsRouterInterface {
+    var presenter: TVShowDetailsPresenterInterface? {get set}
     var view: UIViewController? {get set}
-    var presenter: MovieDetailsPresenterInterface? {get set}
-    static func createModule(movieId: Int?) -> UIViewController
+    static func createModule(tvShowId: Int?) -> UIViewController
     func navigateToCastDetails(castId: Int?)
 }
 
-class MovieDetailsRouter: MovieDetailsRouterInterface {
+class TVShowDetailsRouter: TVShowDetailsRouterInterface {
     var view: UIViewController?
-    var presenter: MovieDetailsPresenterInterface?
-
-    static func createModule(movieId: Int? = nil) -> UIViewController {
-        let router = MovieDetailsRouter()
-        let view = MovieDetailsVC()
-        var presenter: MovieDetailsPresenterInterface = MovieDetailsPresenter(movieId: movieId)
-        var interactor: MovieDetailsInteractorInterface = MovieDetailsInteractor()
+    var presenter: TVShowDetailsPresenterInterface?
+    
+    static func createModule(tvShowId: Int? = nil) -> UIViewController {
+        let router = TVShowDetailsRouter()
+        let view = TVShowDetailsVC()
+        var presenter: TVShowDetailsPresenterInterface = TVShowDetailsPresenter(tvShowId: tvShowId)
+        var interactor: TVShowDetailsInteractorInterface = TVShowDetailsInteractor()
         
         view.presenter = presenter
         presenter.interactor = interactor

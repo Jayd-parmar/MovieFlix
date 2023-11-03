@@ -33,6 +33,7 @@ class TVShowsVC: UIViewController, TVViewInterface {
         setupUI()
         setupUIConstraints()
         presenter?.viewDidLoad()
+        collectionViewContainer.delegate = self
     }
     
     private func setupTitle() {
@@ -77,5 +78,11 @@ class TVShowsVC: UIViewController, TVViewInterface {
     
     func getPopularTVShowFailure(error: Error) {
         print(error)
+    }
+}
+
+extension TVShowsVC: CellActionDelegate {
+    func afterClickingOnCell(indexPath: IndexPath) {
+        presenter?.navigateToTvShowDetails(indexPath: indexPath)
     }
 }

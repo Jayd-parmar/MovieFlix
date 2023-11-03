@@ -25,11 +25,13 @@ extension UIView {
             imageView.height(15)
             view.addArrangedSubview(imageView)
         }
-        for _ in (index+1)...5 {
-            let imageView = UIImageView()
-            imageView.image = UIImage(named: IconName.emptyStar)!
-            imageView.width(15)
-            view.addArrangedSubview(imageView)
+        if index != 5 {
+            for _ in index+1...5 {
+                let imageView = UIImageView()
+                imageView.image = UIImage(named: IconName.emptyStar)!
+                imageView.width(15)
+                view.addArrangedSubview(imageView)
+            }
         }
         return view
     }
