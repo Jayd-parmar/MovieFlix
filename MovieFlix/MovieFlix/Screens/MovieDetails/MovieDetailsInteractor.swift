@@ -36,8 +36,7 @@ class MovieDetailsInteractor: MovieDetailsInteractorInterface {
     }
     
     func getMovieCastDetails(id: Int) {
-        castRepo.getCastData(modelType: CastListModel.self, type: EndPointCastItems.movieCastList(id: id)) {
-            [self] response in
+        castRepo.getCastData(modelType: CastListModel.self, type: EndPointCastItems.movieCastList(id: id)) { [self] response in
             switch response {
             case .success(let cast):
                 presenter?.getCastSuccess(data: cast)

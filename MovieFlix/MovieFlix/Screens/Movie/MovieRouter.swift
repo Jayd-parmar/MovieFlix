@@ -40,7 +40,6 @@ class MovieRouter: MovieRouterInterface {
         view?.pushViewController(movieDetailsInst, animated: true)
         view?.navigationBar.prefersLargeTitles = false
         movieDetailsInst.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .done, target: self, action: #selector(backButtontapped(_:)))
-        movieDetailsInst.title = "title"
         movieDetailsInst.navigationController?.navigationBar.tintColor = .white
     }
     

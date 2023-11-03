@@ -15,6 +15,7 @@ protocol TVPresenterInterface {
     func getPopularTVShowSuccess(data: MovieModel)
     func getPopularTVShowFailure(error: Error)
     var tvShowList: MovieModel? {get set}
+    func navigateToTvShowDetails(indexPath: IndexPath)
 }
 
 class TVPresenter: TVPresenterInterface {
@@ -30,11 +31,17 @@ class TVPresenter: TVPresenterInterface {
     
     func getPopularTVShowSuccess(data: MovieModel) {
         self.tvShowList = data
-        let result = data.results.compactMap({ CustomCVModel(imagePath: $0.posterPath , title: $0.originalName ?? "" ) })
+        let result = data.results.compactMap({ CustomCVModel(imagePath: $0.posterPath, title: $0.originalName ?? "" ) })
         view?.getPopularTVShowSuccess(list: result)
     }
     
     func getPopularTVShowFailure(error: Error) {
         view?.getPopularTVShowFailure(error: error)
+    }
+    
+    func navigateToTvShowDetails(indexPath: IndexPath) {
+        let tvShowId = tvShowList?.results[indexPath.row].id
+        print(tvShowId)
+        router?.navigateToTvShowDetails(tvShowId: tvShowId)
     }
 }

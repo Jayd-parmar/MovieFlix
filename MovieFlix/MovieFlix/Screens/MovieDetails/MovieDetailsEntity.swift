@@ -80,4 +80,7 @@ struct CommonMovieTVDetailsModel {
     let episodes: String?
     let seasons: String?
     let description: String
+    let imgTime: String?
+    let imgLanguage: String?
+    let imgTV: String?
 }

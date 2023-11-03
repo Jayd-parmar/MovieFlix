@@ -7,18 +7,158 @@
 
 import UIKit
 
-class TVShowDetailsVC: UIViewController {
+protocol TVShowDetailsViewInterface {
+    var presenter: TVShowDetailsPresenterInterface? {get set}
+    func getTVShowDetailsSuccess(data: CommonMovieTVDetailsModel)
+    func getTVShowDetailsFailure(error: Error)
+    func getCastSuccess(data: [CustomCVModel])
+    func getCastFailure(error: Error)
+}
 
-    private let castRepository = CastRepository()
+class TVShowDetailsVC: UIViewController, TVShowDetailsViewInterface {
+    var presenter: TVShowDetailsPresenterInterface?
+    weak var delegate: MovieDetailsToViewInterface?
+    private let scrollView: UIScrollView = {
+        let sv = UIScrollView()
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.showsVerticalScrollIndicator = false
+        return sv
+    }()
+    private let contentView: UIView = {
+        let cv = UIView()
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        return cv
+    }()
+    private let movieDetailsHeader: UIView = {
+        let movieDetailsHeader = MovieDetailsHeaderClass()
+        movieDetailsHeader.translatesAutoresizingMaskIntoConstraints = false
+        return movieDetailsHeader
+    }()
+    private let lblVideo: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = .robotoSlabMedium(size: 20)
+        lbl.text = "VIDEOS"
+        return lbl
+    }()
+    private let lblCast: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = .robotoSlabMedium(size: 20)
+        lbl.text = "CAST"
+        return lbl
+    }()
+    private var videoCollectionView: CollectionViewContainer = {
+        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 100, height: 60))
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.collectionView.showsHorizontalScrollIndicator = false
+        return cv
+    }()
+    private var castCollectionView: CollectionViewContainer = {
+        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 120, height: 200))
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.collectionView.showsHorizontalScrollIndicator = false
+        return cv
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-//        castRepository.getCastOfTVShow()
-        // Do any additional setup after loading the view.
+        setupUIConstraints()
+        presenter?.viewDidLoad()
     }
     
     func setupUI() {
-        
+        delegate = movieDetailsHeader as? MovieDetailsToViewInterface
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(movieDetailsHeader)
+        contentView.addSubview(lblVideo)
+        contentView.addSubview(videoCollectionView)
+        contentView.addSubview(lblCast)
+        contentView.addSubview(castCollectionView)
     }
-
+    
+    private func setupUIConstraints() {
+        setupConstraintsForScrollView()
+        setupConstraintsForContentView()
+        setupConstraintsForMovieDetailsHeader()
+        setupConstraintsForVideos()
+        setupCosntraintsForCast()
+    }
+    
+    private func setupConstraintsForScrollView() {
+        NSLayoutConstraint.activate([
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor)
+        ])
+    }
+    
+    private func setupConstraintsForContentView() {
+        NSLayoutConstraint.activate([
+            contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.25),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        ])
+    }
+    
+    private func setupConstraintsForMovieDetailsHeader() {
+        NSLayoutConstraint.activate([
+            movieDetailsHeader.topAnchor.constraint(equalTo: contentView.topAnchor),
+            movieDetailsHeader.widthAnchor.constraint(equalTo: contentView.widthAnchor)
+        ])
+    }
+    
+    private func setupConstraintsForVideos() {
+        NSLayoutConstraint.activate([
+            lblVideo.topAnchor.constraint(equalTo: movieDetailsHeader.bottomAnchor, constant: 15),
+            lblVideo.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            lblVideo.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            
+            videoCollectionView.topAnchor.constraint(equalTo: lblVideo.bottomAnchor, constant: 15),
+            videoCollectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            videoCollectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            videoCollectionView.heightAnchor.constraint(equalToConstant: 100)
+        ])
+    }
+    
+    private func setupCosntraintsForCast() {
+        NSLayoutConstraint.activate([
+            lblCast.topAnchor.constraint(equalTo: videoCollectionView.bottomAnchor, constant: 15),
+            lblCast.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            lblCast.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            
+            castCollectionView.topAnchor.constraint(equalTo: lblCast.bottomAnchor, constant: 15),
+            castCollectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            castCollectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            castCollectionView.heightAnchor.constraint(equalToConstant: 200)
+        ])
+    }
+    
+    func getTVShowDetailsSuccess(data: CommonMovieTVDetailsModel) {
+        DispatchQueue.main.async {
+            self.title = data.title
+            self.delegate?.configureMovieDetails(data: data)
+        }
+    }
+    
+    func getTVShowDetailsFailure(error: Error) {
+        print(error)
+    }
+    
+    func getCastSuccess(data: [CustomCVModel]) {
+        DispatchQueue.main.async {
+            self.castCollectionView.configContent(list: data)
+            self.castCollectionView.collectionView.reloadData()
+        }
+    }
+    
+    func getCastFailure(error: Error) {
+        print(error)
+    }
 }

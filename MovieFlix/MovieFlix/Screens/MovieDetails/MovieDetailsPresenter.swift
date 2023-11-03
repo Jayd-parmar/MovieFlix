@@ -54,7 +54,7 @@ class MovieDetailsPresenter: MovieDetailsPresenterInterface {
         let language = "\(data.spokenLanguages[0].englishName)"
         let description = data.overview
         
-        let model = CommonMovieTVDetailsModel(image: image, title: title, genre: genre, voteCount: voteCount, voteAve: voteAverage, date: date, runtime: runtime, language: language, episodes: nil, seasons: nil, description: description)
+        let model = CommonMovieTVDetailsModel(image: image, title: title, genre: genre, voteCount: voteCount, voteAve: voteAverage, date: date, runtime: runtime, language: language, episodes: nil, seasons: nil, description: description, imgTime: "clock", imgLanguage: "globe", imgTV: nil)
         view?.getMovieDetailsSuccess(data: model)
     }
     
