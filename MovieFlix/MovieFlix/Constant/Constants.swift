@@ -43,11 +43,6 @@ enum Movie {
     static let defaultMovieName = "Expandebles"
 }
 
-enum Identifier {
-    static let collectionViewIdentifier = "collectionViewCell"
-    static let tableViewIdentifier = "movieTableViewCell"
-}
-
 enum BtnTitle {
     static let ShowAll = "Show All"
 }

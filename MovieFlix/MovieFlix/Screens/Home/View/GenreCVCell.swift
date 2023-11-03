@@ -8,7 +8,7 @@
 import UIKit
 
 class GenreCVCell: UICollectionViewCell {
-    
+    static let identifier = "GenreCVCell"
     let btnGenre: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false

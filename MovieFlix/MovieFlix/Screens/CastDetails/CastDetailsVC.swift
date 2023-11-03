@@ -33,7 +33,11 @@ class CastDetailsVC: UIViewController, CastDetailsViewInterface {
     private let imgCast: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.layer.cornerRadius = 50
+        image.layer.borderWidth = 2
+        image.clipsToBounds = true
         image.contentMode = .scaleToFill
+        image.layer.borderColor = UIColor.white.cgColor
         image.setImage(with: Constant.URL.defaultImgUrl)
         return image
     }()
@@ -73,14 +77,14 @@ class CastDetailsVC: UIViewController, CastDetailsViewInterface {
         lbl.text = "KNOWN FOR"
         return lbl
     }()
-    private var photosCollectionView: CollectionViewContainer = {
-        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 100, height: 150))
+    private lazy var photosCollectionView: CollectionViewContainer = {
+        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 100, height: 150), cell: CollectionViewCell.self, identifier: CollectionViewCell.identifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.collectionView.showsHorizontalScrollIndicator = false
         return cv
     }()
-    private var knowForCollectionView: CollectionViewContainer = {
-        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 120, height: 200))
+    private lazy var knowForCollectionView: CollectionViewContainer = {
+        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 120, height: 200), cell: CollectionViewCell.self, identifier: CollectionViewCell.identifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.collectionView.showsHorizontalScrollIndicator = false
         return cv
@@ -126,7 +130,6 @@ class CastDetailsVC: UIViewController, CastDetailsViewInterface {
     private func setupConstraintsForContentView() {
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 2),
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
@@ -137,9 +140,9 @@ class CastDetailsVC: UIViewController, CastDetailsViewInterface {
     private func setupConstraintsForCastDetails() {
         NSLayoutConstraint.activate([
             imgCast.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imgCast.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            imgCast.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            imgCast.heightAnchor.constraint(equalToConstant: 250),
+            imgCast.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imgCast.widthAnchor.constraint(equalToConstant: 120),
+            imgCast.heightAnchor.constraint(equalToConstant: 120),
             
             lblCastName.topAnchor.constraint(equalTo: imgCast.bottomAnchor),
             lblCastName.leftAnchor.constraint(equalTo: contentView.leftAnchor),
@@ -176,12 +179,14 @@ class CastDetailsVC: UIViewController, CastDetailsViewInterface {
             knowForCollectionView.topAnchor.constraint(equalTo: titleKnownFor.bottomAnchor, constant: 10),
             knowForCollectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             knowForCollectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            knowForCollectionView.heightAnchor.constraint(equalToConstant: 200)
+            knowForCollectionView.heightAnchor.constraint(equalToConstant: 200),
+            contentView.bottomAnchor.constraint(greaterThanOrEqualTo: knowForCollectionView.bottomAnchor, constant: 110)
         ])
     }
     
     func getCastDetailsSuccess(data: CastDetailsModel) {
         DispatchQueue.main.async {
+            self.title = data.name
             self.imgCast.setImage(with: Constant.URL.imgBaseUrl + data.profilePath)
             self.lblCastName.text = data.name
             self.lblKnowFor.text = data.knownForDepartment

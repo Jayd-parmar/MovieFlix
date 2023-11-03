@@ -76,7 +76,7 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
     }
     
     func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.tableViewIdentifier, for: indexPath) as? MovieTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell
         cell?.collectionViewContainer.collectionView.tag = indexPath.section
         let data = filteredList[indexPath.section].data
         var convertModel: [CustomCVModel] = []
@@ -99,7 +99,7 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
     }
     
     func genreCollectionCellForItemAt(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.collectionViewIdentifier, for: indexPath) as? GenreCVCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCVCell.identifier, for: indexPath) as? GenreCVCell
         cell?.delegate = self
         cell?.btnGenre.tag = indexPath.row
         cell?.configContent(genreList[indexPath.row])

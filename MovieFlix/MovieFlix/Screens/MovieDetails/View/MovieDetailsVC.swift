@@ -49,13 +49,13 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
         return lbl
     }()
     private var videoCollectionView: CollectionViewContainer = {
-        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 100, height: 60))
+        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 100, height: 60), cell: CollectionViewCell.self, identifier: CollectionViewCell.identifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.collectionView.showsHorizontalScrollIndicator = false
         return cv
     }()
     private var castCollectionView: CollectionViewContainer = {
-        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 120, height: 200))
+        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 120, height: 200), cell: CollectionViewCell.self, identifier: CollectionViewCell.identifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.collectionView.showsHorizontalScrollIndicator = false
         return cv
@@ -100,7 +100,6 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
     private func setupConstraintsForContentView() {
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.25),
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
@@ -137,7 +136,8 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
             castCollectionView.topAnchor.constraint(equalTo: lblCast.bottomAnchor, constant: 15),
             castCollectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             castCollectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            castCollectionView.heightAnchor.constraint(equalToConstant: 200)
+            castCollectionView.heightAnchor.constraint(equalToConstant: 200),
+            contentView.bottomAnchor.constraint(greaterThanOrEqualTo: castCollectionView.bottomAnchor, constant: 110)
         ])
     }
     

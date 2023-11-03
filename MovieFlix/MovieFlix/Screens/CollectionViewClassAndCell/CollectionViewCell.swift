@@ -9,7 +9,7 @@ import UIKit
 import TinyConstraints
 
 class CollectionViewCell: UICollectionViewCell {
-    
+    static let identifier = "CustomCollectionViewCell"
     let imgMovie: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false

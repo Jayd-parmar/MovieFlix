@@ -27,7 +27,7 @@ class HomeVC: UIViewController, HomeViewInterface {
     private let movieTableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.register(MovieTableViewCell.self, forCellReuseIdentifier: Identifier.tableViewIdentifier)
+        tv.register(MovieTableViewCell.self, forCellReuseIdentifier: MovieTableViewCell.identifier)
         tv.showsVerticalScrollIndicator = false
         tv.isPrefetchingEnabled = false
         return tv
@@ -65,7 +65,7 @@ class HomeVC: UIViewController, HomeViewInterface {
         layout.minimumLineSpacing = 20
         let cv = UICollectionView( frame: .zero, collectionViewLayout: layout)
         cv.showsHorizontalScrollIndicator = false
-        cv.register(GenreCVCell.self, forCellWithReuseIdentifier: Identifier.collectionViewIdentifier)
+        cv.register(GenreCVCell.self, forCellWithReuseIdentifier: GenreCVCell.identifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
