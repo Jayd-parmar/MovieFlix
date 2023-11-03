@@ -17,6 +17,7 @@ enum EndPointMovieItems {
     case upcomingMovie(page: Int = 1)
     case nowPlayingMovie(page: Int = 1)
     case movieDetails(id: Int)
+    case movieVideoDetails(id: Int)
 }
 
 extension EndPointMovieItems: EndPointAPIType {
@@ -33,12 +34,14 @@ extension EndPointMovieItems: EndPointAPIType {
                 return "movie/now_playing"
             case .movieDetails(let id):
                 return "movie/\(id)"
+            case .movieVideoDetails(let id):
+                return "movie/\(id)/videos"
         }
     }
     
     var queryItems: [URLQueryItem]? {
         switch self {
-            case .movieDetails:
+        case .movieDetails, .movieVideoDetails:
                 return [
                     URLQueryItem(name: "api_key", value: Constant.apiKey),
                     URLQueryItem(name: "language", value: "en-US")

@@ -12,6 +12,7 @@ enum Constant {
         static let apiBaseUrl = "https://api.themoviedb.org/3/"
         static let imgBaseUrl = "https://image.tmdb.org/t/p/original/"
         static let defaultImgUrl = "https://image.tmdb.org/t/p/original/iwsMu0ehRPbtaSxqiaUDQB9qMWT.jpg"
+        static let youtubeBaseUrl = "https://www.youtube.com/embed/"
     }
     static let apiKey = "b344471bf864db8656c45f955ac375fe"
 }

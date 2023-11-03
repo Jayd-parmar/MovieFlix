@@ -8,7 +8,7 @@ import UIKit
 
 class CollectionViewContainer: UIView {
     var collectionView: UICollectionView!
-    var list: [CustomCVModel] = []
+    var list: [Codable] = []
     weak var delegate: CellActionDelegate?
     var identifier: String
 
@@ -47,7 +47,7 @@ class CollectionViewContainer: UIView {
         ])
     }
 
-    func configContent(list: [CustomCVModel]) {
+    func configContent(list: [Codable]) {
         self.list = list
     }
 }
@@ -63,6 +63,10 @@ extension CollectionViewContainer: UICollectionViewDelegate, UICollectionViewDat
         switch cell {
         case is CollectionViewCell:
             guard let cell = cell as? CollectionViewCell else { return UICollectionViewCell() }
+            cell.configureCellDetails(list[indexPath.row])
+            return cell
+        case is YoutubeCVCell:
+            guard let cell = cell as? YoutubeCVCell else { return UICollectionViewCell() }
             cell.configureCellDetails(list[indexPath.row])
             return cell
         default:

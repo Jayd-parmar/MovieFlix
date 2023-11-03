@@ -11,6 +11,7 @@ protocol MovieDetailsInteractorInterface {
     var presenter: MovieDetailsPresenterInterface? {get set}
     func getMovieDetails(id: Int)
     func getMovieCastDetails(id: Int)
+    func getMovieVideo(id: Int)
 }
 
 class MovieDetailsInteractor: MovieDetailsInteractorInterface {
@@ -42,6 +43,17 @@ class MovieDetailsInteractor: MovieDetailsInteractorInterface {
                 presenter?.getCastSuccess(data: cast)
             case .failure(let error):
                 presenter?.getCastFailure(error: error)
+            }
+        }
+    }
+    
+    func getMovieVideo(id: Int) {
+        movieRepo.getMovieData(modelType: VideoModel.self, type: EndPointMovieItems.movieVideoDetails(id: id)) { [self] response in
+            switch response {
+            case .success(let video):
+                presenter?.getVideoSuccess(data: video)
+            case .failure(let error):
+                presenter?.getVideoFailure(error: error)
             }
         }
     }

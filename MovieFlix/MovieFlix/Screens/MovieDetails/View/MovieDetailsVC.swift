@@ -13,6 +13,8 @@ protocol MoviedetailsVCInterface {
     func getMovieDetailsFailure(error: Error)
     func getCastSuccess(data: [CustomCVModel])
     func getCastFailure(error: Error)
+    func getVideoSuccess(data: [String])
+    func getVideoFailure(error: Error)
 }
 
 class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
@@ -49,7 +51,7 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
         return lbl
     }()
     private var videoCollectionView: CollectionViewContainer = {
-        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 100, height: 60), cell: CollectionViewCell.self, identifier: CollectionViewCell.identifier)
+        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 150, height: 100), cell: YoutubeCVCell.self, identifier: YoutubeCVCell.identifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.collectionView.showsHorizontalScrollIndicator = false
         return cv
@@ -160,6 +162,17 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
     }
     
     func getCastFailure(error: Error) {
+        print(error)
+    }
+    
+    func getVideoSuccess(data: [String]) {
+        DispatchQueue.main.async {
+            self.videoCollectionView.configContent(list: data)
+            self.videoCollectionView.collectionView.reloadData()
+        }
+    }
+    
+    func getVideoFailure(error: Error) {
         print(error)
     }
 }

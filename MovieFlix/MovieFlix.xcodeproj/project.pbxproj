@@ -11,6 +11,7 @@
 		291CFDBA2AF4BA2000A82028 /* CastDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291CFDB92AF4BA2000A82028 /* CastDetailsPresenter.swift */; };
 		291CFDBE2AF4BA2F00A82028 /* CastDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291CFDBD2AF4BA2F00A82028 /* CastDetailsRouter.swift */; };
 		291CFDC12AF4E47F00A82028 /* YoutubeCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291CFDC02AF4E47F00A82028 /* YoutubeCVCell.swift */; };
+		291CFDC32AF4F2CD00A82028 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291CFDC22AF4F2CD00A82028 /* VideoModel.swift */; };
 		2952E3CC2AF3905100EAE371 /* CustomCVModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952E3CB2AF3905100EAE371 /* CustomCVModel.swift */; };
 		2952E3CE2AF3B19B00EAE371 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952E3CD2AF3B19B00EAE371 /* StringExtension.swift */; };
 		2952E3D02AF3D93000EAE371 /* LabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952E3CF2AF3D93000EAE371 /* LabelExtension.swift */; };
@@ -106,6 +107,7 @@
 		291CFDB92AF4BA2000A82028 /* CastDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastDetailsPresenter.swift; sourceTree = "<group>"; };
 		291CFDBD2AF4BA2F00A82028 /* CastDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastDetailsRouter.swift; sourceTree = "<group>"; };
 		291CFDC02AF4E47F00A82028 /* YoutubeCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeCVCell.swift; sourceTree = "<group>"; };
+		291CFDC22AF4F2CD00A82028 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		2952E3CB2AF3905100EAE371 /* CustomCVModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCVModel.swift; sourceTree = "<group>"; };
 		2952E3CD2AF3B19B00EAE371 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		2952E3CF2AF3D93000EAE371 /* LabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExtension.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				29D78C642AE2B9F4001673F9 /* CastDetailsModel.swift */,
 				29D78C662AE2BBA2001673F9 /* CastImageModel.swift */,
 				29D78C682AE2C210001673F9 /* CastMovieTVModel.swift */,
+				291CFDC22AF4F2CD00A82028 /* VideoModel.swift */,
 			);
 			path = CastListEntity;
 			sourceTree = "<group>";
@@ -779,6 +782,7 @@
 				291CFDBA2AF4BA2000A82028 /* CastDetailsPresenter.swift in Sources */,
 				29D78C3E2AE12F64001673F9 /* APIManager.swift in Sources */,
 				29D78C592AE28E7D001673F9 /* EndPointTVShowItems.swift in Sources */,
+				291CFDC32AF4F2CD00A82028 /* VideoModel.swift in Sources */,
 				2952E3D62AF3E04C00EAE371 /* TVShowDetailsRouter.swift in Sources */,
 				29D78C482AE1321D001673F9 /* CastRepository.swift in Sources */,
 				29D78CCC2AEA7094001673F9 /* MovieInteractor.swift in Sources */,
