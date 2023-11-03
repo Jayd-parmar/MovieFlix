@@ -77,14 +77,14 @@ class CastDetailsVC: UIViewController, CastDetailsViewInterface {
         lbl.text = "KNOWN FOR"
         return lbl
     }()
-    private var photosCollectionView: CollectionViewContainer = {
-        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 100, height: 150))
+    private lazy var photosCollectionView: CollectionViewContainer = {
+        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 100, height: 150), cell: CollectionViewCell.self, identifier: CollectionViewCell.identifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.collectionView.showsHorizontalScrollIndicator = false
         return cv
     }()
-    private var knowForCollectionView: CollectionViewContainer = {
-        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 120, height: 200))
+    private lazy var knowForCollectionView: CollectionViewContainer = {
+        let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 120, height: 200), cell: CollectionViewCell.self, identifier: CollectionViewCell.identifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.collectionView.showsHorizontalScrollIndicator = false
         return cv

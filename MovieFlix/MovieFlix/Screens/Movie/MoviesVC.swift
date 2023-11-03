@@ -21,7 +21,7 @@ class MoviesVC: UIViewController, MovieViewInterface {
         return cv
     }()
     private var collectionViewContainer: CollectionViewContainer = {
-        let cv = CollectionViewContainer(scrollDirection: .vertical, itemSize: CGSize(width: UIScreen.main.bounds.width/3 - 20, height: 200))
+        let cv = CollectionViewContainer(scrollDirection: .vertical, itemSize: CGSize(width: UIScreen.main.bounds.width/3 - 20, height: 200), cell: CollectionViewCell.self, identifier: CollectionViewCell.identifier)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.collectionView.showsVerticalScrollIndicator = false
         return cv
