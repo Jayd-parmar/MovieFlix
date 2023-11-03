@@ -8,25 +8,6 @@
 import UIKit
 import Foundation
 
-protocol HomePresenterInterface {
-    var router: HomeRouterInterface? {get set}
-    var interactor: HomeInteractorInterface? {get set}
-    var view: HomeViewInterface? {get set}
-    var responseList: [ResponseModel] {get set}
-    var filteredList: [ResponseModel] {get set}
-    var headerTitle: [String] {get set}
-    var genreList: [Genre] {get}
-    func viewDidLoad()
-    func getMovieList(enumType: MovieEnum)
-    func getMovieSuccess(movie: MovieModel, enumType: MovieEnum)
-    func getMovieFailure(error: Error)
-    func numberOfSections() -> Int
-    func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
-    func setupHeaderConfig()
-//    func filterGenre(_ index: Int)
-    func genreCollectionCellForItemAt(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell
-}
-
 class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
     
     var responseList: [ResponseModel] = []

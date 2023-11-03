@@ -7,11 +7,6 @@
 
 import Foundation
 
-protocol MovieInteractorInterface {
-    var presenter: MoviePresenterInterface? {get set}
-    func getMovieData()
-}
-
 class MovieInteractor: MovieInteractorInterface {
     var presenter: MoviePresenterInterface?
     private let movieRepo: MovieRepositoryDelegate

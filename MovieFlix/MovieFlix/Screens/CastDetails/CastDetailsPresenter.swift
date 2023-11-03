@@ -7,19 +7,6 @@
 
 import Foundation
 
-protocol CastDetailsPresenterInterface {
-    var view: CastDetailsViewInterface? {get set}
-    var interactor: CastDetailsInteractorInterface? {get set}
-    var router: CastDetailsRouterInterface? {get set}
-    func getCastDetailsSuccess(data: CastDetailsModel)
-    func getCastDetailsFailure(error: Error)
-    func getCastImagesSuccess(data: CastImageModel)
-    func getCastImagesFailure(error: Error)
-    func getCastCombineSuccess(data: CastMovieTVModel)
-    func getCastCombineFailure(error: Error)
-    func viewDidLoad()
-}
-
 class CastDetailsPresenter: CastDetailsPresenterInterface {
     var view: CastDetailsViewInterface?
     var interactor: CastDetailsInteractorInterface?

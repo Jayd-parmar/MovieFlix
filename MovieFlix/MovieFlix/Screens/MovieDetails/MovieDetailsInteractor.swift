@@ -7,12 +7,7 @@
 
 import Foundation
 
-protocol MovieDetailsInteractorInterface {
-    var presenter: MovieDetailsPresenterInterface? {get set}
-    func getMovieDetails(id: Int)
-    func getMovieCastDetails(id: Int)
-    func getMovieVideo(id: Int)
-}
+
 
 class MovieDetailsInteractor: MovieDetailsInteractorInterface {
     var presenter: MovieDetailsPresenterInterface?

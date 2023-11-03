@@ -7,12 +7,6 @@
 
 import UIKit
 
-protocol MovieViewInterface {
-    var presenter: MoviePresenterInterface? {get set}
-    func popularMovieSuccess(list: [CustomCVModel])
-    func popularMovieFailure(error: Error)
-}
-
 class MoviesVC: UIViewController, MovieViewInterface {
     var presenter: MoviePresenterInterface?
     private let contentView: UIView = {
