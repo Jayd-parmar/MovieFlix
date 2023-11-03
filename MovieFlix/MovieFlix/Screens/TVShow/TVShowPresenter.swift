@@ -7,17 +7,6 @@
 
 import Foundation
 
-protocol TVPresenterInterface {
-    var view: TVViewInterface? {get set}
-    var interactor: TVInteractorInterface? {get set}
-    var router: TVRouterInterface? {get set}
-    func viewDidLoad()
-    func getPopularTVShowSuccess(data: MovieModel)
-    func getPopularTVShowFailure(error: Error)
-    var tvShowList: MovieModel? {get set}
-    func navigateToTvShowDetails(indexPath: IndexPath)
-}
-
 class TVPresenter: TVPresenterInterface {
     
     var view: TVViewInterface?

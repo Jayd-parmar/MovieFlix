@@ -7,24 +7,6 @@
 
 import Foundation
 
-protocol MovieDetailsPresenterInterface {
-    var movieId: Int? {get set}
-    var view: MoviedetailsVCInterface? {get set}
-    var interactor: MovieDetailsInteractorInterface? {get set}
-    var router: MovieDetailsRouterInterface? {get set}
-    var castList: CastListModel? {get set}
-    
-    func getMovieDetailsSuccess(data: MovieDetailsModel)
-    func getMovieDetailsFailure(error: Error)
-    func getCastSuccess(data: CastListModel)
-    func getCastFailure(error: Error)
-    func navigateToCastDetails(indexPath: IndexPath)
-    func getVideoSuccess(data: VideoModel)
-    func getVideoFailure(error: Error)
-    
-    func viewDidLoad()
-}
-
 class MovieDetailsPresenter: MovieDetailsPresenterInterface {
     var view: MoviedetailsVCInterface?
     var interactor: MovieDetailsInteractorInterface?

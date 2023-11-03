@@ -7,13 +7,6 @@
 
 import Foundation
 
-protocol CastDetailsInteractorInterface {
-    var presenter: CastDetailsPresenterInterface? {get set}
-    func getCastDetails(id: Int)
-    func getCastImages(id: Int)
-    func getCastCombine(id: Int)
-}
-
 class CastDetailsInteractor: CastDetailsInteractorInterface {
     var presenter: CastDetailsPresenterInterface?
     private let castRepo: CastRepositoryDelegate

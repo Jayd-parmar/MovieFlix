@@ -7,11 +7,6 @@
 
 import Foundation
 
-protocol HomeInteractorInterface {
-    var presenter: HomePresenterInterface? {get set}
-    func getMovieData(type: EndPointAPIType, enumType: MovieEnum)
-}
-
 class HomeInteractor: HomeInteractorInterface {
     var presenter: HomePresenterInterface?
     private let movieRepo: MovieRepositoryDelegate

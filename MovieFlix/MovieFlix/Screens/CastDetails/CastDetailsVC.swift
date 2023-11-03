@@ -7,16 +7,6 @@
 
 import UIKit
 
-protocol CastDetailsViewInterface {
-    var presenter: CastDetailsPresenterInterface? {get set}
-    func getCastDetailsSuccess(data: CastDetailsModel)
-    func getCastDetailsFailure(error: Error)
-    func getCastImagesSuccess(data: [CustomCVModel])
-    func getCastImagesFailure(error: Error)
-    func getCastCombineSuccess(data: [CustomCVModel])
-    func getCastCombineFailure(error: Error)
-}
-
 class CastDetailsVC: UIViewController, CastDetailsViewInterface {
     var presenter: CastDetailsPresenterInterface?
     private let scrollView: UIScrollView = {

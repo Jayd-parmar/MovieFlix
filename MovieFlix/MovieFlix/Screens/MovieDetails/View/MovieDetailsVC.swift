@@ -7,16 +7,6 @@
 
 import UIKit
 
-protocol MoviedetailsVCInterface {
-    var presenter: MovieDetailsPresenterInterface? {get set}
-    func getMovieDetailsSuccess(data: CommonMovieTVDetailsModel)
-    func getMovieDetailsFailure(error: Error)
-    func getCastSuccess(data: [CustomCVModel])
-    func getCastFailure(error: Error)
-    func getVideoSuccess(data: [String])
-    func getVideoFailure(error: Error)
-}
-
 class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
     var presenter: MovieDetailsPresenterInterface?
     weak var delegate: MovieDetailsToViewInterface?

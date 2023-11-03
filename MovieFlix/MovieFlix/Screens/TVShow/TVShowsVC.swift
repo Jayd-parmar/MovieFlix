@@ -7,12 +7,6 @@
 
 import UIKit
 
-protocol TVViewInterface {
-    var presenter: TVPresenterInterface? {get set}
-    func getPopularTVShowSuccess(list: [CustomCVModel])
-    func getPopularTVShowFailure(error: Error)
-}
-
 class TVShowsVC: UIViewController, TVViewInterface {
     var presenter: TVPresenterInterface?
     private let contentView: UIView = {

@@ -7,22 +7,6 @@
 
 import Foundation
 
-protocol TVShowDetailsPresenterInterface {
-    var view: TVShowDetailsViewInterface? {get set}
-    var interactor: TVShowDetailsInteractorInterface? {get set}
-    var router: TVShowDetailsRouterInterface? {get set}
-    var castList: CastListModel? {get set}
-    func viewDidLoad()
-    func getTVShowDetailsSuccess(data: TVShowDetailsModel)
-    func getTVShowDetailsFailure(error: Error)
-    
-    func getCastSuccess(data: CastListModel)
-    func getCastFailure(error: Error)
-    func getVideoSuccess(data: VideoModel)
-    func getVideoFailure(error: Error)
-    func navigateToCastDetails(indexPath: IndexPath)
-}
-
 class TVShowDetailsPresenter: TVShowDetailsPresenterInterface {
     var view: TVShowDetailsViewInterface?
     var interactor: TVShowDetailsInteractorInterface?

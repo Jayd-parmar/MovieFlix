@@ -8,13 +8,6 @@
 import Foundation
 import UIKit
 
-protocol TVRouterInterface {
-    var view: UINavigationController? {get set}
-    var presenter: TVPresenterInterface? {get set}
-    static func createModule() -> UIViewController
-    func navigateToTvShowDetails(tvShowId: Int?)
-}
-
 class TVRouter: TVRouterInterface {
     var view: UINavigationController?
     var presenter: TVPresenterInterface?

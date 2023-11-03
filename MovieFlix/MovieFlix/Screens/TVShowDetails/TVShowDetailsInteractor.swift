@@ -7,13 +7,6 @@
 
 import Foundation
 
-protocol TVShowDetailsInteractorInterface {
-    var presenter: TVShowDetailsPresenterInterface? {get set}
-    func getTvShowDetails(id: Int)
-    func getTvShowCastDetails(id: Int)
-    func getTvShowVideo(id: Int)
-}
-
 class TVShowDetailsInteractor: TVShowDetailsInteractorInterface {
     var presenter: TVShowDetailsPresenterInterface?
     private let tvRepo: TVRepositoryDelegate

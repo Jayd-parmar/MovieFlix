@@ -8,13 +8,6 @@
 import Foundation
 import UIKit
 
-protocol MovieRouterInterface {
-    var view: UINavigationController? {get set}
-    var presenter: MoviePresenterInterface? {get set}
-    static func createModule() -> UINavigationController
-    func navigateToMovieDetails(movieId: Int?)
-}
-
 class MovieRouter: MovieRouterInterface {
     var view: UINavigationController?
     var presenter: MoviePresenterInterface?

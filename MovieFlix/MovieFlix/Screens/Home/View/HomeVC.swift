@@ -8,14 +8,6 @@
 import UIKit
 import TinyConstraints
 
-protocol HomeViewInterface {
-    var presenter: HomePresenterInterface? {get set}
-    func movieSuccess()
-    func movieFailure(error: Error)
-    func setupHeaderConfiguration(lbl: String, voteCount: String, img: String, voteAve: Double)
-    func refreshTableData()
-}
-
 class HomeVC: UIViewController, HomeViewInterface {
     
     var presenter: HomePresenterInterface?

@@ -10,12 +10,6 @@ import UIKit
 
 typealias EntryPointHome = HomeViewInterface & UIViewController
 
-protocol HomeRouterInterface {
-    var entry: EntryPointHome? {get set}
-    var presenter: HomePresenterInterface? {get set}
-    static func createModule() -> UIViewController
-}
-
 class HomeRouter: HomeRouterInterface {
     
     var entry: EntryPointHome?

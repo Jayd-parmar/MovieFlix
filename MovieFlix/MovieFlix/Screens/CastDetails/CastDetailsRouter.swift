@@ -8,12 +8,6 @@
 import Foundation
 import UIKit
 
-protocol CastDetailsRouterInterface {
-    var presenter: CastDetailsPresenterInterface? {get set}
-    var view: UIViewController? {get set}
-    static func createModule(castId: Int?) -> UIViewController
-}
-
 class CastDetailsRouter: CastDetailsRouterInterface {
     var presenter: CastDetailsPresenterInterface?
     var view: UIViewController?
