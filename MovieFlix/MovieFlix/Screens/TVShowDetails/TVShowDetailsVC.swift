@@ -66,6 +66,7 @@ class TVShowDetailsVC: UIViewController, TVShowDetailsViewInterface {
         setupUI()
         setupUIConstraints()
         presenter?.viewDidLoad()
+        castCollectionView.delegate = self
     }
     
     func setupUI() {
@@ -161,4 +162,11 @@ class TVShowDetailsVC: UIViewController, TVShowDetailsViewInterface {
     func getCastFailure(error: Error) {
         print(error)
     }
+}
+
+extension TVShowDetailsVC: CellActionDelegate {
+    func afterClickingOnCell(indexPath: IndexPath) {
+        presenter?.navigateToCastDetails(indexPath: indexPath)
+    }
+    
 }

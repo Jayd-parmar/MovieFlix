@@ -10,11 +10,17 @@ import Foundation
 struct CastDetailsModel: Codable {
     let adult: Bool
     let biography: String
-    let birthday: String
+    let birthday: String?
     let gender: Int
     let id: Int
-    let known_for_department: String
+    let knownForDepartment: String
     let name: String
-    let place_of_birth: String
-    let profile_path: String
+    let placeOfBirth: String
+    let profilePath: String
+    enum CodingKeys: String, CodingKey {
+        case adult, name, biography, birthday, gender, id
+        case knownForDepartment = "known_for_department"
+        case placeOfBirth = "place_of_birth"
+        case profilePath = "profile_path"
+    }
 }

@@ -66,6 +66,7 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
         setupUI()
         setupUIConstraints()
         presenter?.viewDidLoad()
+        castCollectionView.delegate = self
     }
         
     private func setupUI() {
@@ -161,6 +162,13 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
     func getCastFailure(error: Error) {
         print(error)
     }
+}
+
+extension MovieDetailsVC: CellActionDelegate {
+    func afterClickingOnCell(indexPath: IndexPath) {
+        presenter?.navigateToCastDetails(indexPath: indexPath)
+    }
+    
 }
 
 protocol MovieDetailsToViewInterface: AnyObject {

@@ -13,9 +13,16 @@ struct CastImageModel: Codable {
 }
 
 struct Profile: Codable {
-    let aspect_ratio: Double
-    let file_path: String
+    let aspectRatio: Double
+    let filePath: String
     let width: Int
-    let vote_average: Double
-    let vote_count: Int
+    let voteAverage: Double
+    let voteCount: Int
+    enum CodingKeys: String, CodingKey {
+        case aspectRatio = "aspect_ratio"
+        case filePath = "file_path"
+        case width
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+    }
 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		291CFDB82AF4BA1900A82028 /* CastDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291CFDB72AF4BA1900A82028 /* CastDetailsInteractor.swift */; };
+		291CFDBA2AF4BA2000A82028 /* CastDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291CFDB92AF4BA2000A82028 /* CastDetailsPresenter.swift */; };
+		291CFDBE2AF4BA2F00A82028 /* CastDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291CFDBD2AF4BA2F00A82028 /* CastDetailsRouter.swift */; };
 		2952E3CC2AF3905100EAE371 /* CustomCVModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952E3CB2AF3905100EAE371 /* CustomCVModel.swift */; };
 		2952E3CE2AF3B19B00EAE371 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952E3CD2AF3B19B00EAE371 /* StringExtension.swift */; };
 		2952E3D02AF3D93000EAE371 /* LabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952E3CF2AF3D93000EAE371 /* LabelExtension.swift */; };
@@ -98,6 +101,9 @@
 
 /* Begin PBXFileReference section */
 		234451CE93AABA5FDA67731E /* Pods-MovieFlix-MovieFlixUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieFlix-MovieFlixUITests.release.xcconfig"; path = "Target Support Files/Pods-MovieFlix-MovieFlixUITests/Pods-MovieFlix-MovieFlixUITests.release.xcconfig"; sourceTree = "<group>"; };
+		291CFDB72AF4BA1900A82028 /* CastDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastDetailsInteractor.swift; sourceTree = "<group>"; };
+		291CFDB92AF4BA2000A82028 /* CastDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastDetailsPresenter.swift; sourceTree = "<group>"; };
+		291CFDBD2AF4BA2F00A82028 /* CastDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastDetailsRouter.swift; sourceTree = "<group>"; };
 		2952E3CB2AF3905100EAE371 /* CustomCVModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCVModel.swift; sourceTree = "<group>"; };
 		2952E3CD2AF3B19B00EAE371 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		2952E3CF2AF3D93000EAE371 /* LabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExtension.swift; sourceTree = "<group>"; };
@@ -207,6 +213,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		291CFDBF2AF4BC5500A82028 /* CastListEntity */ = {
+			isa = PBXGroup;
+			children = (
+				29D78C622AE2B449001673F9 /* CastListModel.swift */,
+				29D78C642AE2B9F4001673F9 /* CastDetailsModel.swift */,
+				29D78C662AE2BBA2001673F9 /* CastImageModel.swift */,
+				29D78C682AE2C210001673F9 /* CastMovieTVModel.swift */,
+			);
+			path = CastListEntity;
+			sourceTree = "<group>";
+		};
 		29B037B42AF23BCB00354BED /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,10 +376,6 @@
 		29D78C532AE24FE1001673F9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				29D78C622AE2B449001673F9 /* CastListModel.swift */,
-				29D78C642AE2B9F4001673F9 /* CastDetailsModel.swift */,
-				29D78C662AE2BBA2001673F9 /* CastImageModel.swift */,
-				29D78C682AE2C210001673F9 /* CastMovieTVModel.swift */,
 				2952E3CB2AF3905100EAE371 /* CustomCVModel.swift */,
 			);
 			path = Model;
@@ -394,7 +407,11 @@
 		29D78CAA2AE8E277001673F9 /* CastDetails */ = {
 			isa = PBXGroup;
 			children = (
+				291CFDBF2AF4BC5500A82028 /* CastListEntity */,
 				29D78C192AE11603001673F9 /* CastDetailsVC.swift */,
+				291CFDB72AF4BA1900A82028 /* CastDetailsInteractor.swift */,
+				291CFDB92AF4BA2000A82028 /* CastDetailsPresenter.swift */,
+				291CFDBD2AF4BA2F00A82028 /* CastDetailsRouter.swift */,
 			);
 			path = CastDetails;
 			sourceTree = "<group>";
@@ -763,6 +780,8 @@
 				29D78CDE2AEBE448001673F9 /* TabBarControllerExtension.swift in Sources */,
 				2952E3CC2AF3905100EAE371 /* CustomCVModel.swift in Sources */,
 				29D78CBD2AEA269C001673F9 /* MovieTableViewCell.swift in Sources */,
+				291CFDBE2AF4BA2F00A82028 /* CastDetailsRouter.swift in Sources */,
+				291CFDBA2AF4BA2000A82028 /* CastDetailsPresenter.swift in Sources */,
 				29D78C3E2AE12F64001673F9 /* APIManager.swift in Sources */,
 				29D78C592AE28E7D001673F9 /* EndPointTVShowItems.swift in Sources */,
 				2952E3D62AF3E04C00EAE371 /* TVShowDetailsRouter.swift in Sources */,
@@ -770,6 +789,7 @@
 				29D78CCC2AEA7094001673F9 /* MovieInteractor.swift in Sources */,
 				29D78C142AE11581001673F9 /* TVShowsVC.swift in Sources */,
 				2952E3D42AF3E04200EAE371 /* TVShowDetailsPresenter.swift in Sources */,
+				291CFDB82AF4BA1900A82028 /* CastDetailsInteractor.swift in Sources */,
 				29D78CDA2AEB98FA001673F9 /* CollectionViewClass.swift in Sources */,
 				2952E3D22AF3E03500EAE371 /* TVShowDetailsInteractor.swift in Sources */,
 				29D78BE52AE003F0001673F9 /* MovieFlix.xcdatamodeld in Sources */,

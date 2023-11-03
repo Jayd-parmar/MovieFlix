@@ -11,12 +11,14 @@ protocol TVShowDetailsPresenterInterface {
     var view: TVShowDetailsViewInterface? {get set}
     var interactor: TVShowDetailsInteractorInterface? {get set}
     var router: TVShowDetailsRouterInterface? {get set}
+    var castList: CastListModel? {get set}
     func viewDidLoad()
     func getTVShowDetailsSuccess(data: TVShowDetailsModel)
     func getTVShowDetailsFailure(error: Error)
     
     func getCastSuccess(data: CastListModel)
     func getCastFailure(error: Error)
+    func navigateToCastDetails(indexPath: IndexPath)
 }
 
 class TVShowDetailsPresenter: TVShowDetailsPresenterInterface {
@@ -24,6 +26,7 @@ class TVShowDetailsPresenter: TVShowDetailsPresenterInterface {
     var interactor: TVShowDetailsInteractorInterface?
     var router: TVShowDetailsRouterInterface?
     var tvShowId: Int?
+    var castList: CastListModel?
     
     init(tvShowId: Int?) {
         self.tvShowId = tvShowId
@@ -61,11 +64,17 @@ class TVShowDetailsPresenter: TVShowDetailsPresenterInterface {
     }
     
     func getCastSuccess(data: CastListModel) {
+        self.castList = data
         let result = data.cast.compactMap({ CustomCVModel(imagePath: $0.profilePath ?? "", title: $0.name ) })
         view?.getCastSuccess(data: result)
     }
     
     func getCastFailure(error: Error) {
         view?.getCastFailure(error: error)
+    }
+    
+    func navigateToCastDetails(indexPath: IndexPath) {
+        let castId = castList?.cast[indexPath.row].id
+        router?.navigateToCastDetails(castId: castId)
     }
 }

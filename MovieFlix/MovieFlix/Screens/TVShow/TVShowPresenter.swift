@@ -41,7 +41,6 @@ class TVPresenter: TVPresenterInterface {
     
     func navigateToTvShowDetails(indexPath: IndexPath) {
         let tvShowId = tvShowList?.results[indexPath.row].id
-        print(tvShowId)
         router?.navigateToTvShowDetails(tvShowId: tvShowId)
     }
 }

@@ -12,11 +12,12 @@ protocol MovieDetailsRouterInterface {
     var view: UIViewController? {get set}
     var presenter: MovieDetailsPresenterInterface? {get set}
     static func createModule(movieId: Int?) -> UIViewController
+    func navigateToCastDetails(castId: Int?)
 }
 
 class MovieDetailsRouter: MovieDetailsRouterInterface {
-    var presenter: MovieDetailsPresenterInterface?
     var view: UIViewController?
+    var presenter: MovieDetailsPresenterInterface?
 
     static func createModule(movieId: Int? = nil) -> UIViewController {
         let router = MovieDetailsRouter()
@@ -33,4 +34,19 @@ class MovieDetailsRouter: MovieDetailsRouterInterface {
         router.view = view
         return view
     }
+    
+    func navigateToCastDetails(castId: Int?) {
+        let castDetailsInst = CastDetailsRouter.createModule(castId: castId)
+        view?.navigationController?.pushViewController(castDetailsInst, animated: true)
+        castDetailsInst.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .done, target: self, action: #selector(backButtontapped(_:)))
+        castDetailsInst.title = "title"
+        castDetailsInst.navigationController?.navigationBar.tintColor = .white
+    }
+    
+    @objc private func backButtontapped(_ sender: UIViewController) {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.navigationController?.popViewController(animated: true)
+        }
+    }
+    
 }

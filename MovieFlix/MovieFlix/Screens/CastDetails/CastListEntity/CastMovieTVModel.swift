@@ -14,9 +14,17 @@ struct CastMovieTVModel: Codable {
 
 struct CastMovie: Codable {
     let adult: Bool
-    let backdrop_path: String?
-    let original_title: String?
-    let original_name: String?
+    let backdropPath: String?
+    let originalTitle: String?
+    let originalName: String?
     let overview: String
-    let poster_path: String?
+    let posterPath: String?
+    enum CodingKeys: String, CodingKey {
+        case adult
+        case backdropPath = "backdrop_path"
+        case originalTitle = "original_title"
+        case originalName = "original_name"
+        case overview
+        case posterPath = "poster_path"
+    }
 }
