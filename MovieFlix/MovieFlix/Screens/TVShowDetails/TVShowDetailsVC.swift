@@ -100,7 +100,6 @@ class TVShowDetailsVC: UIViewController, TVShowDetailsViewInterface {
     private func setupConstraintsForContentView() {
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.25),
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
@@ -137,7 +136,8 @@ class TVShowDetailsVC: UIViewController, TVShowDetailsViewInterface {
             castCollectionView.topAnchor.constraint(equalTo: lblCast.bottomAnchor, constant: 15),
             castCollectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             castCollectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            castCollectionView.heightAnchor.constraint(equalToConstant: 200)
+            castCollectionView.heightAnchor.constraint(equalToConstant: 200),
+            contentView.bottomAnchor.constraint(greaterThanOrEqualTo: castCollectionView.bottomAnchor, constant: 110)
         ])
     }
     
