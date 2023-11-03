@@ -19,6 +19,8 @@ protocol MovieDetailsPresenterInterface {
     func getCastSuccess(data: CastListModel)
     func getCastFailure(error: Error)
     func navigateToCastDetails(indexPath: IndexPath)
+    func getVideoSuccess(data: VideoModel)
+    func getVideoFailure(error: Error)
     
     func viewDidLoad()
 }
@@ -37,6 +39,7 @@ class MovieDetailsPresenter: MovieDetailsPresenterInterface {
     func viewDidLoad() {
         interactor?.getMovieDetails(id: movieId ?? 500)
         interactor?.getMovieCastDetails(id: movieId ?? 500)
+        interactor?.getMovieVideo(id: movieId ?? 500)
     }
     
     func getMovieDetailsSuccess(data: MovieDetailsModel) {
@@ -75,8 +78,18 @@ class MovieDetailsPresenter: MovieDetailsPresenterInterface {
         view?.getCastFailure(error: error)
     }
     
+    func getVideoSuccess(data: VideoModel) {
+        let result = data.results.compactMap({ $0.key }) 
+        view?.getVideoSuccess(data: result)
+    }
+    
+    func getVideoFailure(error: Error) {
+        view?.getVideoFailure(error: error)
+    }
+    
     func navigateToCastDetails(indexPath: IndexPath) {
         let castId = castList?.cast[indexPath.row].id
         router?.navigateToCastDetails(castId: castId)
     }
+    
 }

@@ -45,7 +45,8 @@ class CollectionViewCell: UICollectionViewCell {
         lblMovie.edgesToSuperview(excluding: [.top, .bottom], insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
     }
     
-    func configureCellDetails(_ data: CustomCVModel) {
+    func configureCellDetails(_ data: Codable) {
+        guard let data = data as? CustomCVModel else { return }
         lblMovie.text = data.title
         imgMovie.setImage(with: Constant.URL.imgBaseUrl + data.imagePath)
     }

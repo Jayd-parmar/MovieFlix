@@ -15,7 +15,7 @@ struct CastDetailsModel: Codable {
     let id: Int
     let knownForDepartment: String
     let name: String
-    let placeOfBirth: String
+    let placeOfBirth: String?
     let profilePath: String
     enum CodingKeys: String, CodingKey {
         case adult, name, biography, birthday, gender, id

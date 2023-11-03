@@ -18,6 +18,8 @@ protocol TVShowDetailsPresenterInterface {
     
     func getCastSuccess(data: CastListModel)
     func getCastFailure(error: Error)
+    func getVideoSuccess(data: VideoModel)
+    func getVideoFailure(error: Error)
     func navigateToCastDetails(indexPath: IndexPath)
 }
 
@@ -35,6 +37,7 @@ class TVShowDetailsPresenter: TVShowDetailsPresenterInterface {
     func viewDidLoad() {
         interactor?.getTvShowDetails(id: tvShowId ?? 200)
         interactor?.getTvShowCastDetails(id: tvShowId ?? 200)
+        interactor?.getTvShowVideo(id: tvShowId ?? 500)
     }
     
     func getTVShowDetailsSuccess(data: TVShowDetailsModel) {
@@ -71,6 +74,15 @@ class TVShowDetailsPresenter: TVShowDetailsPresenterInterface {
     
     func getCastFailure(error: Error) {
         view?.getCastFailure(error: error)
+    }
+    
+    func getVideoSuccess(data: VideoModel) {
+        let result = data.results.compactMap({ $0.key })
+        view?.getVideoSuccess(data: result)
+    }
+    
+    func getVideoFailure(error: Error) {
+        view?.getVideoFailure(error: error)
     }
     
     func navigateToCastDetails(indexPath: IndexPath) {

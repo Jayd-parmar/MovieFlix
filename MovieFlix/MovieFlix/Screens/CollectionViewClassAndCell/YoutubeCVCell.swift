@@ -40,7 +40,9 @@ class YoutubeCVCell: UICollectionViewCell {
         ])
     }
     
-    func configureCellDetails() {
-        
+    func configureCellDetails(_ data: Codable) {
+        guard let data = data as? String else { return }
+        guard let url = URL(string: "\(Constant.URL.youtubeBaseUrl)\(data)") else { return }
+        webView.load(URLRequest(url: url))
     }
 }
