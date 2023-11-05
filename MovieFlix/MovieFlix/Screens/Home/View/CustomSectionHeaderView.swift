@@ -9,7 +9,7 @@ import UIKit
 import TinyConstraints
 
 class CustomSectionHeaderView: UIView {
-    var buttonAction: (() -> Void)?
+    weak var delegate: SectionHeaderBtnToView?
     let lblTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +46,10 @@ class CustomSectionHeaderView: UIView {
     }
     
     @objc func showAllBtnTapped() {
-        buttonAction?()
+        delegate?.showAllBtnTapped(index: btnShowAll.tag)
     }
+}
+
+protocol SectionHeaderBtnToView: AnyObject {
+    func showAllBtnTapped(index: Int)
 }

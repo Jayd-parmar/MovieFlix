@@ -31,5 +31,10 @@ class MoviePresenter: MoviePresenterInterface {
         let movieId = movieList?.results[indexPath.row].id
         router?.navigateToMovieDetails(movieId: movieId)
     }
-
+    
+    func configureMovies(data: MovieModel?, type: String) {
+        self.movieList = data
+        guard let result = data?.results.compactMap({ CustomCVModel(imagePath: $0.posterPath, title: $0.originalTitle ?? "" ) }) else { return }
+        view?.popularMovieSuccess(list: result)
+    }
 }

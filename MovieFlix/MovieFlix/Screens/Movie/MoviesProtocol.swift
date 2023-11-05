@@ -28,6 +28,7 @@ protocol MoviePresenterInterface {
     var movieList: MovieModel? {get set}
     func viewDidLoad()
     func navigateToDetails(indexPath: IndexPath)
+    func configureMovies(data: MovieModel?, type: String)
 }
 
 protocol MovieRouterInterface {

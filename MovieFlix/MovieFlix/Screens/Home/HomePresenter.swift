@@ -102,4 +102,26 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
         }
         view?.refreshTableData()
     }
+    
+    func showAllBtnTapped(index: Int) {
+        var data: MovieModel?
+        var type: String = "Movies"
+        switch index {
+        case 0:
+            data = responseList[index].data
+            type = "Popular"
+        case 1:
+            data = responseList[index].data
+            type = "In Theaters"
+        case 2:
+            data = responseList[index].data
+            type = "Upcoming"
+        case 3:
+            data = responseList[index].data
+            type = "Top Rated"
+        default:
+            break
+        }
+        router?.navigateToMovies(data: data, type: type)
+    }
 }

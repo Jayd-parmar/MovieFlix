@@ -210,11 +210,9 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = CustomSectionHeaderView()
+        headerView.delegate = self
         headerView.lblTitle.text = presenter?.headerTitle[section]
-//        headerView.buttonAction = {
-//            print("Button in section \(section) tapped")
-//            self.tabBarController?.selectedIndex = 1
-//        }
+        headerView.btnShowAll.tag = section
         return headerView
     }
     
@@ -231,4 +229,11 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         presenter?.genreCollectionCellForItemAt(collectionView: collectionView, indexPath: indexPath) ?? UICollectionViewCell()
     }
+}
+
+extension HomeVC: SectionHeaderBtnToView {
+    func showAllBtnTapped(index: Int) {
+        presenter?.showAllBtnTapped(index: index)
+    }
+    
 }

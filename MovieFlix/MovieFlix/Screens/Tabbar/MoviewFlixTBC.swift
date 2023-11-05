@@ -22,7 +22,7 @@ class MoviewFlixTBC: UITabBarController {
         setupMovie()
         setupTVShow()
         navBarAppearance()
-        self.viewControllers = [UINavigationController(rootViewController: homeVC), movieVC, tvShowVC]
+        self.viewControllers = [homeVC, movieVC, tvShowVC]
         self.tabBarAppearance()
         self.tabBar.tintColor = .red
         self.tabBar.unselectedItemTintColor = .white
