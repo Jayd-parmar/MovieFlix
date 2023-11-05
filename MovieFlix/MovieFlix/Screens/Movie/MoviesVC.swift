@@ -30,12 +30,12 @@ class MoviesVC: UIViewController, MovieViewInterface {
         collectionViewContainer.delegate = self
     }
     
-    private func setupTitle() {
+    func setupTitle() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        self.title = Title.movie
     }
     
     private func setupUI() {
+        self.title = Title.movie
         view.addSubview(contentView)
         contentView.addSubview(collectionViewContainer)
     }

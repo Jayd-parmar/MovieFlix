@@ -29,12 +29,7 @@ protocol HomePresenterInterface {
     func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
     func setupHeaderConfig()
     func genreCollectionCellForItemAt(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell
-}
-
-protocol HomeRouterInterface {
-    var entry: EntryPointHome? {get set}
-    var presenter: HomePresenterInterface? {get set}
-    static func createModule() -> UIViewController
+    func showAllBtnTapped(index: Int)
 }
 
 protocol HomeViewInterface {
@@ -44,4 +39,3 @@ protocol HomeViewInterface {
     func setupHeaderConfiguration(lbl: String, voteCount: String, img: String, voteAve: Double)
     func refreshTableData()
 }
-
