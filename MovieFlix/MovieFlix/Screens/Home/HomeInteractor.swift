@@ -9,9 +9,9 @@ import Foundation
 
 class HomeInteractor: HomeInteractorInterface {
     var presenter: HomePresenterInterface?
-    private let movieRepo: MovieRepositoryDelegate
+    private let movieRepo: CommonRepositoryDelegate
     
-    init(movieRepo: MovieRepositoryDelegate = MovieRepository()) {
+    init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
         self.movieRepo = movieRepo
     }
     

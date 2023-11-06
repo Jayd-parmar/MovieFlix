@@ -47,3 +47,11 @@ enum Movie {
 enum BtnTitle {
     static let ShowAll = "Show All"
 }
+
+enum HeaderTitle {
+    static let headerTitles = ["Popular", "In Theaters", "Upcoming", "Top Rated"]
+}
+
+enum GenreList {
+    static let genres = [Genre(id: 1, name: "All"), Genre(id: 28, name: "Action"), Genre(id: 35, name: "Comedy"), Genre(id: 80, name: "Crime"), Genre(id: 27, name: "Horror")]
+}

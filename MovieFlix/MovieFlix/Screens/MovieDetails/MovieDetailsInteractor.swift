@@ -7,17 +7,12 @@
 
 import Foundation
 
-
-
 class MovieDetailsInteractor: MovieDetailsInteractorInterface {
     var presenter: MovieDetailsPresenterInterface?
+    private let movieRepo: CommonRepositoryDelegate
     
-    private let movieRepo: MovieRepositoryDelegate
-    private let castRepo: CastRepositoryDelegate
-    
-    init(movieRepo: MovieRepositoryDelegate = MovieRepository(), castRepo: CastRepositoryDelegate = CastRepository()) {
+    init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
         self.movieRepo = movieRepo
-        self.castRepo = castRepo
     }
     
     func getMovieDetails(id: Int) {
@@ -32,7 +27,7 @@ class MovieDetailsInteractor: MovieDetailsInteractorInterface {
     }
     
     func getMovieCastDetails(id: Int) {
-        castRepo.getCastData(modelType: CastListModel.self, type: EndPointCastItems.movieCastList(id: id)) { [self] response in
+        movieRepo.getMovieData(modelType: CastListModel.self, type: EndPointCastItems.movieCastList(id: id)) { [self] response in
             switch response {
             case .success(let cast):
                 presenter?.getCastSuccess(data: cast)

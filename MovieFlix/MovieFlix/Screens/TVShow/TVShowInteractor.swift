@@ -9,14 +9,14 @@ import Foundation
 
 class TVInteractor: TVInteractorInterface {
     var presenter: TVPresenterInterface?
-    var tvRepo: TVRepositoryDelegate
+    var tvRepo: CommonRepositoryDelegate
     
-    init(tvRepo: TVRepositoryDelegate = TVRepository()) {
+    init(tvRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
         self.tvRepo = tvRepo
     }
     
     func getTvShowData() {
-        tvRepo.getTvShowData(modelType: MovieModel.self, type: EndPointTVShowItems.popularTVShow()) { [self] response in
+        tvRepo.getMovieData(modelType: MovieModel.self, type: EndPointTVShowItems.popularTVShow()) { [self] response in
             switch response {
             case .success(let tvShow):
                 presenter?.getPopularTVShowSuccess(data: tvShow)

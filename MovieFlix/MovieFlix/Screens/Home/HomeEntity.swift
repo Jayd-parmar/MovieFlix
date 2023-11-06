@@ -16,6 +16,7 @@ struct MovieModel: Codable {
 }
 
 struct ResultMovie: Codable {
+    let adult: Bool?
     let backdropPath: String?
     let genreIds: [Int]
     let id: Int
@@ -25,7 +26,7 @@ struct ResultMovie: Codable {
     let voteAverage: Double
     let voteCount: Int
     enum CodingKeys: String, CodingKey {
-        case id
+        case id, adult
         case backdropPath = "backdrop_path"
         case genreIds = "genre_ids"
         case originalTitle = "original_title"
