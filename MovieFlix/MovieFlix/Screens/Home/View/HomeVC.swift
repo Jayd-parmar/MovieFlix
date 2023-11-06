@@ -197,7 +197,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter?.numberOfSections() ?? 0
+        return presenter?.numberOfSections ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -217,7 +217,12 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        presenter?.cellForRowAt(tableView: tableView, indexPath: indexPath) ?? UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell
+        cell?.collectionViewContainer.collectionView.tag = indexPath.section
+        let convertModel: [CustomCVModel] = presenter?.configureMovieData(index: indexPath.section) ?? []
+        cell?.collectionViewContainer.configContent(list: convertModel)
+        cell?.collectionViewContainer.collectionView.reloadData()
+        return cell ?? UITableViewCell()
     }
 }
 
@@ -227,7 +232,17 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        presenter?.genreCollectionCellForItemAt(collectionView: collectionView, indexPath: indexPath) ?? UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCVCell.identifier, for: indexPath) as? GenreCVCell
+        cell?.delegate = self
+        cell?.btnGenre.tag = indexPath.row
+        cell?.configContent(presenter?.genreList[indexPath.row])
+        return cell ?? UICollectionViewCell()
+    }
+}
+
+extension HomeVC: GenreCollectionDelegate {
+    func didTapButton(_ index: Int) {
+        presenter?.didTapButton(index)
     }
 }
 

@@ -9,16 +9,14 @@ import Foundation
 
 class TVShowDetailsInteractor: TVShowDetailsInteractorInterface {
     var presenter: TVShowDetailsPresenterInterface?
-    private let tvRepo: TVRepositoryDelegate
-    private let castRepo: CastRepositoryDelegate
+    private let movieRepo: CommonRepositoryDelegate
     
-    init(tvRepo: TVRepositoryDelegate = TVRepository(), castRepo: CastRepositoryDelegate = CastRepository()) {
-        self.tvRepo = tvRepo
-        self.castRepo = castRepo
+    init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
+        self.movieRepo = movieRepo
     }
     
     func getTvShowDetails(id: Int) {
-        tvRepo.getTvShowData(modelType: TVShowDetailsModel.self, type: EndPointTVShowItems.tvShowDetails(id: id)) { [self] response in
+        movieRepo.getMovieData(modelType: TVShowDetailsModel.self, type: EndPointTVShowItems.tvShowDetails(id: id)) { [self] response in
             switch response {
             case .success(let tv):
                 presenter?.getTVShowDetailsSuccess(data: tv)
@@ -29,7 +27,7 @@ class TVShowDetailsInteractor: TVShowDetailsInteractorInterface {
     }
     
     func getTvShowCastDetails(id: Int) {
-        castRepo.getCastData(modelType: CastListModel.self, type: EndPointCastItems.tvShowCastList(id: id)) { [self] response in
+        movieRepo.getMovieData(modelType: CastListModel.self, type: EndPointCastItems.tvShowCastList(id: id)) { [self] response in
             switch response {
             case .success(let cast):
                 presenter?.getCastSuccess(data: cast)
@@ -40,7 +38,7 @@ class TVShowDetailsInteractor: TVShowDetailsInteractorInterface {
     }
     
     func getTvShowVideo(id: Int) {
-        tvRepo.getTvShowData(modelType: VideoModel.self, type: EndPointTVShowItems.tvShowVideDetails(id: id)) { [self] response in
+        movieRepo.getMovieData(modelType: VideoModel.self, type: EndPointTVShowItems.tvShowVideDetails(id: id)) { [self] response in
             switch response {
             case .success(let video):
                 presenter?.getVideoSuccess(data: video)

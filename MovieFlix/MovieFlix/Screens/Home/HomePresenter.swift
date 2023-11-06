@@ -5,20 +5,22 @@
 //  Created by Jaydip Parmar on 25/10/23.
 //
 
-import UIKit
 import Foundation
 
 class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
-    
-    var responseList: [ResponseModel] = []
-    var filteredList: [ResponseModel] = []
-    var movieList: [MovieModel]? = []
     var router: HomeRouterInterface?
     var interactor: HomeInteractorInterface?
     var view: HomeViewInterface?
+    var responseList: [ResponseModel] = []
+    var filteredList: [ResponseModel] = []
+    var movieList: [MovieModel]? = []
     var popularMovieList: MovieModel?
-    var headerTitle = ["Popular", "In Theaters", "Upcoming", "Top Rated"]
-    var genreList = [Genre(id: 1, name: "All"), Genre(id: 28, name: "Action"), Genre(id: 35, name: "Comedy"), Genre(id: 80, name: "Crime"), Genre(id: 27, name: "Horror")]
+    var headerTitle = HeaderTitle.headerTitles
+    var genreList = GenreList.genres
+    var numberOfSections: Int? {
+            return filteredList.count
+    }
+    
     func viewDidLoad() {
         getMovieList(enumType: .popular)
         getMovieList(enumType: .nowplaying)
@@ -52,22 +54,14 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
         view?.movieFailure(error: error)
     }
     
-    func numberOfSections() -> Int {
-        return filteredList.count
-    }
-    
-    func cellForRowAt(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell
-        cell?.collectionViewContainer.collectionView.tag = indexPath.section
-        let data = filteredList[indexPath.section].data
+    func configureMovieData(index: Int) -> [CustomCVModel]? {
         var convertModel: [CustomCVModel] = []
+        let data = filteredList[index].data
         data.results.forEach({ item in
             let model = CustomCVModel(imagePath: item.posterPath, title: item.originalTitle ?? "")
             convertModel.append(model)
         })
-        cell?.collectionViewContainer.configContent(list: convertModel)
-        cell?.collectionViewContainer.collectionView.reloadData()
-        return cell ?? UITableViewCell()
+        return convertModel
     }
     
     func setupHeaderConfig() {
@@ -77,14 +71,6 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
             voteCount: "\(String(describing: responseList[0].data.results[randomNumber].voteCount)) Votes",
             img: Constant.URL.imgBaseUrl + (responseList[0].data.results[randomNumber].backdropPath ?? ""),
             voteAve: responseList[0].data.results[randomNumber].voteAverage)
-    }
-    
-    func genreCollectionCellForItemAt(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCVCell.identifier, for: indexPath) as? GenreCVCell
-        cell?.delegate = self
-        cell?.btnGenre.tag = indexPath.row
-        cell?.configContent(genreList[indexPath.row])
-        return cell ?? UICollectionViewCell()
     }
 
     func didTapButton(_ index: Int) {

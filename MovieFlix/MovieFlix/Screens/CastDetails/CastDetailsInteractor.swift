@@ -9,14 +9,14 @@ import Foundation
 
 class CastDetailsInteractor: CastDetailsInteractorInterface {
     var presenter: CastDetailsPresenterInterface?
-    private let castRepo: CastRepositoryDelegate
+    private let castRepo: CommonRepositoryDelegate
     
-    init(castRepo: CastRepositoryDelegate = CastRepository()) {
+    init(castRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
         self.castRepo = castRepo
     }
     
     func getCastDetails(id: Int) {
-        castRepo.getCastData(modelType: CastDetailsModel.self, type: EndPointCastItems.castDetails(id: id)) { [self] response in
+        castRepo.getMovieData(modelType: CastDetailsModel.self, type: EndPointCastItems.castDetails(id: id)) { [self] response in
             switch response {
             case .success(let cast):
                 presenter?.getCastDetailsSuccess(data: cast)
@@ -27,7 +27,7 @@ class CastDetailsInteractor: CastDetailsInteractorInterface {
     }
     
     func getCastImages(id: Int) {
-        castRepo.getCastData(modelType: CastImageModel.self, type: EndPointCastItems.castImages(id: id)) { [self] response in
+        castRepo.getMovieData(modelType: CastImageModel.self, type: EndPointCastItems.castImages(id: id)) { [self] response in
             switch response {
             case .success(let cast):
                 presenter?.getCastImagesSuccess(data: cast)
@@ -38,7 +38,7 @@ class CastDetailsInteractor: CastDetailsInteractorInterface {
     }
     
     func getCastCombine(id: Int) {
-        castRepo.getCastData(modelType: CastMovieTVModel.self, type: EndPointCastItems.castCombine(id: id)) { [self] response in
+        castRepo.getMovieData(modelType: CastMovieTVModel.self, type: EndPointCastItems.castCombine(id: id)) { [self] response in
             switch response {
             case .success(let cast):
                 presenter?.getCastCombineSuccess(data: cast)
