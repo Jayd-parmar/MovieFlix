@@ -9,7 +9,7 @@ import Foundation
 @testable import MovieFlix
 
 class MockHomeInteractor: HomeInteractorInterface {
-    var presenter: MovieFlix.HomePresenterInterface?
+    var presenter: MovieFlix.HomeInteractorToPresenterInterface?
     private var movieRepo: CommonRepositoryDelegate
     var data: Codable?
     var error: DataError?

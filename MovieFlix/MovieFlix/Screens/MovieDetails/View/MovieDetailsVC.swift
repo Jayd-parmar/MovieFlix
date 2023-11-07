@@ -137,19 +137,11 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
         }
     }
     
-    func getMovieDetailsFailure(error: Error) {
-        print(error)
-    }
-    
     func getCastSuccess(data: [CustomCVModel]) {
         DispatchQueue.main.async {
             self.castCollectionView.configContent(list: data)
             self.castCollectionView.collectionView.reloadData()
         }
-    }
-    
-    func getCastFailure(error: Error) {
-        print(error)
     }
     
     func getVideoSuccess(data: [String]) {
@@ -159,7 +151,7 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
         }
     }
     
-    func getVideoFailure(error: Error) {
+    func getMovieDetailFailure(error: Error) {
         print(error)
     }
 }

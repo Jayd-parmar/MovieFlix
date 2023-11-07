@@ -15,35 +15,13 @@ class MovieDetailsInteractor: MovieDetailsInteractorInterface {
         self.movieRepo = movieRepo
     }
     
-    func getMovieDetails(id: Int) {
-        movieRepo.getMovieData(modelType: MovieDetailsModel.self, type: EndPointMovieItems.movieDetails(id: id)) { [self] response in
+    func getMovieDetails<T: Codable>(modelType: T.Type, type: EndPointAPIType) {
+        movieRepo.getMovieData(modelType: modelType, type: type) { [self] response in
             switch response {
             case .success(let movie):
-                presenter?.getMovieDetailsSuccess(data: movie)
+                presenter?.getMovieDetailSuccess(data: movie)
             case .failure(let error):
-                presenter?.getMovieDetailsFailure(error: error)
-            }
-        }
-    }
-    
-    func getMovieCastDetails(id: Int) {
-        movieRepo.getMovieData(modelType: CastListModel.self, type: EndPointCastItems.movieCastList(id: id)) { [self] response in
-            switch response {
-            case .success(let cast):
-                presenter?.getCastSuccess(data: cast)
-            case .failure(let error):
-                presenter?.getCastFailure(error: error)
-            }
-        }
-    }
-    
-    func getMovieVideo(id: Int) {
-        movieRepo.getMovieData(modelType: VideoModel.self, type: EndPointMovieItems.movieVideoDetails(id: id)) { [self] response in
-            switch response {
-            case .success(let video):
-                presenter?.getVideoSuccess(data: video)
-            case .failure(let error):
-                presenter?.getVideoFailure(error: error)
+                presenter?.getMovieDetailFailure(error: error)
             }
         }
     }

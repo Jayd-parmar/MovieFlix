@@ -19,9 +19,10 @@ class TVShowDetailsPresenter: TVShowDetailsViewtoPresenterInterface {
     }
     
     func viewDidLoad() {
-        interactor?.getTvShowDetails(id: tvShowId ?? 200)
-        interactor?.getTvShowCastDetails(id: tvShowId ?? 200)
-        interactor?.getTvShowVideo(id: tvShowId ?? 500)
+        guard let tvShowId = tvShowId else { return }
+        interactor?.getTVShowDetail(modelType: TVShowDetailsModel.self, type: EndPointTVShowItems.tvShowDetails(id: tvShowId))
+        interactor?.getTVShowDetail(modelType: CastListModel.self, type: EndPointCastItems.tvShowCastList(id: tvShowId))
+        interactor?.getTVShowDetail(modelType: VideoModel.self, type: EndPointTVShowItems.tvShowVideDetails(id: tvShowId))
     }
     
     func convertDatatoCommonModel(data: TVShowDetailsModel) {
@@ -50,30 +51,26 @@ class TVShowDetailsPresenter: TVShowDetailsViewtoPresenterInterface {
 
 extension TVShowDetailsPresenter: TVShowdetailsInteractorToPresenterInterface {
     
-    func getTVShowDetailsSuccess(data: TVShowDetailsModel) {
-        convertDatatoCommonModel(data: data)
+    func getTVShowDetailSuccess<T: Codable>(data: T) {
+        switch data {
+        case is TVShowDetailsModel:
+            guard let data = data as? TVShowDetailsModel else { return }
+            convertDatatoCommonModel(data: data)
+        case is CastListModel:
+            guard let data = data as? CastListModel else { return }
+            self.castList = data
+            let result = data.cast.compactMap({ CustomCVModel(imagePath: $0.profilePath ?? "", title: $0.name ) })
+            view?.getCastSuccess(data: result)
+        case is VideoModel:
+            guard let data = data as? VideoModel else { return }
+            let result = data.results.compactMap({ $0.key })
+            view?.getVideoSuccess(data: result)
+        default:
+            break
+        }
     }
     
     func getTVShowDetailsFailure(error: Error) {
-        view?.getTVShowDetailsFailure(error: error)
-    }
-    
-    func getCastSuccess(data: CastListModel) {
-        self.castList = data
-        let result = data.cast.compactMap({ CustomCVModel(imagePath: $0.profilePath ?? "", title: $0.name ) })
-        view?.getCastSuccess(data: result)
-    }
-    
-    func getCastFailure(error: Error) {
-        view?.getCastFailure(error: error)
-    }
-    
-    func getVideoSuccess(data: VideoModel) {
-        let result = data.results.compactMap({ $0.key })
-        view?.getVideoSuccess(data: result)
-    }
-    
-    func getVideoFailure(error: Error) {
-        view?.getVideoFailure(error: error)
+        view?.getTVShowDetailFailure(error: error)
     }
 }

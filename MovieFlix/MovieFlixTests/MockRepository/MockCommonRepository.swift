@@ -24,7 +24,7 @@ class MockCommonRepository: CommonRepositoryDelegate {
             }
             completion(.success(data))
         case EndPointTVShowItems.popularTVShow(page: 1):
-            let tvShowResponse = getMoviesDetailResponce()
+            let tvShowResponse = getTvShowResponse()
             guard let data = tvShowResponse as? T else {
                 return completion(.failure(.invalidData))
             }
