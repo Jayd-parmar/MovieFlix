@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
+class HomePresenter: HomeViewToPresenterInterface {
     var router: HomeRouterInterface?
     var interactor: HomeInteractorInterface?
     var view: HomeViewInterface?
@@ -17,7 +17,7 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
     var popularMovieList: MovieModel?
     var genreList = GenreList.genres
     var numberOfSections: Int? {
-            return filteredList.count
+        return filteredList.count
     }
     
     func viewDidLoad() {
@@ -38,19 +38,6 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
         case .upcoming:
             interactor?.getMovieData(type: EndPointMovieItems.upcomingMovie(), enumType: enumType)
         }
-    }
-    
-    func getMovieSuccess(movie: MovieModel, enumType: MovieEnum) {
-        responseList.append(ResponseModel(enumType: enumType, data: movie))
-        filteredList.append(ResponseModel(enumType: enumType, data: movie))
-        view?.movieSuccess()
-        if enumType == .popular {
-            setupHeaderConfig()
-        }
-    }
-    
-    func getMovieFailure(error: Error) {
-        view?.movieFailure(error: error)
     }
     
     func headerTitle(index: Int) -> String {
@@ -120,5 +107,21 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
             break
         }
         router?.navigateToMovies(data: data, type: type)
+    }
+}
+
+extension HomePresenter: HomeInteractorToPresenterInterface {
+    
+    func getMovieSuccess(movie: MovieModel, enumType: MovieEnum) {
+        responseList.append(ResponseModel(enumType: enumType, data: movie))
+        filteredList.append(ResponseModel(enumType: enumType, data: movie))
+        view?.movieSuccess()
+        if enumType == .popular {
+            setupHeaderConfig()
+        }
+    }
+    
+    func getMovieFailure(error: Error) {
+        view?.movieFailure(error: error)
     }
 }

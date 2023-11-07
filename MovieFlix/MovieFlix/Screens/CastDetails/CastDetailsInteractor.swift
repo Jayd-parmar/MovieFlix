@@ -8,7 +8,7 @@
 import Foundation
 
 class CastDetailsInteractor: CastDetailsInteractorInterface {
-    var presenter: CastDetailsPresenterInterface?
+    var presenter: CastDetailsInteractorToPresenterInterface?
     private let castRepo: CommonRepositoryDelegate
     
     init(castRepo: CommonRepositoryDelegate = CommonMovieRepository()) {

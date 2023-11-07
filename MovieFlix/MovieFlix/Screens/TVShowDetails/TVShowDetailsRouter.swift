@@ -10,12 +10,12 @@ import UIKit
 
 class TVShowDetailsRouter: TVShowDetailsRouterInterface {
     var view: UIViewController?
-    var presenter: TVShowDetailsPresenterInterface?
+    var presenter: TVShowDetailsViewtoPresenterInterface?
     
     static func createModule(tvShowId: Int? = nil) -> UIViewController {
         let router = TVShowDetailsRouter()
         let view = TVShowDetailsVC()
-        var presenter: TVShowDetailsPresenterInterface = TVShowDetailsPresenter(tvShowId: tvShowId)
+        var presenter: TVShowDetailsViewtoPresenterInterface & TVShowdetailsInteractorToPresenterInterface = TVShowDetailsPresenter(tvShowId: tvShowId)
         var interactor: TVShowDetailsInteractorInterface = TVShowDetailsInteractor()
         
         view.presenter = presenter

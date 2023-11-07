@@ -8,7 +8,7 @@
 import UIKit
 
 class TVShowsVC: UIViewController, TVViewInterface {
-    var presenter: TVPresenterInterface?
+    var presenter: TVViewtoPresenterInterface?
     private let contentView: UIView = {
         let cv = UIView()
         cv.translatesAutoresizingMaskIntoConstraints = false

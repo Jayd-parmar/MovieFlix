@@ -9,30 +9,34 @@ import Foundation
 import UIKit
 
 protocol TVViewInterface {
-    var presenter: TVPresenterInterface? {get set}
+    var presenter: TVViewtoPresenterInterface? {get set}
     func getPopularTVShowSuccess(list: [CustomCVModel])
     func getPopularTVShowFailure(error: Error)
 }
 
 protocol TVInteractorInterface {
-    var presenter: TVPresenterInterface? {get set}
+    var presenter: TVInteractorToPresenterInterface? {get set}
     func getTvShowData()
 }
 
-protocol TVPresenterInterface {
+protocol TVViewtoPresenterInterface {
     var view: TVViewInterface? {get set}
     var interactor: TVInteractorInterface? {get set}
     var router: TVRouterInterface? {get set}
     func viewDidLoad()
-    func getPopularTVShowSuccess(data: MovieModel)
-    func getPopularTVShowFailure(error: Error)
+    
     var tvShowList: MovieModel? {get set}
     func navigateToTvShowDetails(indexPath: IndexPath)
 }
 
+protocol TVInteractorToPresenterInterface {
+    func getPopularTVShowSuccess(data: MovieModel)
+    func getPopularTVShowFailure(error: Error)
+}
+
 protocol TVRouterInterface {
     var view: UINavigationController? {get set}
-    var presenter: TVPresenterInterface? {get set}
+    var presenter: TVViewtoPresenterInterface? {get set}
     static func createModule() -> UIViewController
     func navigateToTvShowDetails(tvShowId: Int?)
 }

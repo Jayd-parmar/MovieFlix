@@ -10,12 +10,12 @@ import UIKit
 
 class MovieDetailsRouter: MovieDetailsRouterInterface {
     var view: UIViewController?
-    var presenter: MovieDetailsPresenterInterface?
+    var presenter: MovieDetailsViewToPresenterInterface?
 
     static func createModule(movieId: Int? = nil) -> UIViewController {
         let router = MovieDetailsRouter()
         let view = MovieDetailsVC()
-        var presenter: MovieDetailsPresenterInterface = MovieDetailsPresenter(movieId: movieId)
+        var presenter: MovieDetailsViewToPresenterInterface & MovieDetailsInteractorToPresenterInterface = MovieDetailsPresenter(movieId: movieId)
         var interactor: MovieDetailsInteractorInterface = MovieDetailsInteractor()
         
         view.presenter = presenter

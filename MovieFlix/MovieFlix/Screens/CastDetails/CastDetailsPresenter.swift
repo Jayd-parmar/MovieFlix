@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CastDetailsPresenter: CastDetailsPresenterInterface {
+class CastDetailsPresenter: CastDetailsViewToPresenterInterface {
     var view: CastDetailsViewInterface?
     var interactor: CastDetailsInteractorInterface?
     var router: CastDetailsRouterInterface?
@@ -22,7 +22,9 @@ class CastDetailsPresenter: CastDetailsPresenterInterface {
         interactor?.getCastImages(id: castId ?? 500)
         interactor?.getCastCombine(id: castId ?? 500)
     }
-    
+}
+
+extension CastDetailsPresenter: CastDetailsInteractorToPresenterInterface {
     func getCastDetailsSuccess(data: CastDetailsModel) {
         view?.getCastDetailsSuccess(data: data)
     }
@@ -48,5 +50,4 @@ class CastDetailsPresenter: CastDetailsPresenterInterface {
     func getCastCombineFailure(error: Error) {
         view?.getCastCombineFailure(error: error)
     }
-    
 }

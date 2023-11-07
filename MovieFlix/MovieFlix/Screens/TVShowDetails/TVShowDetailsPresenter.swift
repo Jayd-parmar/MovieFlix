@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TVShowDetailsPresenter: TVShowDetailsPresenterInterface {
+class TVShowDetailsPresenter: TVShowDetailsViewtoPresenterInterface {
     var view: TVShowDetailsViewInterface?
     var interactor: TVShowDetailsInteractorInterface?
     var router: TVShowDetailsRouterInterface?
@@ -22,10 +22,6 @@ class TVShowDetailsPresenter: TVShowDetailsPresenterInterface {
         interactor?.getTvShowDetails(id: tvShowId ?? 200)
         interactor?.getTvShowCastDetails(id: tvShowId ?? 200)
         interactor?.getTvShowVideo(id: tvShowId ?? 500)
-    }
-    
-    func getTVShowDetailsSuccess(data: TVShowDetailsModel) {
-        convertDatatoCommonModel(data: data)
     }
     
     func convertDatatoCommonModel(data: TVShowDetailsModel) {
@@ -44,6 +40,18 @@ class TVShowDetailsPresenter: TVShowDetailsPresenterInterface {
         
         let model = CommonMovieTVDetailsModel(image: image, title: title, genre: genre, voteCount: voteCount, voteAve: voteAverage, date: date, runtime: nil, language: nil, episodes: episodes, seasons: seasons, description: description, imgTime: nil, imgLanguage: nil, imgTV: "tv")
         view?.getTVShowDetailsSuccess(data: model)
+    }
+    
+    func navigateToCastDetails(indexPath: IndexPath) {
+        let castId = castList?.cast[indexPath.row].id
+        router?.navigateToCastDetails(castId: castId)
+    }
+}
+
+extension TVShowDetailsPresenter: TVShowdetailsInteractorToPresenterInterface {
+    
+    func getTVShowDetailsSuccess(data: TVShowDetailsModel) {
+        convertDatatoCommonModel(data: data)
     }
     
     func getTVShowDetailsFailure(error: Error) {
@@ -67,10 +75,5 @@ class TVShowDetailsPresenter: TVShowDetailsPresenterInterface {
     
     func getVideoFailure(error: Error) {
         view?.getVideoFailure(error: error)
-    }
-    
-    func navigateToCastDetails(indexPath: IndexPath) {
-        let castId = castList?.cast[indexPath.row].id
-        router?.navigateToCastDetails(castId: castId)
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol CastDetailsViewInterface {
-    var presenter: CastDetailsPresenterInterface? {get set}
+    var presenter: CastDetailsViewToPresenterInterface? {get set}
     func getCastDetailsSuccess(data: CastDetailsModel)
     func getCastDetailsFailure(error: Error)
     func getCastImagesSuccess(data: [CustomCVModel])
@@ -19,27 +19,30 @@ protocol CastDetailsViewInterface {
 }
 
 protocol CastDetailsInteractorInterface {
-    var presenter: CastDetailsPresenterInterface? {get set}
+    var presenter: CastDetailsInteractorToPresenterInterface? {get set}
     func getCastDetails(id: Int)
     func getCastImages(id: Int)
     func getCastCombine(id: Int)
 }
 
-protocol CastDetailsPresenterInterface {
+protocol CastDetailsViewToPresenterInterface {
     var view: CastDetailsViewInterface? {get set}
     var interactor: CastDetailsInteractorInterface? {get set}
     var router: CastDetailsRouterInterface? {get set}
+    func viewDidLoad()
+}
+
+protocol CastDetailsInteractorToPresenterInterface {
     func getCastDetailsSuccess(data: CastDetailsModel)
     func getCastDetailsFailure(error: Error)
     func getCastImagesSuccess(data: CastImageModel)
     func getCastImagesFailure(error: Error)
     func getCastCombineSuccess(data: CastMovieTVModel)
     func getCastCombineFailure(error: Error)
-    func viewDidLoad()
 }
 
 protocol CastDetailsRouterInterface {
-    var presenter: CastDetailsPresenterInterface? {get set}
+    var presenter: CastDetailsViewToPresenterInterface? {get set}
     var view: UIViewController? {get set}
     static func createModule(castId: Int?) -> UIViewController
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
-    var presenter: MovieDetailsPresenterInterface?
+    var presenter: MovieDetailsViewToPresenterInterface?
     weak var delegate: MovieDetailsToViewInterface?
     private let scrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -22,33 +22,29 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
         return cv
     }()
     private let movieDetailsHeader: UIView = {
-        let movieDetailsHeader = MovieDetailsHeaderClass()
-        movieDetailsHeader.translatesAutoresizingMaskIntoConstraints = false
-        return movieDetailsHeader
+        let movieDetails = MovieDetailsHeaderClass()
+        movieDetails.translatesAutoresizingMaskIntoConstraints = false
+        return movieDetails
     }()
     private let lblVideo: UILabel = {
         let lbl = UILabel()
-        lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.font = .robotoSlabMedium(size: 20)
         lbl.text = "VIDEOS"
         return lbl
     }()
     private let lblCast: UILabel = {
         let lbl = UILabel()
-        lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.font = .robotoSlabMedium(size: 20)
         lbl.text = "CAST"
         return lbl
     }()
     private var videoCollectionView: CollectionViewContainer = {
         let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 150, height: 100), cell: YoutubeCVCell.self, identifier: YoutubeCVCell.identifier)
-        cv.translatesAutoresizingMaskIntoConstraints = false
         cv.collectionView.showsHorizontalScrollIndicator = false
         return cv
     }()
     private var castCollectionView: CollectionViewContainer = {
         let cv = CollectionViewContainer(scrollDirection: .horizontal, itemSize: CGSize(width: 120, height: 200), cell: CollectionViewCell.self, identifier: CollectionViewCell.identifier)
-        cv.translatesAutoresizingMaskIntoConstraints = false
         cv.collectionView.showsHorizontalScrollIndicator = false
         return cv
     }()
@@ -66,10 +62,11 @@ class MovieDetailsVC: UIViewController, MoviedetailsVCInterface {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(movieDetailsHeader)
-        contentView.addSubview(lblVideo)
-        contentView.addSubview(videoCollectionView)
-        contentView.addSubview(lblCast)
-        contentView.addSubview(castCollectionView)
+        let componentArray = [lblVideo, videoCollectionView, lblCast, castCollectionView]
+        for component in componentArray {
+            component.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(component)
+        }
     }
     
     private func setupUIConstraints() {
