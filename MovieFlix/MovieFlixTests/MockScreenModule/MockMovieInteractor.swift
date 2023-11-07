@@ -9,7 +9,7 @@ import Foundation
 @testable import MovieFlix
 
 class MockMovieInteractor: MovieInteractorInterface {
-    var presenter: MovieFlix.MoviePresenterInterface?
+    var presenter: MovieFlix.MovieInteractorToPresenterInterface?
     private var movieRepo: CommonRepositoryDelegate
     var data: Codable?
     var error: DataError?

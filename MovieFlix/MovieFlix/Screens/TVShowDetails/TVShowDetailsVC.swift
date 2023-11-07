@@ -140,19 +140,11 @@ class TVShowDetailsVC: UIViewController, TVShowDetailsViewInterface {
         }
     }
     
-    func getTVShowDetailsFailure(error: Error) {
-        print(error)
-    }
-    
     func getCastSuccess(data: [CustomCVModel]) {
         DispatchQueue.main.async {
             self.castCollectionView.configContent(list: data)
             self.castCollectionView.collectionView.reloadData()
         }
-    }
-    
-    func getCastFailure(error: Error) {
-        print(error)
     }
     
     func getVideoSuccess(data: [String]) {
@@ -162,9 +154,10 @@ class TVShowDetailsVC: UIViewController, TVShowDetailsViewInterface {
         }
     }
     
-    func getVideoFailure(error: Error) {
+    func getTVShowDetailFailure(error: Error) {
         print(error)
     }
+    
 }
 
 extension TVShowDetailsVC: CellActionDelegate {

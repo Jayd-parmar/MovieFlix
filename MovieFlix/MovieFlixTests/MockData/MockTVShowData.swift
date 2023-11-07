@@ -439,18 +439,18 @@ let TvShowJsonResponse = """
     }
 """.data(using: .utf8)
 
-func getMoviesDetailResponce() -> MovieModel? {
-    let responce: MovieModel?
+func getTvShowResponse() -> MovieModel? {
+    let response: MovieModel?
     do {
         guard let data = TvShowJsonResponse else {
             print("nil returned data \n\n")
             return nil
         }
-        responce =  try JSONDecoder().decode(MovieModel.self, from: data)
+        response =  try JSONDecoder().decode(MovieModel.self, from: data)
     } catch(let error){
         print("error in decode : \(error) \n\n")
         return nil
     }
-    return responce
+    return response
 }
 

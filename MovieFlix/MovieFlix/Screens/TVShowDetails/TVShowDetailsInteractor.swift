@@ -9,41 +9,19 @@ import Foundation
 
 class TVShowDetailsInteractor: TVShowDetailsInteractorInterface {
     var presenter: TVShowdetailsInteractorToPresenterInterface?
-    private let movieRepo: CommonRepositoryDelegate
+    private let tvRepo: CommonRepositoryDelegate
     
-    init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
-        self.movieRepo = movieRepo
+    init(tvRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
+        self.tvRepo = tvRepo
     }
     
-    func getTvShowDetails(id: Int) {
-        movieRepo.getMovieData(modelType: TVShowDetailsModel.self, type: EndPointTVShowItems.tvShowDetails(id: id)) { [self] response in
+    func getTVShowDetail<T: Codable>(modelType: T.Type, type: EndPointAPIType) {
+        tvRepo.getMovieData(modelType: modelType, type: type) { [self] response in
             switch response {
-            case .success(let tv):
-                presenter?.getTVShowDetailsSuccess(data: tv)
+            case .success(let movie):
+                presenter?.getTVShowDetailSuccess(data: movie)
             case .failure(let error):
                 presenter?.getTVShowDetailsFailure(error: error)
-            }
-        }
-    }
-    
-    func getTvShowCastDetails(id: Int) {
-        movieRepo.getMovieData(modelType: CastListModel.self, type: EndPointCastItems.tvShowCastList(id: id)) { [self] response in
-            switch response {
-            case .success(let cast):
-                presenter?.getCastSuccess(data: cast)
-            case .failure(let error):
-                presenter?.getCastFailure(error: error)
-            }
-        }
-    }
-    
-    func getTvShowVideo(id: Int) {
-        movieRepo.getMovieData(modelType: VideoModel.self, type: EndPointTVShowItems.tvShowVideDetails(id: id)) { [self] response in
-            switch response {
-            case .success(let video):
-                presenter?.getVideoSuccess(data: video)
-            case .failure(let error):
-                presenter?.getVideoFailure(error: error)
             }
         }
     }

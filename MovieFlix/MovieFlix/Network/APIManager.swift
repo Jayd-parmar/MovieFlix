@@ -13,6 +13,7 @@ final class APIManager {
 
     static let shared = APIManager()
     var request: URLRequest?
+    
     init() {}
     
     func request<T: Codable>(
@@ -25,24 +26,39 @@ final class APIManager {
             return
         }
         
-        if !(type.queryItems!.isEmpty) {
-            var urlComps = URLComponents(string: strURL)
-            urlComps?.queryItems = type.queryItems
-            request = URLRequest(url: (urlComps?.url)!)
+        var url: URL
+        if !(type.queryItems?.isEmpty ?? true), var urlComps = URLComponents(string: strURL) {
+            urlComps.queryItems = type.queryItems
+            guard let composedURL = urlComps.url else {
+                completion(.failure(.invalidURL))
+                return
+            }
+            url = composedURL
         } else {
-            request = URLRequest(url: URL(string: strURL)!)
+            guard let composedURL = URL(string: strURL) else {
+                completion(.failure(.invalidURL))
+                return
+            }
+            url = composedURL
         }
+        
+        request = URLRequest(url: url)
         request?.httpMethod = type.methods.rawValue
         request?.allHTTPHeaderFields = type.headers
         
-        URLSession.shared.dataTask(with: request!) { data, response, error in
+        guard let finalRequest = request else {
+            completion(.failure(.invalidURL))
+            return
+        }
+
+        URLSession.shared.dataTask(with: finalRequest) { data, response, error in
             guard let data = data, error == nil else {
                 completion(.failure(.invalidData))
                 return
             }
 
             guard let httpResponse = response as? HTTPURLResponse,
-                (200...299).contains(httpResponse.statusCode) else {
+                  (200...299).contains(httpResponse.statusCode) else {
                 completion(.failure(.invalidResponse))
                 return
             }

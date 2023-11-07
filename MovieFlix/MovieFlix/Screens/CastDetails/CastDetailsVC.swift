@@ -184,19 +184,11 @@ class CastDetailsVC: UIViewController, CastDetailsViewInterface {
         }
     }
     
-    func getCastDetailsFailure(error: Error) {
-        print(error)
-    }
-    
     func getCastImagesSuccess(data: [CustomCVModel]) {
         DispatchQueue.main.async {
             self.photosCollectionView.configContent(list: data)
             self.photosCollectionView.collectionView.reloadData()
         }
-    }
-    
-    func getCastImagesFailure(error: Error) {
-        print("error")
     }
     
     func getCastCombineSuccess(data: [CustomCVModel]) {
@@ -206,7 +198,7 @@ class CastDetailsVC: UIViewController, CastDetailsViewInterface {
         }
     }
     
-    func getCastCombineFailure(error: Error) {
-        print("error")
+    func getCastDetailsFailure(error: Error) {
+        print(error)
     }
 }

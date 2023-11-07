@@ -11,18 +11,14 @@ import UIKit
 protocol MoviedetailsVCInterface {
     var presenter: MovieDetailsViewToPresenterInterface? {get set}
     func getMovieDetailsSuccess(data: CommonMovieTVDetailsModel)
-    func getMovieDetailsFailure(error: Error)
     func getCastSuccess(data: [CustomCVModel])
-    func getCastFailure(error: Error)
     func getVideoSuccess(data: [String])
-    func getVideoFailure(error: Error)
+    func getMovieDetailFailure(error: Error)
 }
 
 protocol MovieDetailsInteractorInterface {
     var presenter: MovieDetailsInteractorToPresenterInterface? {get set}
-    func getMovieDetails(id: Int)
-    func getMovieCastDetails(id: Int)
-    func getMovieVideo(id: Int)
+    func getMovieDetails<T: Codable>(modelType: T.Type, type: EndPointAPIType)
 }
 
 protocol MovieDetailsViewToPresenterInterface {
@@ -37,12 +33,8 @@ protocol MovieDetailsViewToPresenterInterface {
 }
 
 protocol MovieDetailsInteractorToPresenterInterface {
-    func getMovieDetailsSuccess(data: MovieDetailsModel)
-    func getMovieDetailsFailure(error: Error)
-    func getCastSuccess(data: CastListModel)
-    func getCastFailure(error: Error)
-    func getVideoSuccess(data: VideoModel)
-    func getVideoFailure(error: Error)
+    func getMovieDetailSuccess<T: Codable>(data: T)
+    func getMovieDetailFailure(error: Error)
 }
 
 protocol MovieDetailsRouterInterface {
