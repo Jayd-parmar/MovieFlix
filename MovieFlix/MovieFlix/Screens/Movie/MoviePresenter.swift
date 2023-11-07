@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MoviePresenter: MoviePresenterInterface {
+class MoviePresenter: MovieViewToPresenterInterface {
     var movieList: MovieModel?
     var view: MovieViewInterface?
     var interactor: MovieInteractorInterface?
@@ -15,16 +15,6 @@ class MoviePresenter: MoviePresenterInterface {
     
     func viewDidLoad() {
         interactor?.getMovieData()
-    }
-    
-    func getPopularMovieSuccess(data: MovieModel) {
-        self.movieList = data
-        let result = data.results.compactMap({ CustomCVModel(imagePath: $0.posterPath, title: $0.originalTitle ?? "" ) })
-        view?.popularMovieSuccess(list: result)
-    }
-    
-    func getPopularMovieFailure(error: Error) {
-        view?.popularMovieFailure(error: error)
     }
     
     func navigateToDetails(indexPath: IndexPath) {
@@ -36,5 +26,17 @@ class MoviePresenter: MoviePresenterInterface {
         self.movieList = data
         guard let result = data?.results.compactMap({ CustomCVModel(imagePath: $0.posterPath, title: $0.originalTitle ?? "" ) }) else { return }
         view?.popularMovieSuccess(list: result)
+    }
+}
+
+extension MoviePresenter: MovieInteractorToPresenterInterface {
+    func getPopularMovieSuccess(data: MovieModel) {
+        self.movieList = data
+        let result = data.results.compactMap({ CustomCVModel(imagePath: $0.posterPath, title: $0.originalTitle ?? "" ) })
+        view?.popularMovieSuccess(list: result)
+    }
+    
+    func getPopularMovieFailure(error: Error) {
+        view?.popularMovieFailure(error: error)
     }
 }

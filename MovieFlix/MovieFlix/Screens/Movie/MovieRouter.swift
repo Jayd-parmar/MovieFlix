@@ -10,11 +10,11 @@ import UIKit
 
 class MovieRouter: MovieRouterInterface {
     var view: UINavigationController?
-    var presenter: MoviePresenterInterface?
+    var presenter: MovieViewToPresenterInterface?
     static func createModule() -> UINavigationController {
         let router = MovieRouter()
         let view = MoviesVC()
-        var presenter: MoviePresenterInterface = MoviePresenter()
+        var presenter: MovieViewToPresenterInterface & MovieInteractorToPresenterInterface = MoviePresenter()
         var interactor: MovieInteractorInterface = MovieInteractor()
         
         view.presenter = presenter

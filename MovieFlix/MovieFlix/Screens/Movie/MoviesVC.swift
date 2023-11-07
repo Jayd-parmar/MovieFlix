@@ -8,7 +8,7 @@
 import UIKit
 
 class MoviesVC: UIViewController, MovieViewInterface {
-    var presenter: MoviePresenterInterface?
+    var presenter: MovieViewToPresenterInterface?
     private let contentView: UIView = {
         let cv = UIView()
         cv.translatesAutoresizingMaskIntoConstraints = false

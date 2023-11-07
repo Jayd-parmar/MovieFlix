@@ -8,23 +8,15 @@
 import Foundation
 import UIKit
 
-protocol HomeRouterInterface {
-    var view: UINavigationController? {get set}
-    var presenter: HomePresenterInterface? {get set}
-    static func createModule() -> UINavigationController
-    func navigateToMovies(data: MovieModel?, type: String)
-    var movieViewController: UINavigationController? {get set}
-}
-
 class HomeRouter: HomeRouterInterface {
+    var presenter: HomeViewToPresenterInterface?
     var view: UINavigationController?
-    var presenter: HomePresenterInterface?
     var movieViewController: UINavigationController?
     
     static func createModule() -> UINavigationController {
         let router = HomeRouter()
         let view = HomeVC()
-        var presenter: HomePresenterInterface = HomePresenter()
+        var presenter: HomeViewToPresenterInterface & HomeInteractorToPresenterInterface = HomePresenter()
         var interactor: HomeInteractorInterface = HomeInteractor()
         
         view.presenter = presenter

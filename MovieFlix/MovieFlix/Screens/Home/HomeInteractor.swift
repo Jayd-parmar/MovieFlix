@@ -8,7 +8,7 @@
 import Foundation
 
 class HomeInteractor: HomeInteractorInterface {
-    var presenter: HomePresenterInterface?
+    var presenter: HomeInteractorToPresenterInterface?
     private let movieRepo: CommonRepositoryDelegate
     
     init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository()) {

@@ -8,7 +8,7 @@
 import UIKit
 
 class CastDetailsVC: UIViewController, CastDetailsViewInterface {
-    var presenter: CastDetailsPresenterInterface?
+    var presenter: CastDetailsViewToPresenterInterface?
     private let scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.translatesAutoresizingMaskIntoConstraints = false

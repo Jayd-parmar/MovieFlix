@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 
 class CastDetailsRouter: CastDetailsRouterInterface {
-    var presenter: CastDetailsPresenterInterface?
+    var presenter: CastDetailsViewToPresenterInterface?
     var view: UIViewController?
     
     static func createModule(castId: Int?) -> UIViewController {
         let router = CastDetailsRouter()
         let view = CastDetailsVC()
-        var presenter: CastDetailsPresenterInterface = CastDetailsPresenter(castId: castId)
+        var presenter: CastDetailsViewToPresenterInterface & CastDetailsInteractorToPresenterInterface = CastDetailsPresenter(castId: castId)
         var interactor: CastDetailsInteractorInterface = CastDetailsInteractor()
         
         view.presenter = presenter

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TVPresenter: TVPresenterInterface {
+class TVPresenter: TVViewtoPresenterInterface {
     
     var view: TVViewInterface?
     var interactor: TVInteractorInterface?
@@ -18,6 +18,13 @@ class TVPresenter: TVPresenterInterface {
         interactor?.getTvShowData()
     }
     
+    func navigateToTvShowDetails(indexPath: IndexPath) {
+        let tvShowId = tvShowList?.results[indexPath.row].id
+        router?.navigateToTvShowDetails(tvShowId: tvShowId)
+    }
+}
+
+extension TVPresenter: TVInteractorToPresenterInterface {
     func getPopularTVShowSuccess(data: MovieModel) {
         self.tvShowList = data
         let result = data.results.compactMap({ CustomCVModel(imagePath: $0.posterPath, title: $0.originalName ?? "" ) })
@@ -26,10 +33,5 @@ class TVPresenter: TVPresenterInterface {
     
     func getPopularTVShowFailure(error: Error) {
         view?.getPopularTVShowFailure(error: error)
-    }
-    
-    func navigateToTvShowDetails(indexPath: IndexPath) {
-        let tvShowId = tvShowList?.results[indexPath.row].id
-        router?.navigateToTvShowDetails(tvShowId: tvShowId)
     }
 }

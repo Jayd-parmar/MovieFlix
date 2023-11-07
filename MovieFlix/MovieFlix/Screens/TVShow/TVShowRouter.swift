@@ -10,12 +10,12 @@ import UIKit
 
 class TVRouter: TVRouterInterface {
     var view: UINavigationController?
-    var presenter: TVPresenterInterface?
+    var presenter: TVViewtoPresenterInterface?
     
     static func createModule() -> UIViewController {
         let router = TVRouter()
         let view = TVShowsVC()
-        var presenter: TVPresenterInterface = TVPresenter()
+        var presenter: TVViewtoPresenterInterface & TVInteractorToPresenterInterface = TVPresenter()
         var interactor: TVInteractorInterface = TVInteractor()
         
         view.presenter = presenter

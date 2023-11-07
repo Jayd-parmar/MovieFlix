@@ -10,7 +10,7 @@ import TinyConstraints
 
 class HomeVC: UIViewController, HomeViewInterface {
     
-    var presenter: HomePresenterInterface?
+    var presenter: HomeViewToPresenterInterface?
     private let contentView: UIView = {
         let cv = UIView()
         cv.translatesAutoresizingMaskIntoConstraints = false

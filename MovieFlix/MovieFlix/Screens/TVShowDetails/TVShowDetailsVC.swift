@@ -8,7 +8,7 @@
 import UIKit
 
 class TVShowDetailsVC: UIViewController, TVShowDetailsViewInterface {
-    var presenter: TVShowDetailsPresenterInterface?
+    var presenter: TVShowDetailsViewtoPresenterInterface?
     weak var delegate: MovieDetailsToViewInterface?
     private let scrollView: UIScrollView = {
         let sv = UIScrollView()

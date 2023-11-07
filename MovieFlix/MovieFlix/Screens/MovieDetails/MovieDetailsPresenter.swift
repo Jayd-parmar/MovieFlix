@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MovieDetailsPresenter: MovieDetailsPresenterInterface {
+class MovieDetailsPresenter: MovieDetailsViewToPresenterInterface {
     var view: MoviedetailsVCInterface?
     var interactor: MovieDetailsInteractorInterface?
     var router: MovieDetailsRouterInterface?
@@ -22,10 +22,6 @@ class MovieDetailsPresenter: MovieDetailsPresenterInterface {
         interactor?.getMovieDetails(id: movieId ?? 500)
         interactor?.getMovieCastDetails(id: movieId ?? 500)
         interactor?.getMovieVideo(id: movieId ?? 500)
-    }
-    
-    func getMovieDetailsSuccess(data: MovieDetailsModel) {
-        convertDatatoCommonModel(data: data)
     }
     
     func convertDatatoCommonModel(data: MovieDetailsModel) {
@@ -46,6 +42,18 @@ class MovieDetailsPresenter: MovieDetailsPresenterInterface {
         view?.getMovieDetailsSuccess(data: model)
     }
     
+    func navigateToCastDetails(indexPath: IndexPath) {
+        let castId = castList?.cast[indexPath.row].id
+        router?.navigateToCastDetails(castId: castId)
+    }
+    
+}
+
+extension MovieDetailsPresenter: MovieDetailsInteractorToPresenterInterface {
+    func getMovieDetailsSuccess(data: MovieDetailsModel) {
+        convertDatatoCommonModel(data: data)
+    }
+    
     func getMovieDetailsFailure(error: Error) {
         view?.getMovieDetailsFailure(error: error)
     }
@@ -61,17 +69,11 @@ class MovieDetailsPresenter: MovieDetailsPresenterInterface {
     }
     
     func getVideoSuccess(data: VideoModel) {
-        let result = data.results.compactMap({ $0.key }) 
+        let result = data.results.compactMap({ $0.key })
         view?.getVideoSuccess(data: result)
     }
     
     func getVideoFailure(error: Error) {
         view?.getVideoFailure(error: error)
     }
-    
-    func navigateToCastDetails(indexPath: IndexPath) {
-        let castId = castList?.cast[indexPath.row].id
-        router?.navigateToCastDetails(castId: castId)
-    }
-    
 }

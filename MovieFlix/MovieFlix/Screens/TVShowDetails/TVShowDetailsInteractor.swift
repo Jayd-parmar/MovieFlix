@@ -8,7 +8,7 @@
 import Foundation
 
 class TVShowDetailsInteractor: TVShowDetailsInteractorInterface {
-    var presenter: TVShowDetailsPresenterInterface?
+    var presenter: TVShowdetailsInteractorToPresenterInterface?
     private let movieRepo: CommonRepositoryDelegate
     
     init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository()) {

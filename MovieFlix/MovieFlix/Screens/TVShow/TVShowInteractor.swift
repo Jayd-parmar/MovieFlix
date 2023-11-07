@@ -8,7 +8,7 @@
 import Foundation
 
 class TVInteractor: TVInteractorInterface {
-    var presenter: TVPresenterInterface?
+    var presenter: TVInteractorToPresenterInterface?
     var tvRepo: CommonRepositoryDelegate
     
     init(tvRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
