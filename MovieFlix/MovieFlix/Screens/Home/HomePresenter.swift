@@ -15,7 +15,6 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
     var filteredList: [ResponseModel] = []
     var movieList: [MovieModel]? = []
     var popularMovieList: MovieModel?
-    var headerTitle = HeaderTitle.headerTitles
     var genreList = GenreList.genres
     var numberOfSections: Int? {
             return filteredList.count
@@ -52,6 +51,18 @@ class HomePresenter: HomePresenterInterface, GenreCollectionDelegate {
     
     func getMovieFailure(error: Error) {
         view?.movieFailure(error: error)
+    }
+    
+    func headerTitle(index: Int) -> String {
+        if filteredList[index].enumType == .popular {
+            return "Popular"
+        } else if filteredList[index].enumType == .nowplaying {
+            return "In Theatres"
+        } else if filteredList[index].enumType == .upcoming {
+            return "Upcoming"
+        } else {
+            return "Top rated"
+        }
     }
     
     func configureMovieData(index: Int) -> [CustomCVModel]? {

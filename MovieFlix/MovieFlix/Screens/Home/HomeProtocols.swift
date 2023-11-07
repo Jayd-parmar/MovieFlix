@@ -17,10 +17,10 @@ protocol HomePresenterInterface {
     var router: HomeRouterInterface? {get set}
     var interactor: HomeInteractorInterface? {get set}
     var view: HomeViewInterface? {get set}
-    var headerTitle: [String] {get set}
     var genreList: [Genre] {get}
     var numberOfSections: Int? {get}
     func viewDidLoad()
+    func headerTitle(index: Int) -> String
     func getMovieSuccess(movie: MovieModel, enumType: MovieEnum)
     func getMovieFailure(error: Error)
     func configureMovieData(index: Int) -> [CustomCVModel]?
