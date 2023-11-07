@@ -211,7 +211,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = CustomSectionHeaderView()
         headerView.delegate = self
-        headerView.lblTitle.text = presenter?.headerTitle[section]
+        headerView.lblTitle.text = presenter?.headerTitle(index: section)
         headerView.btnShowAll.tag = section
         return headerView
     }
