@@ -19,24 +19,27 @@ final class MovieTest: XCTestCase {
     }
     
     func testMovieDetailsSuccess() {
-        let interactor = MockMovieInteractor()
-        interactor.getMovieData()
+        let presenter = MoviePresenter()
+        let interactor = MovieInteractor(movieRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
         
-        let data = interactor.data as? MovieDetailsModel
-        let error = interactor.error
-        
+        interactor.getMovieData(type: EndPointMovieItems.popularMovie(page: 1))
+        let data = presenter.movieList
+        let error = presenter.error
         XCTAssertNotNil(data, "data not fetched")
         XCTAssertNil(error, "Error!")
     }
     
     func testMovieDetailsFailure() {
-        let interactor = MockMovieInteractor()
-        interactor.getMovieData()
+        let presenter = MoviePresenter()
+        let interactor = MovieInteractor(movieRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
         
-        let data = interactor.data as? MovieModel
-        let _ = interactor.error
-        
+        interactor.getMovieData(type: EndPointMovieItems.topRatedMovie(page: 1))
+        let data = presenter.movieList
+        let error = presenter.error
         XCTAssertNil(data, "data not fetched")
+        XCTAssertNotNil(error, "Error!")
     }
 
 }

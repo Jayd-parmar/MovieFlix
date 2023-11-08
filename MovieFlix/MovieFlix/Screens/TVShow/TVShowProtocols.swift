@@ -16,7 +16,7 @@ protocol TVViewInterface {
 
 protocol TVInteractorInterface {
     var presenter: TVInteractorToPresenterInterface? {get set}
-    func getTvShowData()
+    func getTvShowData(type: EndPointAPIType)
 }
 
 protocol TVViewtoPresenterInterface {

@@ -6,30 +6,88 @@
 //
 
 import XCTest
+@testable import MovieFlix
 
 final class TVShowDetailsTest: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUp() {
+        super.setUp()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    override func tearDown() {
+        super.tearDown()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testTVShowDetailsSuccess() {
+        let presenter = TVShowDetailsPresenter(tvShowId: 0)
+        let interactor = TVShowDetailsInteractor(tvRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getTVShowDetail(modelType: TVShowDetailsModel.self, type: EndPointTVShowItems.tvShowDetails(id: 0))
+        let data = presenter.tvShowDetails
+        let error = presenter.error
+        XCTAssertNotNil(data, "data not fetched")
+        XCTAssertNil(error, "Error!")
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testTVShowDetailsFailure() {
+        let presenter = TVShowDetailsPresenter(tvShowId: 0)
+        let interactor = TVShowDetailsInteractor(tvRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getTVShowDetail(modelType: MovieModel.self, type: EndPointTVShowItems.tvShowDetails(id: 0))
+        let data = presenter.tvShowDetails
+        let error = presenter.error
+        XCTAssertNil(data, "data not fetched")
+        XCTAssertNotNil(error, "Error!")
+    }
+    
+    func testCastListTVSuccess() {
+        let presenter = TVShowDetailsPresenter(tvShowId: 0)
+        let interactor = TVShowDetailsInteractor(tvRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getTVShowDetail(modelType: CastListModel.self, type: EndPointCastItems.tvShowCastList(id: 0))
+        let data = presenter.castList
+        let error = presenter.error
+        XCTAssertNotNil(data, "data not fetched")
+        XCTAssertNil(error, "Error!")
+    }
+    
+    func testCastListTVFailure() {
+        let presenter = TVShowDetailsPresenter(tvShowId: 0)
+        let interactor = TVShowDetailsInteractor(tvRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getTVShowDetail(modelType: MovieModel.self, type: EndPointCastItems.tvShowCastList(id: 0))
+        let data = presenter.tvShowDetails
+        let error = presenter.error
+        XCTAssertNil(data, "data not fetched")
+        XCTAssertNotNil(error, "Error!")
+    }
+    
+    func testTVVideoSuccess() {
+        let presenter = TVShowDetailsPresenter(tvShowId: 0)
+        let interactor = TVShowDetailsInteractor(tvRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getTVShowDetail(modelType: VideoModel.self, type: EndPointTVShowItems.tvShowVideDetails(id: 0))
+        let data = presenter.video
+        let error = presenter.error
+        XCTAssertNotNil(data, "data not fetched")
+        XCTAssertNil(error, "Error!")
+    }
+    
+    func testTVVideoFailure() {
+        let presenter = TVShowDetailsPresenter(tvShowId: 0)
+        let interactor = TVShowDetailsInteractor(tvRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getTVShowDetail(modelType: MovieModel.self, type: EndPointTVShowItems.tvShowVideDetails(id: 0))
+        let data = presenter.video
+        let error = presenter.error
+        XCTAssertNil(data, "data not fetched")
+        XCTAssertNotNil(error, "Error!")
     }
 
 }

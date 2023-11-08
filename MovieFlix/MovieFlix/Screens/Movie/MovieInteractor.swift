@@ -11,12 +11,13 @@ class MovieInteractor: MovieInteractorInterface {
     var presenter: MovieInteractorToPresenterInterface?
     private let movieRepo: CommonRepositoryDelegate
     
-    init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
+    init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository(), presenter: MovieInteractorToPresenterInterface?) {
         self.movieRepo = movieRepo
+        self.presenter = presenter
     }
     
-    func getMovieData() {
-        movieRepo.getMovieData(modelType: MovieModel.self, type: EndPointMovieItems.popularMovie()) { [self] response in
+    func getMovieData(type: EndPointAPIType) {
+        movieRepo.getMovieData(modelType: MovieModel.self, type: type) { [self] response in
             switch response {
             case .success(let movie):
                 presenter?.getPopularMovieSuccess(data: movie)

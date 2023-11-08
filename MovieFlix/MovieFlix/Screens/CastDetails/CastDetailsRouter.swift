@@ -16,7 +16,7 @@ class CastDetailsRouter: CastDetailsRouterInterface {
         let router = CastDetailsRouter()
         let view = CastDetailsVC()
         var presenter: CastDetailsViewToPresenterInterface & CastDetailsInteractorToPresenterInterface = CastDetailsPresenter(castId: castId)
-        var interactor: CastDetailsInteractorInterface = CastDetailsInteractor()
+        var interactor: CastDetailsInteractorInterface = CastDetailsInteractor(presenter: presenter)
         
         view.presenter = presenter
         presenter.interactor = interactor

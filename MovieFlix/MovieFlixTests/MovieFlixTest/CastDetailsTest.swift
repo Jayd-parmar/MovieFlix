@@ -6,30 +6,88 @@
 //
 
 import XCTest
+@testable import MovieFlix
 
 final class CastDetailsTest: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUp() {
+        super.setUp()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    override func tearDown() {
+        super.tearDown()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testCastDetailsSuccess() {
+        let presenter = CastDetailsPresenter(castId: 0)
+        let interactor = CastDetailsInteractor(castRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getCastDetail(modelType: CastDetailsModel.self, type: EndPointCastItems.castDetails(id: 0))
+        let data = presenter.castDetails
+        let error = presenter.error
+        XCTAssertNotNil(data, "data not fetched")
+        XCTAssertNil(error, "Error!")
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testCastDetailsFailure() {
+        let presenter = CastDetailsPresenter(castId: 0)
+        let interactor = CastDetailsInteractor(castRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getCastDetail(modelType: MovieModel.self, type: EndPointCastItems.castDetails(id: 0))
+        let data = presenter.castDetails
+        let error = presenter.error
+        XCTAssertNil(data, "data not fetched")
+        XCTAssertNotNil(error, "Error!")
+    }
+    
+    func testCastCombineSuccess() {
+        let presenter = CastDetailsPresenter(castId: 0)
+        let interactor = CastDetailsInteractor(castRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getCastDetail(modelType: CastMovieTVModel.self, type: EndPointCastItems.castCombine(id: 0))
+        let data = presenter.castCombine
+        let error = presenter.error
+        XCTAssertNotNil(data, "data not fetched")
+        XCTAssertNil(error, "Error!")
+    }
+    
+    func testCastCombineFailure() {
+        let presenter = CastDetailsPresenter(castId: 0)
+        let interactor = CastDetailsInteractor(castRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getCastDetail(modelType: MovieModel.self, type: EndPointCastItems.castCombine(id: 0))
+        let data = presenter.castCombine
+        let error = presenter.error
+        XCTAssertNil(data, "data not fetched")
+        XCTAssertNotNil(error, "Error!")
+    }
+    
+    func testCastImageSuccess() {
+        let presenter = CastDetailsPresenter(castId: 0)
+        let interactor = CastDetailsInteractor(castRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getCastDetail(modelType: CastImageModel.self, type: EndPointCastItems.castImages(id: 0))
+        let data = presenter.castImages
+        let error = presenter.error
+        XCTAssertNotNil(data, "data not fetched")
+        XCTAssertNil(error, "Error!")
+    }
+    
+    func testCastImageFailure() {
+        let presenter = CastDetailsPresenter(castId: 0)
+        let interactor = CastDetailsInteractor(castRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
+        interactor.getCastDetail(modelType: MovieModel.self, type: EndPointCastItems.castImages(id: 0))
+        let data = presenter.castImages
+        let error = presenter.error
+        XCTAssertNil(data, "data not fetched")
+        XCTAssertNotNil(error, "Error!")
     }
 
 }

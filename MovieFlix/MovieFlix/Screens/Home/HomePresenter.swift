@@ -16,6 +16,7 @@ class HomePresenter: HomeViewToPresenterInterface {
     var movieList: [MovieModel]? = []
     var popularMovieList: MovieModel?
     var genreList = GenreList.genres
+    var error: Error?
     var numberOfSections: Int? {
         return filteredList.count
     }
@@ -122,6 +123,7 @@ extension HomePresenter: HomeInteractorToPresenterInterface {
     }
     
     func getMovieFailure(error: Error) {
+        self.error = error
         view?.movieFailure(error: error)
     }
 }

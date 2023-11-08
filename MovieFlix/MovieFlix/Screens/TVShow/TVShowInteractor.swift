@@ -11,12 +11,13 @@ class TVInteractor: TVInteractorInterface {
     var presenter: TVInteractorToPresenterInterface?
     var tvRepo: CommonRepositoryDelegate
     
-    init(tvRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
+    init(tvRepo: CommonRepositoryDelegate = CommonMovieRepository(), presenter: TVInteractorToPresenterInterface?) {
         self.tvRepo = tvRepo
+        self.presenter = presenter
     }
     
-    func getTvShowData() {
-        tvRepo.getMovieData(modelType: MovieModel.self, type: EndPointTVShowItems.popularTVShow()) { [self] response in
+    func getTvShowData(type: EndPointAPIType) {
+        tvRepo.getMovieData(modelType: MovieModel.self, type: type) { [self] response in
             switch response {
             case .success(let tvShow):
                 presenter?.getPopularTVShowSuccess(data: tvShow)

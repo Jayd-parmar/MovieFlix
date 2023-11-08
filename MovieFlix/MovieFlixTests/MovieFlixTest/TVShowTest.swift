@@ -19,24 +19,26 @@ final class TVShowTest: XCTestCase {
     }
     
     func testTVShowSuccess() {
-        let interactor = MockTvShowInteractor()
-        interactor.getTvShowData()
+        let presenter = TVPresenter()
+        let interactor = TVInteractor(tvRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
         
-        let data = interactor.data as? MovieModel
-        let error = interactor.error
-        
+        interactor.getTvShowData(type: EndPointTVShowItems.popularTVShow(page: 1))
+        let data = presenter.tvShowList
+        let error = presenter.error
         XCTAssertNotNil(data, "data not fetched")
         XCTAssertNil(error, "Error!")
     }
     
     func testTVShowFailure() {
-        let interactor = MockTvShowInteractor()
-        interactor.getTvShowData()
+        let presenter = TVPresenter()
+        let interactor = TVInteractor(tvRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
         
-        let data = interactor.data as? MovieDetailsModel
-        let _ = interactor.error
-
-        XCTAssertNil(data, "Data should not be nil")
+        interactor.getTvShowData(type: EndPointTVShowItems.tvShowDetails(id: 1))
+        let data = presenter.tvShowList
+        let error = presenter.error
+        XCTAssertNil(data, "data not fetched")
+        XCTAssertNotNil(error, "Error!")
     }
-
 }

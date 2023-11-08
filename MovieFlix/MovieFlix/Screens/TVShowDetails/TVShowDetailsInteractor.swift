@@ -11,8 +11,9 @@ class TVShowDetailsInteractor: TVShowDetailsInteractorInterface {
     var presenter: TVShowdetailsInteractorToPresenterInterface?
     private let tvRepo: CommonRepositoryDelegate
     
-    init(tvRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
+    init(tvRepo: CommonRepositoryDelegate = CommonMovieRepository(), presenter: TVShowdetailsInteractorToPresenterInterface?) {
         self.tvRepo = tvRepo
+        self.presenter = presenter
     }
     
     func getTVShowDetail<T: Codable>(modelType: T.Type, type: EndPointAPIType) {

@@ -12,9 +12,10 @@ class MoviePresenter: MovieViewToPresenterInterface {
     var view: MovieViewInterface?
     var interactor: MovieInteractorInterface?
     var router: MovieRouterInterface?
+    var error: Error?
     
     func viewDidLoad() {
-        interactor?.getMovieData()
+        interactor?.getMovieData(type: EndPointMovieItems.popularMovie(page: 1))
     }
     
     func navigateToDetails(indexPath: IndexPath) {
@@ -37,6 +38,7 @@ extension MoviePresenter: MovieInteractorToPresenterInterface {
     }
     
     func getPopularMovieFailure(error: Error) {
+        self.error = error
         view?.popularMovieFailure(error: error)
     }
 }

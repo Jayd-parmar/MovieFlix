@@ -11,8 +11,9 @@ class MovieDetailsInteractor: MovieDetailsInteractorInterface {
     var presenter: MovieDetailsInteractorToPresenterInterface?
     private let movieRepo: CommonRepositoryDelegate
     
-    init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
+    init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository(), presenter: MovieDetailsInteractorToPresenterInterface?) {
         self.movieRepo = movieRepo
+        self.presenter = presenter
     }
     
     func getMovieDetails<T: Codable>(modelType: T.Type, type: EndPointAPIType) {

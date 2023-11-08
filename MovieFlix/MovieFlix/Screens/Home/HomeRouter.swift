@@ -17,7 +17,7 @@ class HomeRouter: HomeRouterInterface {
         let router = HomeRouter()
         let view = HomeVC()
         var presenter: HomeViewToPresenterInterface & HomeInteractorToPresenterInterface = HomePresenter()
-        var interactor: HomeInteractorInterface = HomeInteractor()
+        var interactor: HomeInteractorInterface = HomeInteractor(presenter: presenter)
         
         view.presenter = presenter
         presenter.interactor = interactor
