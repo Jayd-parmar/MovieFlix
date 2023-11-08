@@ -11,8 +11,9 @@ class CastDetailsInteractor: CastDetailsInteractorInterface {
     var presenter: CastDetailsInteractorToPresenterInterface?
     private let castRepo: CommonRepositoryDelegate
     
-    init(castRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
+    init(castRepo: CommonRepositoryDelegate = CommonMovieRepository(), presenter: CastDetailsInteractorToPresenterInterface?) {
         self.castRepo = castRepo
+        self.presenter = presenter
     }
     
     func getCastDetail<T: Codable>(modelType: T.Type, type: EndPointAPIType) {

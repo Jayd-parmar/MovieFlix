@@ -13,6 +13,9 @@ class MovieDetailsPresenter: MovieDetailsViewToPresenterInterface {
     var router: MovieDetailsRouterInterface?
     var movieId: Int?
     var castList: CastListModel?
+    var movieDetails: MovieDetailsModel?
+    var video: VideoModel?
+    var error: Error?
 
     init(movieId: Int?) {
         self.movieId = movieId
@@ -56,6 +59,7 @@ extension MovieDetailsPresenter: MovieDetailsInteractorToPresenterInterface {
         switch data {
         case is MovieDetailsModel:
             guard let data = data as? MovieDetailsModel else { return }
+            self.movieDetails = data
             convertDatatoCommonModel(data: data)
         case is CastListModel:
             guard let data = data as? CastListModel else { return }
@@ -64,6 +68,7 @@ extension MovieDetailsPresenter: MovieDetailsInteractorToPresenterInterface {
             view?.getCastSuccess(data: result)
         case is VideoModel:
             guard let data = data as? VideoModel else { return }
+            self.video = data
             let result = data.results.compactMap({ $0.key })
             view?.getVideoSuccess(data: result)
         default:
@@ -72,6 +77,7 @@ extension MovieDetailsPresenter: MovieDetailsInteractorToPresenterInterface {
     }
     
     func getMovieDetailFailure(error: Error) {
+        self.error = error
         view?.getMovieDetailFailure(error: error)
     }
 }

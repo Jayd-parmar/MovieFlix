@@ -19,24 +19,27 @@ final class HomeTest: XCTestCase {
     }
     
     func testMovieSuccess() {
-        let interactor = MockHomeInteractor()
+        let presenter = HomePresenter()
+        let interactor = HomeInteractor(movieRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
+        
         interactor.getMovieData(type: EndPointMovieItems.popularMovie(page: 1), enumType: .popular)
-        
-        let data = interactor.data as? MovieModel
-        let error = interactor.error
-        
+        let data = presenter.responseList.first(where: {$0.enumType == .popular})?.data
+        let error = presenter.error
         XCTAssertNotNil(data, "data not fetched")
         XCTAssertNil(error, "Error!")
     }
     
     func testFetchMoviesFailure() {
-        let interactor = MockHomeInteractor()
-        interactor.getMovieData(type: EndPointMovieItems.popularMovie(page: 1), enumType: .popular)
+        let presenter = HomePresenter()
+        let interactor = HomeInteractor(movieRepo: MockCommonRepository(), presenter: presenter)
+        presenter.interactor = interactor
         
-        let data = interactor.data as? MovieDetailsModel
-        let _ = interactor.error
-
-        XCTAssertNil(data, "Data should not be nil")
+        interactor.getMovieData(type: EndPointMovieItems.topRatedMovie(page: 1), enumType: .popular)
+        let data = presenter.responseList.first(where: {$0.enumType == .toprated})?.data
+        let error = presenter.error
+        XCTAssertNil(data, "data not fetched")
+        XCTAssertNotNil(error, "Error!")
     }
 
 }

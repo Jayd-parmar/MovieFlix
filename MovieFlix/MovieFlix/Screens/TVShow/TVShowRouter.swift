@@ -16,7 +16,7 @@ class TVRouter: TVRouterInterface {
         let router = TVRouter()
         let view = TVShowsVC()
         var presenter: TVViewtoPresenterInterface & TVInteractorToPresenterInterface = TVPresenter()
-        var interactor: TVInteractorInterface = TVInteractor()
+        var interactor: TVInteractorInterface = TVInteractor(presenter: presenter)
         
         view.presenter = presenter
         presenter.interactor = interactor

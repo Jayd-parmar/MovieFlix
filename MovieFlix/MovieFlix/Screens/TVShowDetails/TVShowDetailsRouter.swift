@@ -16,7 +16,7 @@ class TVShowDetailsRouter: TVShowDetailsRouterInterface {
         let router = TVShowDetailsRouter()
         let view = TVShowDetailsVC()
         var presenter: TVShowDetailsViewtoPresenterInterface & TVShowdetailsInteractorToPresenterInterface = TVShowDetailsPresenter(tvShowId: tvShowId)
-        var interactor: TVShowDetailsInteractorInterface = TVShowDetailsInteractor()
+        var interactor: TVShowDetailsInteractorInterface = TVShowDetailsInteractor(presenter: presenter)
         
         view.presenter = presenter
         presenter.interactor = interactor

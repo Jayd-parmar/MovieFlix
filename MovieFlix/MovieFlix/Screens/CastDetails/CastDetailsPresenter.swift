@@ -12,7 +12,10 @@ class CastDetailsPresenter: CastDetailsViewToPresenterInterface {
     var interactor: CastDetailsInteractorInterface?
     var router: CastDetailsRouterInterface?
     var castId: Int?
-    
+    var castDetails: CastDetailsModel?
+    var castImages: CastImageModel?
+    var castCombine: CastMovieTVModel?
+    var error: Error?
     init(castId: Int?) {
         self.castId = castId
     }
@@ -30,13 +33,16 @@ extension CastDetailsPresenter: CastDetailsInteractorToPresenterInterface {
         switch data {
         case is CastDetailsModel:
             guard let data = data as? CastDetailsModel else { return }
+            self.castDetails = data
             view?.getCastDetailsSuccess(data: data)
         case is CastImageModel:
             guard let data = data as? CastImageModel else { return }
+            self.castImages = data
             let result = data.profiles.compactMap({ CustomCVModel(imagePath: $0.filePath, title: "") })
             view?.getCastImagesSuccess(data: result)
         case is CastMovieTVModel:
             guard let data = data as? CastMovieTVModel else { return }
+            self.castCombine = data
             let result = data.cast.compactMap({ CustomCVModel(imagePath: $0.posterPath ?? "", title: $0.originalTitle ?? "") })
             view?.getCastCombineSuccess(data: result)
         default:
@@ -45,6 +51,7 @@ extension CastDetailsPresenter: CastDetailsInteractorToPresenterInterface {
     }
     
     func getCastDetailsFailure(error: Error) {
+        self.error = error
         view?.getCastDetailsFailure(error: error)
     }
 }

@@ -17,7 +17,7 @@ struct CastMovie: Codable {
     let backdropPath: String?
     let originalTitle: String?
     let originalName: String?
-    let overview: String
+    let overview: String?
     let posterPath: String?
     enum CodingKeys: String, CodingKey {
         case adult

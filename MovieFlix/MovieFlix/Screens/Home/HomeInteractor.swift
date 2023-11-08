@@ -11,8 +11,9 @@ class HomeInteractor: HomeInteractorInterface {
     var presenter: HomeInteractorToPresenterInterface?
     private let movieRepo: CommonRepositoryDelegate
     
-    init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository()) {
+    init(movieRepo: CommonRepositoryDelegate = CommonMovieRepository(), presenter: HomeInteractorToPresenterInterface?) {
         self.movieRepo = movieRepo
+        self.presenter = presenter
     }
     
     func getMovieData(type: EndPointAPIType, enumType: MovieEnum) {

@@ -13,9 +13,10 @@ class TVPresenter: TVViewtoPresenterInterface {
     var interactor: TVInteractorInterface?
     var router: TVRouterInterface?
     var tvShowList: MovieModel?
+    var error: Error?
     
     func viewDidLoad() {
-        interactor?.getTvShowData()
+        interactor?.getTvShowData(type: EndPointTVShowItems.popularTVShow(page: 1))
     }
     
     func navigateToTvShowDetails(indexPath: IndexPath) {
@@ -32,6 +33,7 @@ extension TVPresenter: TVInteractorToPresenterInterface {
     }
     
     func getPopularTVShowFailure(error: Error) {
+        self.error = error
         view?.getPopularTVShowFailure(error: error)
     }
 }

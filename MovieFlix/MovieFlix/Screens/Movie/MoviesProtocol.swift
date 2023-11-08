@@ -16,7 +16,7 @@ protocol MovieViewInterface {
 
 protocol MovieInteractorInterface {
     var presenter: MovieInteractorToPresenterInterface? {get set}
-    func getMovieData()
+    func getMovieData(type: EndPointAPIType)
 }
 
 protocol MovieViewToPresenterInterface {

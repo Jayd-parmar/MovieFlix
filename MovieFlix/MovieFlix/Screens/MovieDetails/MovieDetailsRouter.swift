@@ -16,7 +16,7 @@ class MovieDetailsRouter: MovieDetailsRouterInterface {
         let router = MovieDetailsRouter()
         let view = MovieDetailsVC()
         var presenter: MovieDetailsViewToPresenterInterface & MovieDetailsInteractorToPresenterInterface = MovieDetailsPresenter(movieId: movieId)
-        var interactor: MovieDetailsInteractorInterface = MovieDetailsInteractor()
+        var interactor: MovieDetailsInteractorInterface = MovieDetailsInteractor(presenter: presenter)
         
         view.presenter = presenter
         presenter.interactor = interactor

@@ -13,6 +13,9 @@ class TVShowDetailsPresenter: TVShowDetailsViewtoPresenterInterface {
     var router: TVShowDetailsRouterInterface?
     var tvShowId: Int?
     var castList: CastListModel?
+    var tvShowDetails: TVShowDetailsModel?
+    var video: VideoModel?
+    var error: Error?
     
     init(tvShowId: Int?) {
         self.tvShowId = tvShowId
@@ -55,6 +58,7 @@ extension TVShowDetailsPresenter: TVShowdetailsInteractorToPresenterInterface {
         switch data {
         case is TVShowDetailsModel:
             guard let data = data as? TVShowDetailsModel else { return }
+            self.tvShowDetails = data
             convertDatatoCommonModel(data: data)
         case is CastListModel:
             guard let data = data as? CastListModel else { return }
@@ -63,6 +67,7 @@ extension TVShowDetailsPresenter: TVShowdetailsInteractorToPresenterInterface {
             view?.getCastSuccess(data: result)
         case is VideoModel:
             guard let data = data as? VideoModel else { return }
+            self.video = data
             let result = data.results.compactMap({ $0.key })
             view?.getVideoSuccess(data: result)
         default:
@@ -71,6 +76,7 @@ extension TVShowDetailsPresenter: TVShowdetailsInteractorToPresenterInterface {
     }
     
     func getTVShowDetailsFailure(error: Error) {
+        self.error = error
         view?.getTVShowDetailFailure(error: error)
     }
 }
