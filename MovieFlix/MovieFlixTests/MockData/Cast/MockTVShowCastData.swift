@@ -1,5 +1,5 @@
 //
-//  MockCastDetailsInteractor.swift
+//  MockTVShowCastData.swift
 //  MovieFlixTests
 //
 //  Created by Jaydip Parmar on 07/11/23.
